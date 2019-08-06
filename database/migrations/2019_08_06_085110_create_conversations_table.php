@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateConnectionsTable extends Migration
+class CreateConversationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateConnectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('connections', function (Blueprint $table) {
+        Schema::create('conversations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('1');
-            $table->unsignedBigInteger('2');
-            $table->string('status');
+            $table->unsignedBigInteger('owner_id');
+            $table->unsignedBigInteger('target_id');
+            $table->unsignedBigInteger('parallel_id')->nullable();
+            $table->boolean('connected');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateConnectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('connections');
+        Schema::dropIfExists('conversations');
     }
 }

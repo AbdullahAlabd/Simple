@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Connection;
+use App\Conversation;
 use Illuminate\Http\Request;
 
-class ConnectionController extends Controller
+class ConversationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ConnectionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Connection  $connection
+     * @param  \App\Conversation  $conversation
      * @return \Illuminate\Http\Response
      */
-    public function show(Connection $connection)
+    public function show(Conversation $conversation)
     {
         //
     }
@@ -52,10 +52,10 @@ class ConnectionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Connection  $connection
+     * @param  \App\Conversation  $conversation
      * @return \Illuminate\Http\Response
      */
-    public function edit(Connection $connection)
+    public function edit(Conversation $conversation)
     {
         //
     }
@@ -64,10 +64,10 @@ class ConnectionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Connection  $connection
+     * @param  \App\Conversation  $conversation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Connection $connection)
+    public function update(Request $request, Conversation $conversation)
     {
         //
     }
@@ -75,10 +75,10 @@ class ConnectionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Connection  $connection
+     * @param  \App\Conversation  $conversation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Connection $connection)
+    public function destroy(Conversation $conversation)
     {
         //
     }
