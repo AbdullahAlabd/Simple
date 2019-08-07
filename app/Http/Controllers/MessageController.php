@@ -94,7 +94,7 @@ class MessageController extends Controller
 
         $data = array(
             'conversation_id' => $id,
-            'sender_id'=> 1,
+            'sender_id'=> 0,
             'content' => ' You are connected Say Hi :)',
         );
         $message_1 = new \App\Message($data);
