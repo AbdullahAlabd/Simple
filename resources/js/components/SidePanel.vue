@@ -119,7 +119,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #sidepanel {
   float: left;
   min-width: 280px;

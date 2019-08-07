@@ -14,35 +14,21 @@
       </div>
     </div>
 
-    <div class="messages">
+    <div class="messages" id="messages">
       <ul>
-        <li
+        <li 
           v-bind="messages"
           v-bind:key="message.id"
           v-for="message in messages"
           :class="(message.isFrom?'sent':'replies')"
+          @mouseover="massageHover"
         >
           <img :src="(message.isFrom?senderImgUrl:reciever.imgUrl)" />
-          <p>{{message.text}}</p>
+          <p data-toggle="popover" data-content="10:30 23/12/1996" style="white-space: pre-line">{{message.text}}</p>
         </li>
       </ul>
     </div>
-
-    <div class="message-input">
-      <div class="wrap">
-        <i
-          class="far fa-grin-wink fa-2x"
-          style="float: left; color:white; margin-right: 5px; margin-left: 5px"
-        ></i>
-        <div contenteditable="true" class="input-message" placeholder="Write your message..."></div>
-        <button class="submit">
-          <i
-            class="fas fa-paper-plane fa-2x"
-            style="float: left; color:white; margin-right: 5px; margin-left: 5px"
-          ></i>
-        </button>
-      </div>
-    </div>
+    <message-input v-on:newMessage="addMessage"></message-input>
   </div>
 </template>
 
@@ -51,6 +37,7 @@ export default {
   name: "mainContent",
   data() {
     return {
+      cnt: 100,
       conversationID: null,
       parallelConversationID: null,
       senderImgUrl: "http://emilcarlsson.se/assets/mikeross.png", //to be removed
@@ -59,7 +46,7 @@ export default {
         imgUrl: "http://emilcarlsson.se/assets/harveyspecter.png",
         name: "Nour",
         handle: "@nour7",
-        status: "Life is Life", // about or bio
+        status: "Life is Life" // about or bio
       },
       messages: [
         {
@@ -116,11 +103,40 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    
+    addMessage(message = '') {
+      const msg = {
+        id: ++this.cnt,
+        isFrom: true,
+        text: message,
+        timespan: null
+      };
+      this.messages.push(msg);
+    },
+    massageHover() {
+      $(document).ready(function(){
+          $('[data-toggle="popover"]').popover({
+              placement : 'left',
+              trigger : 'hover',
+          });
+      });
+      console.log('e');
+    }
+  },
+  updated() {
+    let messagesComponent = document.getElementById('messages');
+    messagesComponent.scrollTop = messagesComponent.scrollHeight;
+  },
+  mounted(){
+    let messagesComponent = document.getElementById('messages');
+    messagesComponent.scrollTop = messagesComponent.scrollHeight;
   }
 };
 </script>
 
-<style>
+<style scoped>
 .content {
   float: right;
   width: 60%;
@@ -145,6 +161,8 @@ export default {
   line-height: 60px;
   background: #f5f5f5;
 }
+
+
 .content .contact-profile img {
   width: 46px;
   border-radius: 50%;
@@ -200,9 +218,6 @@ export default {
   width: calc(100% - 25px);
   font-size: 0.9em;
 }
-.content .messages ul li:nth-last-child(1) {
-  margin-bottom: 20px;
-}
 .content .messages ul li.sent img {
   margin: 2px 8px 0 0;
 }
@@ -239,98 +254,8 @@ export default {
     max-width: 70%;
   }
 }
-
-.content .message-input {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  z-index: 99;
-  display: block;
-  overflow: auto;
-  background-color: #959fa8;
-  padding-top: 16px;
-  padding-bottom: 16px;
-}
-.content .message-input .wrap {
-  position: relative;
+.content .messages ul li:nth-last-child(1) {
+  margin-bottom: 40px!important;
 }
 
-[contenteditable="true"]:empty:before {
-  content: attr(placeholder);
-  display: block; /* For Firefox */
-}
-
-.content .message-input .wrap div {
-  font-family: "proxima-nova", "Source Sans Pro", sans-serif;
-  float: left;
-  border: none;
-  width: 100%;
-  padding: 11px 32px 10px 8px;
-  font-size: 0.8em;
-  color: #32465a;
-  resize: none;
-  border-radius: 20px;
-  background-color: white;
-  overflow-wrap: break-word;
-  max-height: 100px;
-  overflow: auto;
-  outline: none;
-}
-
-@media screen and (max-width: 735px) {
-  .content .message-input .wrap input {
-    padding: 15px 32px 16px 8px;
-  }
-}
-.content .message-input .wrap input:focus {
-  outline: none;
-}
-.content .message-input .wrap .attachment {
-  position: absolute;
-  right: 60px;
-  z-index: 4;
-  margin-top: 10px;
-  font-size: 1.1em;
-  color: #435f7a;
-  opacity: 0.5;
-  cursor: pointer;
-}
-@media screen and (max-width: 735px) {
-  .content .message-input .wrap .attachment {
-    margin-top: 17px;
-    right: 65px;
-  }
-}
-.content .message-input .wrap .attachment:hover {
-  opacity: 1;
-}
-.content .message-input .wrap button {
-  float: right;
-  border: none;
-  /* width: 50px; */
-  /* padding: 12px 0; */
-  cursor: pointer;
-  color: #32465a;
-  background: transparent;
-  /* background: #32465a; */
-  /* color: #f5f5f5; */
-}
-
-.content .message-input .wrap {
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-}
-
-@media screen and (max-width: 735px) {
-  .content .message-input .wrap button {
-    /* padding: 16px 0; */
-  }
-}
-.content .message-input .wrap button:hover {
-  color: #435f7a;
-}
-.content .message-input .wrap button:focus {
-  outline: none;
-}
 </style>
