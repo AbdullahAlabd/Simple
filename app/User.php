@@ -41,9 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Conversation', 'owner_id');
     }
-    public function requests()
+    public function orders()
     {
-        return $this->hasMany('App\Request', 'sender_id');
+        return $this->hasMany('App\Order', 'sender_id');
     }
     public function notifications()
     {

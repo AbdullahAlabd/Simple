@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Request extends Model
+class Order extends Model
 {
     public function sender(){
         return $this->belongsTo('App\User', 'sender_id');
