@@ -41,7 +41,6 @@ class MessageController extends Controller
         $message_1 = new \App\Message($request->all());
         $message_2 = new \App\Message($request->all());
         $message_1->save();
-//        $con = App\Conversation::find($message_1->conversation_id);1
         $message_2->conversation_id = $message_1->conversation->parallel_id;
         $message_2->save();
     }
@@ -101,7 +100,6 @@ class MessageController extends Controller
         $message_1 = new \App\Message($data);
         $message_2 = new \App\Message($data);
         $message_1->save();
-//        $con = App\Conversation::find($message_1->conversation_id);1
         $message_2->conversation_id = $message_1->conversation->parallel_id;
         $message_2->save();
     }

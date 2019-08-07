@@ -19,18 +19,20 @@
           v-bind:contactList="contactList"
           v-bind:activeContact="activeContact"
           v-for="contact in contactList"
-          v-bind:key="contact.id"
-          @click="$emit('changeConversation',contact.id)"
-          :class="{active: activeContact===contact.id}"
+          v-bind:key="contact.conversation_id"
+          @click="$emit('changeConversation',contact.conversation_id)"
+          :class="{active: activeContact===contact.conversation_id}"
         >
           <div class="wrap">
-            <span class="contact-status" v-bind:class="{online: contact.onlineStatus}"></span>
-            <img v-bind:src="contact.imgUrl" alt />
+            <!-- v-bind:class="{online: contact.onlineStatus}" -->
+            <span class="contact-status" v-bind:class="{online: true}"></span>
+            <!-- v-bind:src="contact.imgUrl" -->
+            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt />
             <div class="meta">
               <p class="name">{{contact.name}}</p>
               <p class="preview">
-                <span v-if="contact.preview.sendByCur">You:</span>
-                {{contact.preview.text}}
+                <span v-if="contact.sender_id===user.id">You:</span>
+                {{contact.content}}
               </p>
             </div>
           </div>

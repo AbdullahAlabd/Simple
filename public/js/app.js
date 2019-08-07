@@ -1712,8 +1712,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   mounted: function mounted() {
+    var _this = this;
+
     axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/conversations/showAll/' + this.user.id).then(function (res) {
       console.log(res);
+      console.log(_this.user.id);
+      _this.originalContactList = res.data;
+      _this.contactList = res.data;
+      _this.activeContact = res.data[0].conversation_id;
     })["catch"](function (e) {
       console.log(e);
     });
@@ -1721,116 +1727,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       activeContact: 1,
-      contactList: [{
-        id: 0,
-        onlineStatus: true,
-        imgUrl: "http://emilcarlsson.se/assets/louislitt.png",
-        name: "Louis Litt",
-        preview: {
-          sendByCur: true,
-          text: "You just got LITT up, Mike."
-        }
-      }, {
-        id: 1,
-        onlineStatus: true,
-        imgUrl: "http://emilcarlsson.se/assets/harveyspecter.png",
-        name: "Harvey Specter",
-        preview: {
-          sendByCur: false,
-          text: "Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things."
-        }
-      }, {
-        id: 2,
-        onlineStatus: false,
-        imgUrl: "http://emilcarlsson.se/assets/rachelzane.png",
-        name: "Rachel Zane",
-        preview: {
-          sendByCur: false,
-          text: "I was thinking that we could have chicken tonight, sounds good?"
-        }
-      }, {
-        id: 3,
-        onlineStatus: true,
-        imgUrl: "http://emilcarlsson.se/assets/donnapaulsen.png",
-        name: "onna Paulsen",
-        preview: {
-          sendByCur: false,
-          text: "Mike, I know everything! I'm Donna.."
-        }
-      }, {
-        id: 4,
-        onlineStatus: false,
-        imgUrl: "http://emilcarlsson.se/assets/jessicapearson.png",
-        name: "Jessica Pearson",
-        preview: {
-          sendByCur: false,
-          text: "Have you finished the draft on the Hinsenburg deal?"
-        }
-      }, {
-        id: 5,
-        onlineStatus: false,
-        imgUrl: "http://emilcarlsson.se/assets/haroldgunderson.png",
-        name: "Harold Gunderson",
-        preview: {
-          sendByCur: false,
-          text: "Thanks Mike! :)"
-        }
-      }],
-      originalContactList: [{
-        id: 0,
-        onlineStatus: true,
-        imgUrl: "http://emilcarlsson.se/assets/louislitt.png",
-        name: "Louis Litt",
-        preview: {
-          sendByCur: true,
-          text: "You just got LITT up, Mike."
-        }
-      }, {
-        id: 1,
-        onlineStatus: true,
-        imgUrl: "http://emilcarlsson.se/assets/harveyspecter.png",
-        name: "Harvey Specter",
-        preview: {
-          sendByCur: false,
-          text: "Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things."
-        }
-      }, {
-        id: 2,
-        onlineStatus: false,
-        imgUrl: "http://emilcarlsson.se/assets/rachelzane.png",
-        name: "Rachel Zane",
-        preview: {
-          sendByCur: false,
-          text: "I was thinking that we could have chicken tonight, sounds good?"
-        }
-      }, {
-        id: 3,
-        onlineStatus: true,
-        imgUrl: "http://emilcarlsson.se/assets/donnapaulsen.png",
-        name: "onna Paulsen",
-        preview: {
-          sendByCur: false,
-          text: "Mike, I know everything! I'm Donna.."
-        }
-      }, {
-        id: 4,
-        onlineStatus: false,
-        imgUrl: "http://emilcarlsson.se/assets/jessicapearson.png",
-        name: "Jessica Pearson",
-        preview: {
-          sendByCur: false,
-          text: "Have you finished the draft on the Hinsenburg deal?"
-        }
-      }, {
-        id: 5,
-        onlineStatus: false,
-        imgUrl: "http://emilcarlsson.se/assets/haroldgunderson.png",
-        name: "Harold Gunderson",
-        preview: {
-          sendByCur: false,
-          text: "Thanks Mike! :)"
-        }
-      }]
+      contactList: [],
+      originalContactList: []
     };
   },
   components: {
@@ -2046,6 +1944,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -38462,16 +38362,19 @@ var render = function() {
           return _c(
             "li",
             {
-              key: contact.id,
+              key: contact.conversation_id,
               staticClass: "contact",
-              class: { active: _vm.activeContact === contact.id },
+              class: { active: _vm.activeContact === contact.conversation_id },
               attrs: {
                 contactList: _vm.contactList,
                 activeContact: _vm.activeContact
               },
               on: {
                 click: function($event) {
-                  return _vm.$emit("changeConversation", contact.id)
+                  return _vm.$emit(
+                    "changeConversation",
+                    contact.conversation_id
+                  )
                 }
               }
             },
@@ -38479,10 +38382,15 @@ var render = function() {
               _c("div", { staticClass: "wrap" }, [
                 _c("span", {
                   staticClass: "contact-status",
-                  class: { online: contact.onlineStatus }
+                  class: { online: true }
                 }),
                 _vm._v(" "),
-                _c("img", { attrs: { src: contact.imgUrl, alt: "" } }),
+                _c("img", {
+                  attrs: {
+                    src: "http://emilcarlsson.se/assets/harveyspecter.png",
+                    alt: ""
+                  }
+                }),
                 _vm._v(" "),
                 _c("div", { staticClass: "meta" }, [
                   _c("p", { staticClass: "name" }, [
@@ -38490,12 +38398,12 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("p", { staticClass: "preview" }, [
-                    contact.preview.sendByCur
+                    contact.sender_id === _vm.user.id
                       ? _c("span", [_vm._v("You:")])
                       : _vm._e(),
                     _vm._v(
                       "\n              " +
-                        _vm._s(contact.preview.text) +
+                        _vm._s(contact.content) +
                         "\n            "
                     )
                   ])

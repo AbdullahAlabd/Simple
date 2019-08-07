@@ -60,16 +60,10 @@ class OrderController extends Controller
     }
     public function accept(Order $order){
         $request = new Request();
-        $request->owner_id = 32;
+        $request->owner_id = $order->sender_id;
         $request->target_id = $order->receiver_id;
-
-//        dd($request);
-//        $this->destroy($order);
-//        return redirect("/conversations")->with($request);
-//        ConversationController::store($request);
-//        return redirect('\conversations');
-            return app()->call('App\Http\Controllers\ConversationController@store', ['request'=>$request])       ;
-
+        $this->destroy($order);
+        return app()->call('App\Http\Controllers\ConversationController@store', ['request'=>$request]);
     }
 
 }

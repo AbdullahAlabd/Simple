@@ -14,6 +14,10 @@ export default {
     Axios.get('/conversations/showAll/'+this.user.id)
     .then(res => {
       console.log(res);
+      console.log(this.user.id);
+      this.originalContactList = res.data;
+      this.contactList = res.data;
+      this.activeContact = res.data[0].conversation_id;
     })
     .catch(e => {
       console.log(e);
@@ -24,132 +28,8 @@ export default {
     return {
       activeContact: 1,
       contactList: [
-        {
-          id: 0,
-          onlineStatus: true,
-          imgUrl: "http://emilcarlsson.se/assets/louislitt.png",
-          name: "Louis Litt",
-          preview: {
-            sendByCur: true,
-            text: "You just got LITT up, Mike."
-          }
-        },
-        {
-          id: 1,
-          onlineStatus: true,
-          imgUrl: "http://emilcarlsson.se/assets/harveyspecter.png",
-          name: "Harvey Specter",
-          preview: {
-            sendByCur: false,
-            text:
-              "Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things."
-          }
-        },
-        {
-          id: 2,
-          onlineStatus: false,
-          imgUrl: "http://emilcarlsson.se/assets/rachelzane.png",
-          name: "Rachel Zane",
-          preview: {
-            sendByCur: false,
-            text:
-              "I was thinking that we could have chicken tonight, sounds good?"
-          }
-        },
-        {
-          id: 3,
-          onlineStatus: true,
-          imgUrl: "http://emilcarlsson.se/assets/donnapaulsen.png",
-          name: "onna Paulsen",
-          preview: {
-            sendByCur: false,
-            text: "Mike, I know everything! I'm Donna.."
-          }
-        },
-        {
-          id: 4,
-          onlineStatus: false,
-          imgUrl: "http://emilcarlsson.se/assets/jessicapearson.png",
-          name: "Jessica Pearson",
-          preview: {
-            sendByCur: false,
-            text: "Have you finished the draft on the Hinsenburg deal?"
-          }
-        },
-        {
-          id: 5,
-          onlineStatus: false,
-          imgUrl: "http://emilcarlsson.se/assets/haroldgunderson.png",
-          name: "Harold Gunderson",
-          preview: {
-            sendByCur: false,
-            text: "Thanks Mike! :)"
-          }
-        }
       ]
       ,originalContactList: [
-        {
-          id: 0,
-          onlineStatus: true,
-          imgUrl: "http://emilcarlsson.se/assets/louislitt.png",
-          name: "Louis Litt",
-          preview: {
-            sendByCur: true,
-            text: "You just got LITT up, Mike."
-          }
-        },
-        {
-          id: 1,
-          onlineStatus: true,
-          imgUrl: "http://emilcarlsson.se/assets/harveyspecter.png",
-          name: "Harvey Specter",
-          preview: {
-            sendByCur: false,
-            text:
-              "Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things."
-          }
-        },
-        {
-          id: 2,
-          onlineStatus: false,
-          imgUrl: "http://emilcarlsson.se/assets/rachelzane.png",
-          name: "Rachel Zane",
-          preview: {
-            sendByCur: false,
-            text:
-              "I was thinking that we could have chicken tonight, sounds good?"
-          }
-        },
-        {
-          id: 3,
-          onlineStatus: true,
-          imgUrl: "http://emilcarlsson.se/assets/donnapaulsen.png",
-          name: "onna Paulsen",
-          preview: {
-            sendByCur: false,
-            text: "Mike, I know everything! I'm Donna.."
-          }
-        },
-        {
-          id: 4,
-          onlineStatus: false,
-          imgUrl: "http://emilcarlsson.se/assets/jessicapearson.png",
-          name: "Jessica Pearson",
-          preview: {
-            sendByCur: false,
-            text: "Have you finished the draft on the Hinsenburg deal?"
-          }
-        },
-        {
-          id: 5,
-          onlineStatus: false,
-          imgUrl: "http://emilcarlsson.se/assets/haroldgunderson.png",
-          name: "Harold Gunderson",
-          preview: {
-            sendByCur: false,
-            text: "Thanks Mike! :)"
-          }
-        }
       ]
     };
   },
