@@ -1698,6 +1698,8 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SidePanel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SidePanel */ "./resources/js/components/SidePanel.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -1706,9 +1708,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/conversations/showAll/' + this.user.id).then(function (res) {
+      console.log(res);
+    })["catch"](function (e) {
+      console.log(e);
+    });
+  },
   data: function data() {
     return {
       activeContact: 1,
@@ -1828,25 +1837,15 @@ __webpack_require__.r(__webpack_exports__);
     SidePanel: _SidePanel__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   methods: {
-    ld: function ld() {
-      console.log(user);
-    },
     changeConversation: function changeConversation(to) {
       this.$data.activeContact = to;
     },
     filterContacts: function filterContacts() {
       var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-      console.log(filter);
-      var s = '';
-      s.toLowerCase();
-      console.log(this.originalContactList);
       this.contactList = this.originalContactList.filter(function (e) {
         return filter.toLowerCase() == e.name.substring(0, filter.length).toLowerCase();
       });
     }
-  },
-  c: function c() {
-    this.originalContactList = contactList;
   }
 });
 

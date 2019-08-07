@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home', function () {
+    return view('home');
+});
+
+
 Auth::routes();
 
 Route::get('/conversations/showAll/{user}', 'ConversationController@showAll')->name('conversations.showAll');

@@ -7,9 +7,18 @@
 
 <script>
 import SidePanel from './SidePanel';
+import Axios from 'axios';
 export default {
   props: ['user'],
   mounted(){
+    Axios.get('/conversations/showAll/'+this.user.id)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(e => {
+      console.log(e);
+    });
+    
   },
   data() {
     return {
@@ -148,27 +157,17 @@ export default {
     SidePanel
   },
   methods: {
-    ld() {
-      
-      console.log(user);
-    },
-
     changeConversation(to) {
       this.$data.activeContact = to;
     },
     
     filterContacts(filter = '') {
-      console.log(filter);
-      let s = ''
-      s.toLowerCase()
-      console.log(this.originalContactList);
       this.contactList = this.originalContactList.filter(e => (filter).toLowerCase() == e.name.substring(0, filter.length).toLowerCase());
     }
   
   },
-  c() {
-    this.originalContactList = contactList;
-  }
+  
+  
 };
 </script>
 
