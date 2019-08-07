@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\User;
+//use App\http\ConversationController;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -12,20 +14,11 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function showAll(User $user)
     {
-        //
+        return $user->orders;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,7 +28,12 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'sender_id'=>'required',
+            'receiver_id' =>'required'
+        ]);
+        $order = new \App\Order($request->all());
+        $order->save();
     }
 
     /**
@@ -46,31 +44,9 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return $order;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Order $order)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -80,6 +56,20 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $order->delete();
     }
+    public function accept(Order $order){
+        $request = new Request();
+        $request->owner_id = 32;
+        $request->target_id = $order->receiver_id;
+
+//        dd($request);
+//        $this->destroy($order);
+//        return redirect("/conversations")->with($request);
+//        ConversationController::store($request);
+//        return redirect('\conversations');
+            return app()->call('App\http\Controllers\ConversationController@store', ['request'=>$request])       ;
+
+    }
+
 }

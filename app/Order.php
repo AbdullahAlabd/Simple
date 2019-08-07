@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    protected $guarded = [];
+
     public function sender(){
         return $this->belongsTo('App\User', 'sender_id');
     }

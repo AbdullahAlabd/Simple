@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Conversation;
 use App\Message;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,10 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function showAll(Conversation $conversation)
     {
-        //
+        $messages = $conversation->messages->sortBy('created_at');
+        return $messages;
     }
 
     /**
@@ -22,10 +24,6 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,8 +33,19 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'conversation_id'=>'required',
+            'sender_id' =>'required',
+            'content' =>'required',
+        ]);
+        $message_1 = new \App\Message($request->all());
+        $message_2 = new \App\Message($request->all());
+        $message_1->save();
+//        $con = App\Conversation::find($message_1->conversation_id);1
+        $message_2->conversation_id = $message_1->conversation->parallel_id;
+        $message_2->save();
     }
+
 
     /**
      * Display the specified resource.
@@ -46,7 +55,7 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
-        //
+        return $message;
     }
 
     /**
@@ -69,7 +78,6 @@ class MessageController extends Controller
      */
     public function update(Request $request, Message $message)
     {
-        //
     }
 
     /**
@@ -80,6 +88,22 @@ class MessageController extends Controller
      */
     public function destroy(Message $message)
     {
-        //
+       return $message->delete();
     }
+    public function default($id, $parallel_id)
+    {
+
+        $data = array(
+            'conversation_id' => $id,
+            'sender_id'=> 1,
+            'content' => ' You are connected Say Hi :)',
+        );
+        $message_1 = new \App\Message($data);
+        $message_2 = new \App\Message($data);
+        $message_1->save();
+//        $con = App\Conversation::find($message_1->conversation_id);1
+        $message_2->conversation_id = $message_1->conversation->parallel_id;
+        $message_2->save();
+    }
+
 }
