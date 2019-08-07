@@ -19,14 +19,25 @@ class ConversationController extends Controller
      */
     public function showAll(User $user)
     {
-        $sub = Message::select('conversation_id', \DB::raw('MAX(created_at) AS max_date'))
-            ->groupBy('conversation_id');
+        $sub = Message::select('conversation_id as con_id', \DB::raw('MAX(created_at) AS max_date'))
+            ->groupBy('con_id');
 
         $sub = Message::join(\DB::raw("({$sub->toSql()}) max_table"), function($join)
         {
-            $join->on('max_table.conversation_id', '=', 'messages.conversation_id')
+            $join->on('max_table.con_id', '=', 'messages.conversation_id')
             ->on('max_table.max_date', '=', 'messages.created_at');
-        })
+
+        })->select('content', 'created_at', 'conversation_id', 'sender_id');
+        $sub = Conversation::join(\DB::raw("({$sub->toSql()}) message_table"), function($join)
+        {
+            $join->on('message_table.conversation_id', '=', 'conversations.id');
+
+        })->select('content', 'message_table.created_at', 'conversation_id', 'sender_id','conversations.target_id');
+         $sub = User::join(\DB::raw("({$sub->toSql()}) conversation_table"), function($join)
+         {
+             $join->on('conversation_table.target_id', '=', 'id');
+
+         })   ->select('name','content', 'conversation_table.created_at', 'conversation_id', 'sender_id','target_id')
          ->addBinding($sub->getBindings(),'join');
 
 //        $sub = \DB::raw(
