@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/conversations/showAll/{user}', 'ConversationController@showAll')->name('conversations.showAll');
 //Route::post('/conversations', 'ConversationController@store')->name('conversations.store');
-Route::get('/conversations', 'ConversationController@store')->name('conversations.store');
+//Route::get('/conversations', 'ConversationController@store')->name('conversations.store');
 Route::get('/conversations/{conversation}', 'ConversationController@show')->name('conversations.show');
 Route::put('/conversations/{conversation}', 'ConversationController@update')->name('conversations.update');
 

@@ -52,13 +52,14 @@ class ConversationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public  function store(Request $request)
+    public function store(Request $request)
     {
-        $request->validate([
-            'owner_id'=>'required',
-            'target_id' =>'required',
-        ]);
+//        $request->validate([
+//            'owner_id'=>'required',
+//            'target_id' =>'required',
+//        ]);
 //        $connected = Conversation::where(['owner_id' => $request->owner_id, 'target_id' => $request->target_id]);
+//        dd($request->owner_id);
         $connected = \DB::table('conversations')->where([['owner_id' ,'=' ,$request->owner_id], ['target_id', '=', $request->target_id]])->get();
 //        return(empty($connected ) );
 //        return count($connected );
