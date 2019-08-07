@@ -20,7 +20,8 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         '/conversations',
-        '/messages'
+        '/messages',
+        '/orders'
         //
     ];
 }
