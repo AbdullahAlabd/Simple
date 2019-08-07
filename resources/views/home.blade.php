@@ -38,7 +38,7 @@
 <body>
     <div id="app">
         <main>
-            <chat></chat>
+            <chat :user="{{Auth::user()}}"></chat>
         </main>
     </div>
     

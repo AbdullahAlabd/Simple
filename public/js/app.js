@@ -1697,6 +1697,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SidePanel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SidePanel */ "./resources/js/components/SidePanel.vue");
 //
 //
 //
@@ -1704,7 +1705,150 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['user'],
+  mounted: function mounted() {},
+  data: function data() {
+    return {
+      activeContact: 1,
+      contactList: [{
+        id: 0,
+        onlineStatus: true,
+        imgUrl: "http://emilcarlsson.se/assets/louislitt.png",
+        name: "Louis Litt",
+        preview: {
+          sendByCur: true,
+          text: "You just got LITT up, Mike."
+        }
+      }, {
+        id: 1,
+        onlineStatus: true,
+        imgUrl: "http://emilcarlsson.se/assets/harveyspecter.png",
+        name: "Harvey Specter",
+        preview: {
+          sendByCur: false,
+          text: "Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things."
+        }
+      }, {
+        id: 2,
+        onlineStatus: false,
+        imgUrl: "http://emilcarlsson.se/assets/rachelzane.png",
+        name: "Rachel Zane",
+        preview: {
+          sendByCur: false,
+          text: "I was thinking that we could have chicken tonight, sounds good?"
+        }
+      }, {
+        id: 3,
+        onlineStatus: true,
+        imgUrl: "http://emilcarlsson.se/assets/donnapaulsen.png",
+        name: "onna Paulsen",
+        preview: {
+          sendByCur: false,
+          text: "Mike, I know everything! I'm Donna.."
+        }
+      }, {
+        id: 4,
+        onlineStatus: false,
+        imgUrl: "http://emilcarlsson.se/assets/jessicapearson.png",
+        name: "Jessica Pearson",
+        preview: {
+          sendByCur: false,
+          text: "Have you finished the draft on the Hinsenburg deal?"
+        }
+      }, {
+        id: 5,
+        onlineStatus: false,
+        imgUrl: "http://emilcarlsson.se/assets/haroldgunderson.png",
+        name: "Harold Gunderson",
+        preview: {
+          sendByCur: false,
+          text: "Thanks Mike! :)"
+        }
+      }],
+      originalContactList: [{
+        id: 0,
+        onlineStatus: true,
+        imgUrl: "http://emilcarlsson.se/assets/louislitt.png",
+        name: "Louis Litt",
+        preview: {
+          sendByCur: true,
+          text: "You just got LITT up, Mike."
+        }
+      }, {
+        id: 1,
+        onlineStatus: true,
+        imgUrl: "http://emilcarlsson.se/assets/harveyspecter.png",
+        name: "Harvey Specter",
+        preview: {
+          sendByCur: false,
+          text: "Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things."
+        }
+      }, {
+        id: 2,
+        onlineStatus: false,
+        imgUrl: "http://emilcarlsson.se/assets/rachelzane.png",
+        name: "Rachel Zane",
+        preview: {
+          sendByCur: false,
+          text: "I was thinking that we could have chicken tonight, sounds good?"
+        }
+      }, {
+        id: 3,
+        onlineStatus: true,
+        imgUrl: "http://emilcarlsson.se/assets/donnapaulsen.png",
+        name: "onna Paulsen",
+        preview: {
+          sendByCur: false,
+          text: "Mike, I know everything! I'm Donna.."
+        }
+      }, {
+        id: 4,
+        onlineStatus: false,
+        imgUrl: "http://emilcarlsson.se/assets/jessicapearson.png",
+        name: "Jessica Pearson",
+        preview: {
+          sendByCur: false,
+          text: "Have you finished the draft on the Hinsenburg deal?"
+        }
+      }, {
+        id: 5,
+        onlineStatus: false,
+        imgUrl: "http://emilcarlsson.se/assets/haroldgunderson.png",
+        name: "Harold Gunderson",
+        preview: {
+          sendByCur: false,
+          text: "Thanks Mike! :)"
+        }
+      }]
+    };
+  },
+  components: {
+    SidePanel: _SidePanel__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    ld: function ld() {
+      console.log(user);
+    },
+    changeConversation: function changeConversation(to) {
+      this.$data.activeContact = to;
+    },
+    filterContacts: function filterContacts() {
+      var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      console.log(filter);
+      var s = '';
+      s.toLowerCase();
+      console.log(this.originalContactList);
+      this.contactList = this.originalContactList.filter(function (e) {
+        return filter.toLowerCase() == e.name.substring(0, filter.length).toLowerCase();
+      });
+    }
+  },
+  c: function c() {
+    this.originalContactList = contactList;
+  }
+});
 
 /***/ }),
 
@@ -1944,71 +2088,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SidePanel",
-  data: function data() {
-    return {
-      activeContact: 1,
-      contactList: [{
-        id: 0,
-        onlineStatus: true,
-        imgUrl: "http://emilcarlsson.se/assets/louislitt.png",
-        name: "Louis Litt",
-        preview: {
-          sendByCur: true,
-          text: "You just got LITT up, Mike."
-        }
-      }, {
-        id: 1,
-        onlineStatus: true,
-        imgUrl: "http://emilcarlsson.se/assets/harveyspecter.png",
-        name: "Harvey Specter",
-        preview: {
-          sendByCur: false,
-          text: "Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things."
-        }
-      }, {
-        id: 2,
-        onlineStatus: false,
-        imgUrl: "http://emilcarlsson.se/assets/rachelzane.png",
-        name: "Rachel Zane",
-        preview: {
-          sendByCur: false,
-          text: "I was thinking that we could have chicken tonight, sounds good?"
-        }
-      }, {
-        id: 3,
-        onlineStatus: true,
-        imgUrl: "http://emilcarlsson.se/assets/donnapaulsen.png",
-        name: "onna Paulsen",
-        preview: {
-          sendByCur: false,
-          text: "Mike, I know everything! I'm Donna.."
-        }
-      }, {
-        id: 4,
-        onlineStatus: false,
-        imgUrl: "http://emilcarlsson.se/assets/jessicapearson.png",
-        name: "Jessica Pearson",
-        preview: {
-          sendByCur: false,
-          text: "Have you finished the draft on the Hinsenburg deal?"
-        }
-      }, {
-        id: 5,
-        onlineStatus: false,
-        imgUrl: "http://emilcarlsson.se/assets/haroldgunderson.png",
-        name: "Harold Gunderson",
-        preview: {
-          sendByCur: false,
-          text: "Thanks Mike! :)"
-        }
-      }]
-    };
-  },
+  props: ['user', 'activeContact', 'contactList'],
   methods: {
-    changeConversation: function changeConversation(to) {
-      this.$data.activeContact = to;
+    searchUser: function searchUser(text) {
+      var s = '';
+
+      if (text.charAt(0) !== '@') {
+        this.$emit('filterContacts', text);
+      }
     }
   }
 });
@@ -38104,7 +38194,21 @@ var render = function() {
   return _c(
     "div",
     { attrs: { id: "frame" } },
-    [_c("side-panel"), _vm._v(" "), _c("conversation")],
+    [
+      _c("side-panel", {
+        attrs: {
+          user: _vm.user,
+          activeContact: _vm.activeContact,
+          contactList: _vm.contactList
+        },
+        on: {
+          filterContacts: _vm.filterContacts,
+          changeConversation: _vm.changeConversation
+        }
+      }),
+      _vm._v(" "),
+      _c("conversation")
+    ],
     1
   )
 }
@@ -38324,9 +38428,33 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "sidepanel" } }, [
-    _vm._m(0),
+    _c("div", { attrs: { id: "profile" } }, [
+      _c("div", { staticClass: "wrap" }, [
+        _c("img", {
+          staticClass: "online",
+          attrs: {
+            id: "profile-img",
+            src: "http://emilcarlsson.se/assets/mikeross.png",
+            alt: ""
+          }
+        }),
+        _vm._v(" "),
+        _c("p", [_vm._v(" " + _vm._s(_vm.user.name))])
+      ])
+    ]),
     _vm._v(" "),
-    _vm._m(1),
+    _c("div", { attrs: { id: "search" } }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("input", {
+        attrs: { type: "text", placeholder: "Search contacts..." },
+        on: {
+          input: function($event) {
+            return _vm.searchUser($event.target.value)
+          }
+        }
+      })
+    ]),
     _vm._v(" "),
     _c("div", { attrs: { id: "contacts" } }, [
       _c(
@@ -38334,21 +38462,20 @@ var render = function() {
         _vm._l(_vm.contactList, function(contact) {
           return _c(
             "li",
-            _vm._b(
-              {
-                key: contact.id,
-                staticClass: "contact",
-                class: { active: _vm.activeContact === contact.id },
-                on: {
-                  click: function($event) {
-                    return _vm.changeConversation(contact.id)
-                  }
-                }
+            {
+              key: contact.id,
+              staticClass: "contact",
+              class: { active: _vm.activeContact === contact.id },
+              attrs: {
+                contactList: _vm.contactList,
+                activeContact: _vm.activeContact
               },
-              "li",
-              _vm.contactList,
-              false
-            ),
+              on: {
+                click: function($event) {
+                  return _vm.$emit("changeConversation", contact.id)
+                }
+              }
+            },
             [
               _c("div", { staticClass: "wrap" }, [
                 _c("span", {
@@ -38388,36 +38515,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "profile" } }, [
-      _c("div", { staticClass: "wrap" }, [
-        _c("img", {
-          staticClass: "online",
-          attrs: {
-            id: "profile-img",
-            src: "http://emilcarlsson.se/assets/mikeross.png",
-            alt: ""
-          }
-        }),
-        _vm._v(" "),
-        _c("p", [_vm._v("Mike Ross")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "search" } }, [
-      _c("label", { attrs: { for: "" } }, [
-        _c("i", {
-          staticClass: "fa fa-search",
-          attrs: { "aria-hidden": "true" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        attrs: { type: "text", placeholder: "Search contacts..." }
-      })
+    return _c("label", { attrs: { for: "" } }, [
+      _c("i", { staticClass: "fa fa-search", attrs: { "aria-hidden": "true" } })
     ])
   }
 ]

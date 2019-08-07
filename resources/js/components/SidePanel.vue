@@ -3,24 +3,25 @@
     <div id="profile">
       <div class="wrap">
         <img id="profile-img" src="http://emilcarlsson.se/assets/mikeross.png" class="online" alt />
-        <p>Mike Ross</p>
+        <p > {{user.name}}</p>
       </div>
     </div>
     <div id="search">
       <label for>
         <i class="fa fa-search" aria-hidden="true"></i>
       </label>
-      <input type="text" placeholder="Search contacts..." />
+      <input type="text" placeholder="Search contacts..." @input="searchUser($event.target.value)"/>
     </div>
     <div id="contacts">
       <ul>
         <li
           class="contact"
-          v-bind="contactList"
-          v-bind:key="contact.id"
+          v-bind:contactList="contactList"
+          v-bind:activeContact="activeContact"
           v-for="contact in contactList"
+          v-bind:key="contact.id"
+          @click="$emit('changeConversation',contact.id)"
           :class="{active: activeContact===contact.id}"
-          @click="changeConversation(contact.id)"
         >
           <div class="wrap">
             <span class="contact-status" v-bind:class="{online: contact.onlineStatus}"></span>
@@ -42,80 +43,17 @@
 <script>
 export default {
   name: "SidePanel",
-  data() {
-    return {
-      activeContact: 1,
-      contactList: [
-        {
-          id: 0,
-          onlineStatus: true,
-          imgUrl: "http://emilcarlsson.se/assets/louislitt.png",
-          name: "Louis Litt",
-          preview: {
-            sendByCur: true,
-            text: "You just got LITT up, Mike."
-          }
-        },
-        {
-          id: 1,
-          onlineStatus: true,
-          imgUrl: "http://emilcarlsson.se/assets/harveyspecter.png",
-          name: "Harvey Specter",
-          preview: {
-            sendByCur: false,
-            text:
-              "Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things."
-          }
-        },
-        {
-          id: 2,
-          onlineStatus: false,
-          imgUrl: "http://emilcarlsson.se/assets/rachelzane.png",
-          name: "Rachel Zane",
-          preview: {
-            sendByCur: false,
-            text:
-              "I was thinking that we could have chicken tonight, sounds good?"
-          }
-        },
-        {
-          id: 3,
-          onlineStatus: true,
-          imgUrl: "http://emilcarlsson.se/assets/donnapaulsen.png",
-          name: "onna Paulsen",
-          preview: {
-            sendByCur: false,
-            text: "Mike, I know everything! I'm Donna.."
-          }
-        },
-        {
-          id: 4,
-          onlineStatus: false,
-          imgUrl: "http://emilcarlsson.se/assets/jessicapearson.png",
-          name: "Jessica Pearson",
-          preview: {
-            sendByCur: false,
-            text: "Have you finished the draft on the Hinsenburg deal?"
-          }
-        },
-        {
-          id: 5,
-          onlineStatus: false,
-          imgUrl: "http://emilcarlsson.se/assets/haroldgunderson.png",
-          name: "Harold Gunderson",
-          preview: {
-            sendByCur: false,
-            text: "Thanks Mike! :)"
-          }
-        }
-      ]
-    };
-  },
+  
+  props: ['user', 'activeContact', 'contactList'],
   methods: {
-    changeConversation(to) {
-      this.$data.activeContact = to;
-    }
+    searchUser(text) {
+      let s = ''
+      if(text.charAt(0) !== '@') {
+        this.$emit('filterContacts', text);
+      }
+    },
   }
+  
 };
 </script>
 
