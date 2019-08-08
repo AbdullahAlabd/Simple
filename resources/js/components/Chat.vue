@@ -1,7 +1,7 @@
 <template>
   <div id="frame">
     <side-panel v-bind:user="user" v-bind:activeContact="activeContact" v-bind:contactList="contactList" @filterContacts="filterContacts" @changeConversation="changeConversation"></side-panel>
-    <conversation v-bind:conversationId="activeContact" v-bind:user="user"></conversation>
+    <conversation v-bind:conversationId="activeContact" v-bind:user="user" v-bind:messages="messages"></conversation>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
     .then(res => {
       this.originalContactList = res.data;
       this.contactList = res.data;
-      this.activeContact = res.data[0].conversation_id;
+      this.changeConversation(res.data[0].conversation_id);
     })
     .catch(e => {
       console.log(e);
@@ -24,11 +24,11 @@ export default {
   },
   data() {
     return {
-      activeContact: 1,
-      contactList: [
-      ]
-      ,originalContactList: [
-      ]
+      activeContact: null,
+      contactList: [],
+      originalContactList: [],
+      messages: []
+  
     };
   },
   components: {
@@ -36,7 +36,19 @@ export default {
   },
   methods: {
     changeConversation(to) {
-      this.$data.activeContact = to;
+      console.log(to);
+        if(to) {
+          Axios.get('/messages/showAll/'+to)
+          .then(res => {
+            // console.log('msgs');
+            // console.log(res);
+            this.messages = res.data;
+            this.$data.activeContact = to;
+          })
+          .catch(e => {
+            console.log(e);
+          })
+        }
     },
     
     filterContacts(filter = '') {

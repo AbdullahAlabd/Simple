@@ -1717,16 +1717,18 @@ __webpack_require__.r(__webpack_exports__);
     axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/conversations/showAll/' + this.user.id).then(function (res) {
       _this.originalContactList = res.data;
       _this.contactList = res.data;
-      _this.activeContact = res.data[0].conversation_id;
+
+      _this.changeConversation(res.data[0].conversation_id);
     })["catch"](function (e) {
       console.log(e);
     });
   },
   data: function data() {
     return {
-      activeContact: 1,
+      activeContact: null,
       contactList: [],
-      originalContactList: []
+      originalContactList: [],
+      messages: []
     };
   },
   components: {
@@ -1734,7 +1736,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     changeConversation: function changeConversation(to) {
-      this.$data.activeContact = to;
+      var _this2 = this;
+
+      console.log(to);
+
+      if (to) {
+        axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/messages/showAll/' + to).then(function (res) {
+          // console.log('msgs');
+          // console.log(res);
+          _this2.messages = res.data;
+          _this2.$data.activeContact = to;
+        })["catch"](function (e) {
+          console.log(e);
+        });
+      }
     },
     filterContacts: function filterContacts() {
       var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
@@ -1796,7 +1811,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mainContent",
-  props: ['conversationId', 'user'],
+  props: ['conversationId', 'user', 'messages'],
   data: function data() {
     return {
       cnt: 100,
@@ -1811,21 +1826,25 @@ __webpack_require__.r(__webpack_exports__);
         handle: "@nour7",
         status: "Life is Life" // about or bio
 
-      },
-      messages: []
+      }
     };
   },
   methods: {
     addMessage: function addMessage() {
+      var _this = this;
+
       var message = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-      var msg = {
-        id: ++this.cnt,
-        //tobe edited
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/messages', {
+        conversation_id: this.conversationId,
         sender_id: this.user.id,
-        content: message,
-        timespan: Date.now()
-      };
-      this.messages.push(msg);
+        content: message
+      }).then(function (res) {
+        console.log(res);
+
+        _this.messages.push(res.data);
+      })["catch"](function (e) {
+        console.log(e);
+      });
     },
     massageHover: function massageHover() {
       $(document).ready(function () {
@@ -1841,15 +1860,18 @@ __webpack_require__.r(__webpack_exports__);
     messagesComponent.scrollTop = messagesComponent.scrollHeight;
   },
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/messages/showAll/' + this.conversationId).then(function (res) {
-      _this.messages = res.data;
-    })["catch"](function (e) {
-      console.log(e);
-    });
-    var messagesComponent = document.getElementById('messages');
-    messagesComponent.scrollTop = messagesComponent.scrollHeight;
+    if (this.conversationId) {
+      //copy from change changeConversation on Chat.vue
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/messages/showAll/' + this.conversationId).then(function (res) {
+        _this2.messages = res.data;
+      })["catch"](function (e) {
+        console.log(e);
+      });
+      var messagesComponent = document.getElementById('messages');
+      messagesComponent.scrollTop = messagesComponent.scrollHeight;
+    }
   }
 });
 
@@ -1914,6 +1936,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -38097,7 +38120,11 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("conversation", {
-        attrs: { conversationId: _vm.activeContact, user: _vm.user }
+        attrs: {
+          conversationId: _vm.activeContact,
+          user: _vm.user,
+          messages: _vm.messages
+        }
       })
     ],
     1
@@ -38384,7 +38411,16 @@ var render = function() {
                 maxlength: "200"
               },
               domProps: { value: _vm.user.status }
-            })
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary mx-5",
+                attrs: { name: "editProfile" }
+              },
+              [_vm._v("Save Changes")]
+            )
           ])
         ])
       ]

@@ -37,7 +37,7 @@
 import Axios from 'axios';
 export default {
   name: "mainContent",
-  props: ['conversationId', 'user'],
+  props: ['conversationId', 'user', 'messages'],
   data() {
     return {
       cnt: 100,
@@ -51,19 +51,24 @@ export default {
         handle: "@nour7",
         status: "Life is Life" // about or bio
       },
-      messages: []
     };
   },
   methods: {
     
     addMessage(message = '') {
-      const msg = {
-        id: ++this.cnt, //tobe edited
+      
+      Axios.post('/messages', {
+        conversation_id: this.conversationId,
         sender_id: this.user.id,
-        content: message,
-        timespan: Date.now()
-      };
-      this.messages.push(msg);
+        content: message
+      })
+      .then(res => {
+        console.log(res);
+        this.messages.push(res.data);
+      })
+      .catch(e => {
+        console.log(e);
+      }) 
     },
     massageHover() {
       $(document).ready(function(){
@@ -79,15 +84,17 @@ export default {
     messagesComponent.scrollTop = messagesComponent.scrollHeight;
   },
   mounted(){
-    Axios.get('/messages/showAll/'+this.conversationId)
-    .then(res => {
-      this.messages = res.data;
-    })
-    .catch(e => {
-      console.log(e);
-    });
-    let messagesComponent = document.getElementById('messages');
-    messagesComponent.scrollTop = messagesComponent.scrollHeight;
+    if(this.conversationId) { //copy from change changeConversation on Chat.vue
+      Axios.get('/messages/showAll/'+this.conversationId)
+      .then(res => {
+        this.messages = res.data;
+      })
+      .catch(e => {
+        console.log(e);
+      });
+      let messagesComponent = document.getElementById('messages');
+      messagesComponent.scrollTop = messagesComponent.scrollHeight;
+    }
   }
 };
 </script>

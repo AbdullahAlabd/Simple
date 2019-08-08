@@ -9,6 +9,7 @@
 					<input name="handle" type="text" v-bind:value="'@'+user.handle" disabled readonly class="content-center" title="Handle"/>
 					<input name="name" type="text" v-bind:value="user.name" title="Name" maxlength="50"/>
 					<input name="status" type="text" v-bind:value="user.status" title="Status" maxlength="200" />
+          <button name="editProfile" class="btn btn-primary mx-5">Save Changes</button>
 				</div>
       </div>
     </div>
