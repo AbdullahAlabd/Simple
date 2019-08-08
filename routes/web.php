@@ -36,7 +36,7 @@ Route::put('/messages/{conversation}', 'MessageController@update')->name('messag
 //Route::post('/messages', 'MessageController@store')->name('messages.store');
 
 Route::get('/orders/showAll/{conversation}', 'orderController@showAll')->name('orders.showAll');
-Route::post('orders', 'orderController@store')->name('orders.store');
+Route::post('/orders', 'orderController@store')->name('orders.store');
 Route::get('/orders/{order}', 'orderController@show')->name('orders.show');
 Route::get('/orders/accept/{order}', 'orderController@accept')->name('orders.accept');
 

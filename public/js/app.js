@@ -1814,7 +1814,7 @@ __webpack_require__.r(__webpack_exports__);
       cnt: 100,
       conversationID: null,
       parallelConversationID: null,
-      senderImgUrl: "http://emilcarlsson.se/assets/mikeross.png",
+      senderImgUrl: 'storage/' + this.user.image,
       //to be removed
       reciever: {
         id: null,
@@ -38183,7 +38183,11 @@ var render = function() {
     [
       _c("div", { staticClass: "contact-profile", attrs: { id: "contact" } }, [
         _c("img", {
-          attrs: { src: _vm.reciever.imgUrl, id: "contimg", alt: "" }
+          attrs: {
+            src: "http://emilcarlsson.se/assets/harveyspecter.png",
+            id: "contimg",
+            alt: ""
+          }
         }),
         _vm._v(" "),
         _c("div", { attrs: { id: "tag" } }, [
@@ -38233,7 +38237,7 @@ var render = function() {
                     src:
                       message.sender_id === _vm.user.id
                         ? _vm.senderImgUrl
-                        : _vm.reciever.imgUrl
+                        : "http://emilcarlsson.se/assets/harveyspecter.png"
                   }
                 }),
                 _vm._v(" "),
@@ -38408,10 +38412,7 @@ var render = function() {
           _c("div", { attrs: { id: "expanded" } }, [
             _c("img", {
               staticClass: "profile-img-side mx-5 mb-2",
-              attrs: {
-                src: "http://emilcarlsson.se/assets/mikeross.png",
-                alt: ""
-              }
+              attrs: { src: "storage/" + _vm.user.image, alt: "" }
             }),
             _vm._v(" "),
             _c("input", {
