@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="contact-profile" id="contact">
-      <img :src="reciever.imgUrl" id="contimg" alt />
+      <img src="http://emilcarlsson.se/assets/harveyspecter.png" id="contimg" alt />
       <div id="tag">
         <p style="position:absolute;top:-10;left:70px;">{{reciever.name}}</p>
         <small
@@ -24,7 +24,7 @@
           :class="(message.sender_id===user.id?'sent':'replies')"
           @mouseover="massageHover"
         >
-          <img :src="(message.sender_id===user.id?senderImgUrl:reciever.imgUrl)" />
+          <img :src="(message.sender_id===user.id?senderImgUrl:'http://emilcarlsson.se/assets/harveyspecter.png')" />
           <p data-toggle="popover" :data-content="message.created_at" style="white-space: pre-line">{{message.content}}</p>
         </li>
       </ul>
@@ -43,7 +43,7 @@ export default {
       cnt: 100,
       conversationID: null,
       parallelConversationID: null,
-      senderImgUrl: "http://emilcarlsson.se/assets/mikeross.png", //to be removed
+      senderImgUrl: 'storage/'+this.user.image, //to be removed
       reciever: {
         id: null,
         imgUrl: "http://emilcarlsson.se/assets/harveyspecter.png",

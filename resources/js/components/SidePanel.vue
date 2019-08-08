@@ -6,7 +6,7 @@
         <p > {{user.name}}</p>
         <i class="fa fa-chevron-down expand-button" aria-hidden="true" @click="toggleProfile"></i>
 				<div id="expanded" >
-          <img src="http://emilcarlsson.se/assets/mikeross.png" class="profile-img-side mx-5 mb-2" alt />
+          <img v-bind:src="'storage/'+user.image" class="profile-img-side mx-5 mb-2" alt />
           <input type="file" name="photo" id="photo" placeholder="Choose another photo" accept="image/*">
 					<input name="handle" type="text" v-bind:value="'@'+handle" disabled readonly class="mx-1" title="Handle"/>
 					<input name="name" type="text" v-model="name" title="Name" maxlength="50" class="mx-1"/>
