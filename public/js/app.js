@@ -2010,14 +2010,19 @@ __webpack_require__.r(__webpack_exports__);
       this.profileToggle = !this.profileToggle;
     },
     saveChanges: function saveChanges() {
-      var data = new FormData();
-      data.append('image', document.getElementById('photo').files[0]);
-      data.append('name', this.name);
-      data.append('about', this.status);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/profiles/' + this.user.id, data).then(function (res) {
-        console.log(res);
-      })["catch"](function (e) {
-        console.log(e);
+      if (document.getElementById('photo').files) {
+        var data = new FormData();
+        data.append('image', document.getElementById('photo').files[0]);
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/profiles/' + this.user.id, data).then(function (res) {
+          console.log(res);
+        })["catch"](function (e) {
+          console.log(e);
+        });
+      }
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/profiles/' + this.user.id, {
+        name: this.name,
+        about: this.status
       });
     }
   },

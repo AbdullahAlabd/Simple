@@ -74,17 +74,20 @@ export default {
       this.profileToggle = !this.profileToggle;
     },
     saveChanges() {
-      let data = new FormData();
-      data.append('image', document.getElementById('photo').files[0]);
-      data.append('name', this.name);
-      data.append('about', this.status);
-
-      Axios.post('/api/profiles/'+this.user.id, data)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(e => {
-        console.log(e);
+      if(document.getElementById('photo').files) {
+        let data = new FormData();
+        data.append('image', document.getElementById('photo').files[0]);
+        Axios.post('/api/profiles/'+this.user.id, data)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(e => {
+          console.log(e);
+        })
+      }
+      Axios.post('/api/profiles/'+this.user.id, {
+        name: this.name,
+        about: this.status
       })
     }
   },
