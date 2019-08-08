@@ -38,7 +38,8 @@ class ProfileController extends Controller
     public function update(User $user)
     {
 //        $this->authorize('update', $user->profile);
-
+//        return request('name');
+//        return request('image');
         if (request('image')) {
             $imagePath = request('image')->store('profile', 'public');
             $image = Image::make(public_path("storage/{$imagePath}"))->fit(1000, 1000)->save();
@@ -48,7 +49,8 @@ class ProfileController extends Controller
             $user->about = request('about');
         }
         if (request('name')) {
-            $user->about = request('name');
+            $user->name = request('name');
         }
+        $user->save();
     }
 }

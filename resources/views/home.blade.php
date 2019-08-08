@@ -9,11 +9,13 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <script src="//{{ Request::getHost() }}:6001/socket.io/socket.io.js"></script>
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!--#########################################################-->
-    
+
   <script>
     try {
         Typekit.load({
@@ -42,6 +44,6 @@
             <chat :user="{{Auth::user()}}"></chat>
         </main>
     </div>
-    
+
 </body>
 </html>

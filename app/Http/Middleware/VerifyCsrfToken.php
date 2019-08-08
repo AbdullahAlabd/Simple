@@ -23,7 +23,7 @@ class VerifyCsrfToken extends Middleware
         '/messages',
         '/orders',
         '/photo',
-        '/profiles/',
+        '\profiles',
         //
     ];
 }

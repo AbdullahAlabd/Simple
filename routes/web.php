@@ -43,5 +43,4 @@ Route::get('/orders/accept/{order}', 'orderController@accept')->name('orders.acc
 
 Route::get('/profiles/search/{handel}', 'ProfileController@search')->name('profiles.search');
 Route::get('/profiles/info/{user}', 'ProfileController@show')->name('profiles.show');
-Route::post('/profiles/{user}', 'ProfileController@update')->name('profiles.update');
 
