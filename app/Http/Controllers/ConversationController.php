@@ -38,7 +38,7 @@ class ConversationController extends Controller
          {
              $join->on('conversation_table.target_id', '=', 'id');
 
-         })   ->select('name','content', 'conversation_table.created_at', 'conversation_id', 'sender_id','target_id')
+         })   ->select('name','content', 'conversation_table.created_at', 'conversation_id', 'sender_id','target_id', 'image')
          ->addBinding($sub->getBindings(),'join');
 
 //        $sub = \DB::raw(
