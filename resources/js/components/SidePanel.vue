@@ -1,9 +1,15 @@
 <template>
   <div id="sidepanel">
-    <div id="profile">
+    <div id="profile" v-bind:class="{expanded: profileToggle}">
       <div class="wrap">
         <img id="profile-img" src="http://emilcarlsson.se/assets/mikeross.png" class="online" alt />
         <p > {{user.name}}</p>
+        <i class="fa fa-chevron-down expand-button" aria-hidden="true" @click="toggleProfile"></i>
+				<div id="expanded">
+					<input name="handle" type="text" v-bind:value="'@'+user.handle" disabled readonly class="content-center" title="Handle"/>
+					<input name="name" type="text" v-bind:value="user.name" title="Name" maxlength="50"/>
+					<input name="status" type="text" v-bind:value="user.status" title="Status" maxlength="200" />
+				</div>
       </div>
     </div>
     <div id="search">
@@ -12,7 +18,7 @@
       </label>
       <input type="text" placeholder="Search contacts..." @input="searchUser($event.target.value)"/>
     </div>
-    <div id="contacts">
+    <div id="contacts" v-bind:class="{expanded: profileToggle}">
       <ul v-if="contactList.length">
         <li
           class="contact"
@@ -60,6 +66,14 @@ export default {
         this.$emit('filterContacts', text);
       }
     },
+    toggleProfile() {
+      this.profileToggle = !this.profileToggle;
+    }
+  },
+  data() {
+    return {
+      profileToggle:false
+    }
   }
   
 };
@@ -96,7 +110,8 @@ export default {
   }
 }
 #sidepanel #profile.expanded .wrap {
-  height: 210px;
+  min-height: 210px;
+  height: auto;
   line-height: initial;
 }
 #sidepanel #profile.expanded .wrap p {

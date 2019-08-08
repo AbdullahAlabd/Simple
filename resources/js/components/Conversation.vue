@@ -140,7 +140,8 @@ export default {
 }
 
 .top-bar-btns i:hover{
-  color: #8fbeee!important;   
+  color: #8fbeee!important;
+  cursor: pointer;
 }
 
 

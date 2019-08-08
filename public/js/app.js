@@ -1964,6 +1964,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SidePanel",
   props: ['user', 'activeContact', 'contactList'],
@@ -1974,7 +1980,15 @@ __webpack_require__.r(__webpack_exports__);
       if (text.charAt(0) !== '@') {
         this.$emit('filterContacts', text);
       }
+    },
+    toggleProfile: function toggleProfile() {
+      this.profileToggle = !this.profileToggle;
     }
+  },
+  data: function data() {
+    return {
+      profileToggle: false
+    };
   }
 });
 
@@ -6456,7 +6470,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.content[data-v-63f956ee] {\n  float: right;\n  width: 60%;\n  height: 100%;\n  overflow: hidden;\n  position: relative;\n}\n@media screen and (max-width: 735px) {\n.content[data-v-63f956ee] {\n    width: calc(100% - 58px);\n    min-width: 300px !important;\n}\n}\n@media screen and (min-width: 900px) {\n.content[data-v-63f956ee] {\n    width: calc(100% - 340px);\n}\n}\n.content .contact-profile[data-v-63f956ee] {\n  width: 100%;\n  height: 60px;\n  line-height: 60px;\n  background: #f5f5f5;\n}\n.content .contact-profile img[data-v-63f956ee] {\n  width: 46px;\n  border-radius: 50%;\n  float: left;\n  margin: 6px 12px 0 9px;\n}\n.content .contact-profile p[data-v-63f956ee] {\n  float: left;\n}\n.top-bar-btns[data-v-63f956ee] {\n  display: flex;\n  flex-flow: row left;\n  align-items: center;\n  float: right;\n}\n.top-bar-btns i[data-v-63f956ee]{\n}\n.top-bar-btns i[data-v-63f956ee]:hover{\n  color: #8fbeee!important;\n}\n.content .contact-profile .social-media[data-v-63f956ee] {\n  float: right;\n}\n.content .contact-profile .social-media i[data-v-63f956ee] {\n  margin-left: 14px;\n  cursor: pointer;\n}\n.content .contact-profile .social-media i[data-v-63f956ee]:nth-last-child(1) {\n  margin-right: 20px;\n}\n.content .contact-profile .social-media i[data-v-63f956ee]:hover {\n  color: #435f7a;\n}\n.content .messages[data-v-63f956ee] {\n  height: auto;\n  min-height: calc(100% - 120px);\n  max-height: calc(100% - 120px);\n  overflow-y: scroll;\n  overflow-x: hidden;\n}\n@media screen and (max-width: 735px) {\n.content .messages[data-v-63f956ee] {\n    max-height: calc(100% - 105px);\n}\n}\n.content .messages[data-v-63f956ee]::-webkit-scrollbar {\n  width: 8px;\n  background: transparent;\n}\n.content .messages[data-v-63f956ee]::-webkit-scrollbar-thumb {\n  background-color: rgba(0, 0, 0, 0.3);\n}\n.content .messages ul li[data-v-63f956ee] {\n  display: inline-block;\n  clear: both;\n  float: left;\n  margin: 15px 15px 0px 15px !important;\n  width: calc(100% - 25px);\n  font-size: 0.9em;\n}\n.content .messages ul li.sent img[data-v-63f956ee] {\n  margin: 2px 8px 0 0;\n}\n.content .messages ul li.sent p[data-v-63f956ee] {\n  word-wrap: break-word;\n  background: #435f7a;\n  color: #f5f5f5;\n  margin-bottom: 0px;\n}\n.content .messages ul li.replies img[data-v-63f956ee] {\n  float: right;\n  margin: 2px 0 0 8px;\n}\n.content .messages ul li.replies p[data-v-63f956ee] {\n  word-wrap: break-word;\n  background: #f5f5f5;\n  float: right;\n  margin-bottom: 0px;\n}\n.content .messages ul li img[data-v-63f956ee] {\n  width: 30px;\n  border-radius: 50%;\n  float: left;\n}\n.content .messages ul li p[data-v-63f956ee] {\n  display: inline-block;\n  padding: 10px 15px;\n  border-radius: 20px;\n  max-width: 70%;\n  line-height: 130%;\n}\n@media screen and (min-width: 735px) {\n.content .messages ul li p[data-v-63f956ee] {\n    max-width: 70%;\n}\n}\n.content .messages ul li[data-v-63f956ee]:nth-last-child(1) {\n  margin-bottom: 40px!important;\n}\n\n", ""]);
+exports.push([module.i, "\n.content[data-v-63f956ee] {\n  float: right;\n  width: 60%;\n  height: 100%;\n  overflow: hidden;\n  position: relative;\n}\n@media screen and (max-width: 735px) {\n.content[data-v-63f956ee] {\n    width: calc(100% - 58px);\n    min-width: 300px !important;\n}\n}\n@media screen and (min-width: 900px) {\n.content[data-v-63f956ee] {\n    width: calc(100% - 340px);\n}\n}\n.content .contact-profile[data-v-63f956ee] {\n  width: 100%;\n  height: 60px;\n  line-height: 60px;\n  background: #f5f5f5;\n}\n.content .contact-profile img[data-v-63f956ee] {\n  width: 46px;\n  border-radius: 50%;\n  float: left;\n  margin: 6px 12px 0 9px;\n}\n.content .contact-profile p[data-v-63f956ee] {\n  float: left;\n}\n.top-bar-btns[data-v-63f956ee] {\n  display: flex;\n  flex-flow: row left;\n  align-items: center;\n  float: right;\n}\n.top-bar-btns i[data-v-63f956ee]{\n}\n.top-bar-btns i[data-v-63f956ee]:hover{\n  color: #8fbeee!important;\n  cursor: pointer;\n}\n.content .contact-profile .social-media[data-v-63f956ee] {\n  float: right;\n}\n.content .contact-profile .social-media i[data-v-63f956ee] {\n  margin-left: 14px;\n  cursor: pointer;\n}\n.content .contact-profile .social-media i[data-v-63f956ee]:nth-last-child(1) {\n  margin-right: 20px;\n}\n.content .contact-profile .social-media i[data-v-63f956ee]:hover {\n  color: #435f7a;\n}\n.content .messages[data-v-63f956ee] {\n  height: auto;\n  min-height: calc(100% - 120px);\n  max-height: calc(100% - 120px);\n  overflow-y: scroll;\n  overflow-x: hidden;\n}\n@media screen and (max-width: 735px) {\n.content .messages[data-v-63f956ee] {\n    max-height: calc(100% - 105px);\n}\n}\n.content .messages[data-v-63f956ee]::-webkit-scrollbar {\n  width: 8px;\n  background: transparent;\n}\n.content .messages[data-v-63f956ee]::-webkit-scrollbar-thumb {\n  background-color: rgba(0, 0, 0, 0.3);\n}\n.content .messages ul li[data-v-63f956ee] {\n  display: inline-block;\n  clear: both;\n  float: left;\n  margin: 15px 15px 0px 15px !important;\n  width: calc(100% - 25px);\n  font-size: 0.9em;\n}\n.content .messages ul li.sent img[data-v-63f956ee] {\n  margin: 2px 8px 0 0;\n}\n.content .messages ul li.sent p[data-v-63f956ee] {\n  word-wrap: break-word;\n  background: #435f7a;\n  color: #f5f5f5;\n  margin-bottom: 0px;\n}\n.content .messages ul li.replies img[data-v-63f956ee] {\n  float: right;\n  margin: 2px 0 0 8px;\n}\n.content .messages ul li.replies p[data-v-63f956ee] {\n  word-wrap: break-word;\n  background: #f5f5f5;\n  float: right;\n  margin-bottom: 0px;\n}\n.content .messages ul li img[data-v-63f956ee] {\n  width: 30px;\n  border-radius: 50%;\n  float: left;\n}\n.content .messages ul li p[data-v-63f956ee] {\n  display: inline-block;\n  padding: 10px 15px;\n  border-radius: 20px;\n  max-width: 70%;\n  line-height: 130%;\n}\n@media screen and (min-width: 735px) {\n.content .messages ul li p[data-v-63f956ee] {\n    max-width: 70%;\n}\n}\n.content .messages ul li[data-v-63f956ee]:nth-last-child(1) {\n  margin-bottom: 40px!important;\n}\n\n", ""]);
 
 // exports
 
@@ -6494,7 +6508,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#sidepanel[data-v-23d86692] {\n  float: left;\n  min-width: 280px;\n  max-width: 340px;\n  width: 40%;\n  height: 100%;\n  background: #2c3e50;\n  color: #f5f5f5;\n  overflow: hidden;\n  position: relative;\n}\n@media screen and (max-width: 735px) {\n#sidepanel[data-v-23d86692] {\n    width: 58px;\n    min-width: 58px;\n}\n}\n#sidepanel #profile[data-v-23d86692] {\n  width: 80%;\n  margin: 25px auto;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile[data-v-23d86692] {\n    width: 100%;\n    margin: 0 auto;\n    padding: 5px 0 0 0;\n    background: #32465a;\n}\n}\n#sidepanel #profile.expanded .wrap[data-v-23d86692] {\n  height: 210px;\n  line-height: initial;\n}\n#sidepanel #profile.expanded .wrap p[data-v-23d86692] {\n  margin-top: 20px;\n}\n#sidepanel #profile.expanded .wrap i.expand-button[data-v-23d86692] {\n  transform: scaleY(-1);\n  -webkit-filter: FlipH;\n          filter: FlipH;\n  -ms-filter: \"FlipH\";\n}\n#sidepanel #profile .wrap[data-v-23d86692] {\n  height: 60px;\n  line-height: 60px;\n  overflow: hidden;\n  transition: 0.3s height ease;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap[data-v-23d86692] {\n    height: 55px;\n}\n}\n#sidepanel #profile .wrap img[data-v-23d86692] {\n  width: 50px;\n  border-radius: 50%;\n  padding: 3px;\n  border: 2px solid #e74c3c;\n  height: auto;\n  float: left;\n  cursor: pointer;\n  transition: 0.3s border ease;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap img[data-v-23d86692] {\n    width: 40px;\n    margin-left: 4px;\n}\n}\n#sidepanel #profile .wrap img.online[data-v-23d86692] {\n  border: 2px solid #2ecc71;\n}\n#sidepanel #profile .wrap img.away[data-v-23d86692] {\n  border: 2px solid #f1c40f;\n}\n#sidepanel #profile .wrap img.busy[data-v-23d86692] {\n  border: 2px solid #e74c3c;\n}\n#sidepanel #profile .wrap img.offline[data-v-23d86692] {\n  border: 2px solid #95a5a6;\n}\n#sidepanel #profile .wrap p[data-v-23d86692] {\n  float: left;\n  margin-left: 15px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap p[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #profile .wrap i.expand-button[data-v-23d86692] {\n  float: right;\n  margin-top: 23px;\n  font-size: 0.8em;\n  cursor: pointer;\n  color: #435f7a;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap i.expand-button[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #profile .wrap #status-options[data-v-23d86692] {\n  position: absolute;\n  opacity: 0;\n  visibility: hidden;\n  width: 150px;\n  margin: 70px 0 0 0;\n  border-radius: 6px;\n  z-index: 99;\n  line-height: initial;\n  background: #435f7a;\n  transition: 0.3s all ease;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options[data-v-23d86692] {\n    width: 58px;\n    margin-top: 57px;\n}\n}\n#sidepanel #profile .wrap #status-options.active[data-v-23d86692] {\n  opacity: 1;\n  visibility: visible;\n  margin: 75px 0 0 0;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options.active[data-v-23d86692] {\n    margin-top: 62px;\n}\n}\n#sidepanel #profile .wrap #status-options[data-v-23d86692]:before {\n  content: \"\";\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-left: 6px solid transparent;\n  border-right: 6px solid transparent;\n  border-bottom: 8px solid #435f7a;\n  margin: -8px 0 0 24px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options[data-v-23d86692]:before {\n    margin-left: 23px;\n}\n}\n#sidepanel #profile .wrap #status-options ul[data-v-23d86692] {\n  overflow: hidden;\n  border-radius: 6px;\n}\n#sidepanel #profile .wrap #status-options ul li[data-v-23d86692] {\n  padding: 15px 0 30px 18px;\n  display: block;\n  cursor: pointer;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options ul li[data-v-23d86692] {\n    padding: 15px 0 35px 22px;\n}\n}\n#sidepanel #profile .wrap #status-options ul li[data-v-23d86692]:hover {\n  background: #496886;\n}\n#sidepanel #profile .wrap #status-options ul li span.status-circle[data-v-23d86692] {\n  position: absolute;\n  width: 10px;\n  height: 10px;\n  border-radius: 50%;\n  margin: 5px 0 0 0;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options ul li span.status-circle[data-v-23d86692] {\n    width: 14px;\n    height: 14px;\n}\n}\n#sidepanel #profile .wrap #status-options ul li span.status-circle[data-v-23d86692]:before {\n  content: \"\";\n  position: absolute;\n  width: 14px;\n  height: 14px;\n  margin: -3px 0 0 -3px;\n  background: transparent;\n  border-radius: 50%;\n  z-index: 0;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options ul li span.status-circle[data-v-23d86692]:before {\n    height: 18px;\n    width: 18px;\n}\n}\n#sidepanel #profile .wrap #status-options ul li p[data-v-23d86692] {\n  padding-left: 12px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options ul li p[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-online\n  span.status-circle[data-v-23d86692] {\n  background: #2ecc71;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-online.active\n  span.status-circle[data-v-23d86692]:before {\n  border: 1px solid #2ecc71;\n}\n#sidepanel #profile .wrap #status-options ul li#status-away span.status-circle[data-v-23d86692] {\n  background: #f1c40f;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-away.active\n  span.status-circle[data-v-23d86692]:before {\n  border: 1px solid #f1c40f;\n}\n#sidepanel #profile .wrap #status-options ul li#status-busy span.status-circle[data-v-23d86692] {\n  background: #e74c3c;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-busy.active\n  span.status-circle[data-v-23d86692]:before {\n  border: 1px solid #e74c3c;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-offline\n  span.status-circle[data-v-23d86692] {\n  background: #95a5a6;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-offline.active\n  span.status-circle[data-v-23d86692]:before {\n  border: 1px solid #95a5a6;\n}\n#sidepanel #profile .wrap #expanded[data-v-23d86692] {\n  padding: 100px 0 0 0;\n  display: block;\n  line-height: initial !important;\n}\n#sidepanel #profile .wrap #expanded label[data-v-23d86692] {\n  float: left;\n  clear: both;\n  margin: 0 8px 5px 0;\n  padding: 5px 0;\n}\n#sidepanel #profile .wrap #expanded input[data-v-23d86692] {\n  border: none;\n  margin-bottom: 6px;\n  background: #32465a;\n  border-radius: 3px;\n  color: #f5f5f5;\n  padding: 7px;\n  width: calc(100% - 43px);\n}\n#sidepanel #profile .wrap #expanded input[data-v-23d86692]:focus {\n  outline: none;\n  background: #435f7a;\n}\n#sidepanel #search[data-v-23d86692] {\n  border-top: 1px solid #32465a;\n  border-bottom: 1px solid #32465a;\n  font-weight: 300;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #search[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #search label[data-v-23d86692] {\n  position: absolute;\n  margin: 10px 0 0 20px;\n}\n#sidepanel #search input[data-v-23d86692] {\n  font-family: \"proxima-nova\", \"Source Sans Pro\", sans-serif;\n  padding: 10px 0 10px 46px;\n  /* width: calc(100% - 25px); */\n  width: 100%;\n  border: none;\n  background: #32465a;\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]:focus {\n  outline: none;\n  background: #435f7a;\n}\n#sidepanel #search input[data-v-23d86692]::-webkit-input-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]::-moz-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]:-ms-input-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]:-moz-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #contacts[data-v-23d86692] {\n  /* height: calc(100% - 177px); */\n  height: 100%;\n  overflow-y: scroll;\n  overflow-x: hidden;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts[data-v-23d86692] {\n    /* height: calc(100% - 149px); */\n    height: 100%;\n    overflow-y: scroll;\n    overflow-x: hidden;\n}\n#sidepanel #contacts[data-v-23d86692]::-webkit-scrollbar {\n    display: none;\n}\n}\n#sidepanel #contacts.expanded[data-v-23d86692] {\n  height: calc(100% - 334px);\n}\n#sidepanel #contacts[data-v-23d86692]::-webkit-scrollbar {\n  width: 8px;\n  background: #2c3e50;\n}\n#sidepanel #contacts[data-v-23d86692]::-webkit-scrollbar-thumb {\n  background-color: #243140;\n}\n#sidepanel #contacts ul li.contact[data-v-23d86692] {\n  position: relative;\n  padding: 10px 0 15px 0;\n  font-size: 0.9em;\n  cursor: pointer;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact[data-v-23d86692] {\n    padding: 6px 0 46px 8px;\n}\n}\n#sidepanel #contacts ul li.contact[data-v-23d86692]:hover {\n  background: #32465a;\n}\n#sidepanel #contacts ul li.contact.active[data-v-23d86692] {\n  background: #32465a;\n  border-right: 5px solid #435f7a;\n}\n#sidepanel #contacts ul li.contact.active span.contact-status[data-v-23d86692] {\n  border: 2px solid #32465a !important;\n}\n#sidepanel #contacts ul li.contact .wrap[data-v-23d86692] {\n  width: 88%;\n  margin: 0 auto;\n  position: relative;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap[data-v-23d86692] {\n    width: 100%;\n}\n}\n#sidepanel #contacts ul li.contact .wrap span[data-v-23d86692] {\n  position: absolute;\n  left: 0;\n  margin: -2px 0 0 -2px;\n  width: 10px;\n  height: 10px;\n  border-radius: 50%;\n  border: 2px solid #2c3e50;\n  background: #95a5a6;\n}\n#sidepanel #contacts ul li.contact .wrap span.online[data-v-23d86692] {\n  background: #2ecc71;\n}\n#sidepanel #contacts ul li.contact .wrap span.away[data-v-23d86692] {\n  background: #f1c40f;\n}\n#sidepanel #contacts ul li.contact .wrap span.busy[data-v-23d86692] {\n  background: #e74c3c;\n}\n#sidepanel #contacts ul li.contact .wrap img[data-v-23d86692] {\n  width: 40px;\n  border-radius: 50%;\n  float: left;\n  margin-right: 10px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap img[data-v-23d86692] {\n    margin-right: 0px;\n}\n}\n#sidepanel #contacts ul li.contact .wrap .meta[data-v-23d86692] {\n  padding: 5px 0 0 0;\n  margin-bottom: 0px !important;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap .meta[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #contacts ul li.contact .wrap .meta .name[data-v-23d86692] {\n  left: 0;\n  position: relative;\n  font-weight: 600;\n}\n#sidepanel #contacts ul li.contact .wrap .meta .preview[data-v-23d86692] {\n  margin: 5px 0 0 0;\n  padding: 0 0 1px;\n  font-weight: 400;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: 1s all ease;\n}\n#sidepanel #contacts ul li.contact .wrap .meta p[data-v-23d86692]{\n  margin-bottom: 0px!important;\n}\n#sidepanel #contacts ul li.contact .wrap .date[data-v-23d86692] {\n  position: absolute!important;\n  right: 0;\n  top: 0;\n  padding-top: 7px;\n  font-size: 10px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap .date[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #contacts ul li.contact .wrap .meta .preview span[data-v-23d86692] {\n  position: initial;\n  border-radius: initial;\n  background: none;\n  border: none;\n  padding: 0 2px 0 0;\n  margin: 0 0 0 1px;\n  opacity: 0.5;\n}\n#sidepanel #bottom-bar[data-v-23d86692] {\n  position: absolute;\n  width: 100%;\n  bottom: 0;\n}\n#sidepanel #bottom-bar button[data-v-23d86692] {\n  float: left;\n  border: none;\n  width: 50%;\n  padding: 10px 0;\n  background: #32465a;\n  color: #f5f5f5;\n  cursor: pointer;\n  font-size: 0.85em;\n  font-family: \"proxima-nova\", \"Source Sans Pro\", sans-serif;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #bottom-bar button[data-v-23d86692] {\n    float: none;\n    width: 100%;\n    padding: 15px 0;\n}\n}\n#sidepanel #bottom-bar button[data-v-23d86692]:focus {\n  outline: none;\n}\n#sidepanel #bottom-bar button[data-v-23d86692]:nth-child(1) {\n  border-right: 1px solid #2c3e50;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #bottom-bar button[data-v-23d86692]:nth-child(1) {\n    border-right: none;\n    border-bottom: 1px solid #2c3e50;\n}\n}\n#sidepanel #bottom-bar button[data-v-23d86692]:hover {\n  background: #435f7a;\n}\n#sidepanel #bottom-bar button i[data-v-23d86692] {\n  margin-right: 3px;\n  font-size: 1em;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #bottom-bar button i[data-v-23d86692] {\n    font-size: 1.3em;\n}\n}\n@media screen and (max-width: 735px) {\n#sidepanel #bottom-bar button span[data-v-23d86692] {\n    display: none;\n}\n}\n", ""]);
+exports.push([module.i, "\n#sidepanel[data-v-23d86692] {\n  float: left;\n  min-width: 280px;\n  max-width: 340px;\n  width: 40%;\n  height: 100%;\n  background: #2c3e50;\n  color: #f5f5f5;\n  overflow: hidden;\n  position: relative;\n}\n@media screen and (max-width: 735px) {\n#sidepanel[data-v-23d86692] {\n    width: 58px;\n    min-width: 58px;\n}\n}\n#sidepanel #profile[data-v-23d86692] {\n  width: 80%;\n  margin: 25px auto;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile[data-v-23d86692] {\n    width: 100%;\n    margin: 0 auto;\n    padding: 5px 0 0 0;\n    background: #32465a;\n}\n}\n#sidepanel #profile.expanded .wrap[data-v-23d86692] {\n  min-height: 210px;\n  height: auto;\n  line-height: initial;\n}\n#sidepanel #profile.expanded .wrap p[data-v-23d86692] {\n  margin-top: 20px;\n}\n#sidepanel #profile.expanded .wrap i.expand-button[data-v-23d86692] {\n  transform: scaleY(-1);\n  -webkit-filter: FlipH;\n          filter: FlipH;\n  -ms-filter: \"FlipH\";\n}\n#sidepanel #profile .wrap[data-v-23d86692] {\n  height: 60px;\n  line-height: 60px;\n  overflow: hidden;\n  transition: 0.3s height ease;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap[data-v-23d86692] {\n    height: 55px;\n}\n}\n#sidepanel #profile .wrap img[data-v-23d86692] {\n  width: 50px;\n  border-radius: 50%;\n  padding: 3px;\n  border: 2px solid #e74c3c;\n  height: auto;\n  float: left;\n  cursor: pointer;\n  transition: 0.3s border ease;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap img[data-v-23d86692] {\n    width: 40px;\n    margin-left: 4px;\n}\n}\n#sidepanel #profile .wrap img.online[data-v-23d86692] {\n  border: 2px solid #2ecc71;\n}\n#sidepanel #profile .wrap img.away[data-v-23d86692] {\n  border: 2px solid #f1c40f;\n}\n#sidepanel #profile .wrap img.busy[data-v-23d86692] {\n  border: 2px solid #e74c3c;\n}\n#sidepanel #profile .wrap img.offline[data-v-23d86692] {\n  border: 2px solid #95a5a6;\n}\n#sidepanel #profile .wrap p[data-v-23d86692] {\n  float: left;\n  margin-left: 15px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap p[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #profile .wrap i.expand-button[data-v-23d86692] {\n  float: right;\n  margin-top: 23px;\n  font-size: 0.8em;\n  cursor: pointer;\n  color: #435f7a;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap i.expand-button[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #profile .wrap #status-options[data-v-23d86692] {\n  position: absolute;\n  opacity: 0;\n  visibility: hidden;\n  width: 150px;\n  margin: 70px 0 0 0;\n  border-radius: 6px;\n  z-index: 99;\n  line-height: initial;\n  background: #435f7a;\n  transition: 0.3s all ease;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options[data-v-23d86692] {\n    width: 58px;\n    margin-top: 57px;\n}\n}\n#sidepanel #profile .wrap #status-options.active[data-v-23d86692] {\n  opacity: 1;\n  visibility: visible;\n  margin: 75px 0 0 0;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options.active[data-v-23d86692] {\n    margin-top: 62px;\n}\n}\n#sidepanel #profile .wrap #status-options[data-v-23d86692]:before {\n  content: \"\";\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-left: 6px solid transparent;\n  border-right: 6px solid transparent;\n  border-bottom: 8px solid #435f7a;\n  margin: -8px 0 0 24px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options[data-v-23d86692]:before {\n    margin-left: 23px;\n}\n}\n#sidepanel #profile .wrap #status-options ul[data-v-23d86692] {\n  overflow: hidden;\n  border-radius: 6px;\n}\n#sidepanel #profile .wrap #status-options ul li[data-v-23d86692] {\n  padding: 15px 0 30px 18px;\n  display: block;\n  cursor: pointer;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options ul li[data-v-23d86692] {\n    padding: 15px 0 35px 22px;\n}\n}\n#sidepanel #profile .wrap #status-options ul li[data-v-23d86692]:hover {\n  background: #496886;\n}\n#sidepanel #profile .wrap #status-options ul li span.status-circle[data-v-23d86692] {\n  position: absolute;\n  width: 10px;\n  height: 10px;\n  border-radius: 50%;\n  margin: 5px 0 0 0;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options ul li span.status-circle[data-v-23d86692] {\n    width: 14px;\n    height: 14px;\n}\n}\n#sidepanel #profile .wrap #status-options ul li span.status-circle[data-v-23d86692]:before {\n  content: \"\";\n  position: absolute;\n  width: 14px;\n  height: 14px;\n  margin: -3px 0 0 -3px;\n  background: transparent;\n  border-radius: 50%;\n  z-index: 0;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options ul li span.status-circle[data-v-23d86692]:before {\n    height: 18px;\n    width: 18px;\n}\n}\n#sidepanel #profile .wrap #status-options ul li p[data-v-23d86692] {\n  padding-left: 12px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options ul li p[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-online\n  span.status-circle[data-v-23d86692] {\n  background: #2ecc71;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-online.active\n  span.status-circle[data-v-23d86692]:before {\n  border: 1px solid #2ecc71;\n}\n#sidepanel #profile .wrap #status-options ul li#status-away span.status-circle[data-v-23d86692] {\n  background: #f1c40f;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-away.active\n  span.status-circle[data-v-23d86692]:before {\n  border: 1px solid #f1c40f;\n}\n#sidepanel #profile .wrap #status-options ul li#status-busy span.status-circle[data-v-23d86692] {\n  background: #e74c3c;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-busy.active\n  span.status-circle[data-v-23d86692]:before {\n  border: 1px solid #e74c3c;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-offline\n  span.status-circle[data-v-23d86692] {\n  background: #95a5a6;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-offline.active\n  span.status-circle[data-v-23d86692]:before {\n  border: 1px solid #95a5a6;\n}\n#sidepanel #profile .wrap #expanded[data-v-23d86692] {\n  padding: 100px 0 0 0;\n  display: block;\n  line-height: initial !important;\n}\n#sidepanel #profile .wrap #expanded label[data-v-23d86692] {\n  float: left;\n  clear: both;\n  margin: 0 8px 5px 0;\n  padding: 5px 0;\n}\n#sidepanel #profile .wrap #expanded input[data-v-23d86692] {\n  border: none;\n  margin-bottom: 6px;\n  background: #32465a;\n  border-radius: 3px;\n  color: #f5f5f5;\n  padding: 7px;\n  width: calc(100% - 43px);\n}\n#sidepanel #profile .wrap #expanded input[data-v-23d86692]:focus {\n  outline: none;\n  background: #435f7a;\n}\n#sidepanel #search[data-v-23d86692] {\n  border-top: 1px solid #32465a;\n  border-bottom: 1px solid #32465a;\n  font-weight: 300;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #search[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #search label[data-v-23d86692] {\n  position: absolute;\n  margin: 10px 0 0 20px;\n}\n#sidepanel #search input[data-v-23d86692] {\n  font-family: \"proxima-nova\", \"Source Sans Pro\", sans-serif;\n  padding: 10px 0 10px 46px;\n  /* width: calc(100% - 25px); */\n  width: 100%;\n  border: none;\n  background: #32465a;\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]:focus {\n  outline: none;\n  background: #435f7a;\n}\n#sidepanel #search input[data-v-23d86692]::-webkit-input-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]::-moz-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]:-ms-input-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]:-moz-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #contacts[data-v-23d86692] {\n  /* height: calc(100% - 177px); */\n  height: 100%;\n  overflow-y: scroll;\n  overflow-x: hidden;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts[data-v-23d86692] {\n    /* height: calc(100% - 149px); */\n    height: 100%;\n    overflow-y: scroll;\n    overflow-x: hidden;\n}\n#sidepanel #contacts[data-v-23d86692]::-webkit-scrollbar {\n    display: none;\n}\n}\n#sidepanel #contacts.expanded[data-v-23d86692] {\n  height: calc(100% - 334px);\n}\n#sidepanel #contacts[data-v-23d86692]::-webkit-scrollbar {\n  width: 8px;\n  background: #2c3e50;\n}\n#sidepanel #contacts[data-v-23d86692]::-webkit-scrollbar-thumb {\n  background-color: #243140;\n}\n#sidepanel #contacts ul li.contact[data-v-23d86692] {\n  position: relative;\n  padding: 10px 0 15px 0;\n  font-size: 0.9em;\n  cursor: pointer;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact[data-v-23d86692] {\n    padding: 6px 0 46px 8px;\n}\n}\n#sidepanel #contacts ul li.contact[data-v-23d86692]:hover {\n  background: #32465a;\n}\n#sidepanel #contacts ul li.contact.active[data-v-23d86692] {\n  background: #32465a;\n  border-right: 5px solid #435f7a;\n}\n#sidepanel #contacts ul li.contact.active span.contact-status[data-v-23d86692] {\n  border: 2px solid #32465a !important;\n}\n#sidepanel #contacts ul li.contact .wrap[data-v-23d86692] {\n  width: 88%;\n  margin: 0 auto;\n  position: relative;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap[data-v-23d86692] {\n    width: 100%;\n}\n}\n#sidepanel #contacts ul li.contact .wrap span[data-v-23d86692] {\n  position: absolute;\n  left: 0;\n  margin: -2px 0 0 -2px;\n  width: 10px;\n  height: 10px;\n  border-radius: 50%;\n  border: 2px solid #2c3e50;\n  background: #95a5a6;\n}\n#sidepanel #contacts ul li.contact .wrap span.online[data-v-23d86692] {\n  background: #2ecc71;\n}\n#sidepanel #contacts ul li.contact .wrap span.away[data-v-23d86692] {\n  background: #f1c40f;\n}\n#sidepanel #contacts ul li.contact .wrap span.busy[data-v-23d86692] {\n  background: #e74c3c;\n}\n#sidepanel #contacts ul li.contact .wrap img[data-v-23d86692] {\n  width: 40px;\n  border-radius: 50%;\n  float: left;\n  margin-right: 10px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap img[data-v-23d86692] {\n    margin-right: 0px;\n}\n}\n#sidepanel #contacts ul li.contact .wrap .meta[data-v-23d86692] {\n  padding: 5px 0 0 0;\n  margin-bottom: 0px !important;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap .meta[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #contacts ul li.contact .wrap .meta .name[data-v-23d86692] {\n  left: 0;\n  position: relative;\n  font-weight: 600;\n}\n#sidepanel #contacts ul li.contact .wrap .meta .preview[data-v-23d86692] {\n  margin: 5px 0 0 0;\n  padding: 0 0 1px;\n  font-weight: 400;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: 1s all ease;\n}\n#sidepanel #contacts ul li.contact .wrap .meta p[data-v-23d86692]{\n  margin-bottom: 0px!important;\n}\n#sidepanel #contacts ul li.contact .wrap .date[data-v-23d86692] {\n  position: absolute!important;\n  right: 0;\n  top: 0;\n  padding-top: 7px;\n  font-size: 10px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap .date[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #contacts ul li.contact .wrap .meta .preview span[data-v-23d86692] {\n  position: initial;\n  border-radius: initial;\n  background: none;\n  border: none;\n  padding: 0 2px 0 0;\n  margin: 0 0 0 1px;\n  opacity: 0.5;\n}\n#sidepanel #bottom-bar[data-v-23d86692] {\n  position: absolute;\n  width: 100%;\n  bottom: 0;\n}\n#sidepanel #bottom-bar button[data-v-23d86692] {\n  float: left;\n  border: none;\n  width: 50%;\n  padding: 10px 0;\n  background: #32465a;\n  color: #f5f5f5;\n  cursor: pointer;\n  font-size: 0.85em;\n  font-family: \"proxima-nova\", \"Source Sans Pro\", sans-serif;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #bottom-bar button[data-v-23d86692] {\n    float: none;\n    width: 100%;\n    padding: 15px 0;\n}\n}\n#sidepanel #bottom-bar button[data-v-23d86692]:focus {\n  outline: none;\n}\n#sidepanel #bottom-bar button[data-v-23d86692]:nth-child(1) {\n  border-right: 1px solid #2c3e50;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #bottom-bar button[data-v-23d86692]:nth-child(1) {\n    border-right: none;\n    border-bottom: 1px solid #2c3e50;\n}\n}\n#sidepanel #bottom-bar button[data-v-23d86692]:hover {\n  background: #435f7a;\n}\n#sidepanel #bottom-bar button i[data-v-23d86692] {\n  margin-right: 3px;\n  font-size: 1em;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #bottom-bar button i[data-v-23d86692] {\n    font-size: 1.3em;\n}\n}\n@media screen and (max-width: 735px) {\n#sidepanel #bottom-bar button span[data-v-23d86692] {\n    display: none;\n}\n}\n", ""]);
 
 // exports
 
@@ -38317,20 +38331,64 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "sidepanel" } }, [
-    _c("div", { attrs: { id: "profile" } }, [
-      _c("div", { staticClass: "wrap" }, [
-        _c("img", {
-          staticClass: "online",
-          attrs: {
-            id: "profile-img",
-            src: "http://emilcarlsson.se/assets/mikeross.png",
-            alt: ""
-          }
-        }),
-        _vm._v(" "),
-        _c("p", [_vm._v(" " + _vm._s(_vm.user.name))])
-      ])
-    ]),
+    _c(
+      "div",
+      { class: { expanded: _vm.profileToggle }, attrs: { id: "profile" } },
+      [
+        _c("div", { staticClass: "wrap" }, [
+          _c("img", {
+            staticClass: "online",
+            attrs: {
+              id: "profile-img",
+              src: "http://emilcarlsson.se/assets/mikeross.png",
+              alt: ""
+            }
+          }),
+          _vm._v(" "),
+          _c("p", [_vm._v(" " + _vm._s(_vm.user.name))]),
+          _vm._v(" "),
+          _c("i", {
+            staticClass: "fa fa-chevron-down expand-button",
+            attrs: { "aria-hidden": "true" },
+            on: { click: _vm.toggleProfile }
+          }),
+          _vm._v(" "),
+          _c("div", { attrs: { id: "expanded" } }, [
+            _c("input", {
+              staticClass: "content-center",
+              attrs: {
+                name: "handle",
+                type: "text",
+                disabled: "",
+                readonly: "",
+                title: "Handle"
+              },
+              domProps: { value: "@" + _vm.user.handle }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              attrs: {
+                name: "name",
+                type: "text",
+                title: "Name",
+                maxlength: "50"
+              },
+              domProps: { value: _vm.user.name }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              attrs: {
+                name: "status",
+                type: "text",
+                title: "Status",
+                maxlength: "200"
+              },
+              domProps: { value: _vm.user.status }
+            })
+          ])
+        ])
+      ]
+    ),
     _vm._v(" "),
     _c("div", { attrs: { id: "search" } }, [
       _vm._m(0),
@@ -38345,87 +38403,92 @@ var render = function() {
       })
     ]),
     _vm._v(" "),
-    _c("div", { attrs: { id: "contacts" } }, [
-      _vm.contactList.length
-        ? _c(
-            "ul",
-            _vm._l(_vm.contactList, function(contact) {
-              return _c(
-                "li",
-                {
-                  key: contact.conversation_id,
-                  staticClass: "contact",
-                  class: {
-                    active: _vm.activeContact === contact.conversation_id
-                  },
-                  attrs: {
-                    contactList: _vm.contactList,
-                    activeContact: _vm.activeContact
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.$emit(
-                        "changeConversation",
-                        contact.conversation_id
-                      )
-                    }
-                  }
-                },
-                [
-                  _c("div", { staticClass: "wrap" }, [
-                    _c("span", {
-                      staticClass: "contact-status",
-                      class: { online: true }
-                    }),
-                    _vm._v(" "),
-                    _c("img", {
-                      attrs: {
-                        src: "http://emilcarlsson.se/assets/harveyspecter.png",
-                        alt: ""
+    _c(
+      "div",
+      { class: { expanded: _vm.profileToggle }, attrs: { id: "contacts" } },
+      [
+        _vm.contactList.length
+          ? _c(
+              "ul",
+              _vm._l(_vm.contactList, function(contact) {
+                return _c(
+                  "li",
+                  {
+                    key: contact.conversation_id,
+                    staticClass: "contact",
+                    class: {
+                      active: _vm.activeContact === contact.conversation_id
+                    },
+                    attrs: {
+                      contactList: _vm.contactList,
+                      activeContact: _vm.activeContact
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.$emit(
+                          "changeConversation",
+                          contact.conversation_id
+                        )
                       }
-                    }),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "date" }, [
-                      _vm._v("2019-08-07 22:40:20")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "meta" }, [
-                      _c("p", { staticClass: "name" }, [
-                        _vm._v(_vm._s(contact.name))
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "wrap" }, [
+                      _c("span", {
+                        staticClass: "contact-status",
+                        class: { online: true }
+                      }),
+                      _vm._v(" "),
+                      _c("img", {
+                        attrs: {
+                          src:
+                            "http://emilcarlsson.se/assets/harveyspecter.png",
+                          alt: ""
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "date" }, [
+                        _vm._v("2019-08-07 22:40:20")
                       ]),
                       _vm._v(" "),
-                      _c("p", { staticClass: "preview" }, [
-                        contact.sender_id === _vm.user.id
-                          ? _c("span", [_vm._v("You:")])
-                          : _vm._e(),
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(contact.content) +
-                            "\n            "
-                        )
+                      _c("div", { staticClass: "meta" }, [
+                        _c("p", { staticClass: "name" }, [
+                          _vm._v(_vm._s(contact.name))
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "preview" }, [
+                          contact.sender_id === _vm.user.id
+                            ? _c("span", [_vm._v("You:")])
+                            : _vm._e(),
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(contact.content) +
+                              "\n              "
+                          )
+                        ])
                       ])
                     ])
-                  ])
-                ]
-              )
-            }),
-            0
-          )
-        : _c("p", { staticClass: "text-center pt-4 px-5" }, [
-            _vm._v("\n      There are "),
-            _c("strong", [_vm._v("no such chats")]),
-            _vm._v(" for users with this name."),
-            _c("br"),
-            _c("br"),
-            _vm._v("\n      To "),
-            _c("strong", [_vm._v("add a new contact")]),
-            _vm._v(" type the handle in search bar and hit enter."),
-            _c("br"),
-            _c("br"),
-            _vm._v("\n      Handle should look like "),
-            _c("strong", [_vm._v("@username")])
-          ])
-    ])
+                  ]
+                )
+              }),
+              0
+            )
+          : _c("p", { staticClass: "text-center pt-4 px-5" }, [
+              _vm._v("\n        There are "),
+              _c("strong", [_vm._v("no such chats")]),
+              _vm._v(" for users with this name."),
+              _c("br"),
+              _c("br"),
+              _vm._v("\n        To "),
+              _c("strong", [_vm._v("add a new contact")]),
+              _vm._v(" type the handle in search bar and hit enter."),
+              _c("br"),
+              _c("br"),
+              _vm._v("\n        Handle should look like "),
+              _c("strong", [_vm._v("@username")])
+            ])
+      ]
+    )
   ])
 }
 var staticRenderFns = [
