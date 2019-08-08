@@ -9,8 +9,9 @@
           style="position: absolute;top:15px;left:70px; color: rgb(167, 167, 167)"
         >{{reciever.handle}}</small>
       </div>
-      <div class="top-bar-btns">
-        <i class="fa fa-user-circle fa-lg" id="expand" aria-hidden="true" onclick="myfunction()"></i>
+      <div class="top-bar-btns p-3">
+        <i class="material-icons d-block mr-3" aria-hidden="true" >group_add</i>
+        <i class="fa fa-user-circle fa-lg d-block" id="expand" aria-hidden="true" onclick="myfunction()"></i>
       </div>
     </div>
 
@@ -18,13 +19,13 @@
       <ul>
         <li 
           v-bind="messages"
-          v-bind:key="message.id"
           v-for="message in messages"
-          :class="(message.isFrom?'sent':'replies')"
+          v-bind:key="message.id"
+          :class="(message.sender_id===user.id?'sent':'replies')"
           @mouseover="massageHover"
         >
-          <img :src="(message.isFrom?senderImgUrl:reciever.imgUrl)" />
-          <p data-toggle="popover" data-content="10:30 23/12/1996" style="white-space: pre-line">{{message.text}}</p>
+          <img :src="(message.sender_id===user.id?senderImgUrl:reciever.imgUrl)" />
+          <p data-toggle="popover" :data-content="message.created_at" style="white-space: pre-line">{{message.content}}</p>
         </li>
       </ul>
     </div>
@@ -33,8 +34,10 @@
 </template>
 
 <script>
+import Axios from 'axios';
 export default {
   name: "mainContent",
+  props: ['conversationId', 'user'],
   data() {
     return {
       cnt: 100,
@@ -48,70 +51,17 @@ export default {
         handle: "@nour7",
         status: "Life is Life" // about or bio
       },
-      messages: [
-        {
-          id: 0,
-          isFrom: true,
-          text:
-            "How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!",
-          timespan: null
-        },
-        {
-          id: 1,
-          isFrom: false,
-          text:
-            "When you're backed against the wall, break the god damn thing down.",
-          timespan: null
-        },
-        {
-          id: 2,
-          isFrom: false,
-          text: "Excuses don't win championships.",
-          timespan: null
-        },
-        {
-          id: 3,
-          isFrom: true,
-          text: "Oh yeah, did Michael Jordan tell you that?",
-          timespan: null
-        },
-        {
-          id: 4,
-          isFrom: false,
-          text: "No, I told him that.",
-          timespan: null
-        },
-        {
-          id: 5,
-          isFrom: false,
-          text: "What are your choices when someone puts a gun to your head?",
-          timespan: null
-        },
-        {
-          id: 6,
-          isFrom: true,
-          text:
-            "What are you talking about? You do what they say or they shoot you.",
-          timespan: null
-        },
-        {
-          id: 7,
-          isFrom: false,
-          text:
-            "Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things.",
-          timespan: null
-        }
-      ]
+      messages: []
     };
   },
   methods: {
     
     addMessage(message = '') {
       const msg = {
-        id: ++this.cnt,
-        isFrom: true,
-        text: message,
-        timespan: null
+        id: ++this.cnt, //tobe edited
+        sender_id: this.user.id,
+        content: message,
+        timespan: Date.now()
       };
       this.messages.push(msg);
     },
@@ -122,14 +72,20 @@ export default {
               trigger : 'hover',
           });
       });
-      console.log('e');
-    }
+    },
   },
   updated() {
     let messagesComponent = document.getElementById('messages');
     messagesComponent.scrollTop = messagesComponent.scrollHeight;
   },
   mounted(){
+    Axios.get('/messages/showAll/'+this.conversationId)
+    .then(res => {
+      this.messages = res.data;
+    })
+    .catch(e => {
+      console.log(e);
+    });
     let messagesComponent = document.getElementById('messages');
     messagesComponent.scrollTop = messagesComponent.scrollHeight;
   }
@@ -173,11 +129,21 @@ export default {
   float: left;
 }
 .top-bar-btns {
-  /* padding: 25px; */
-  padding-right: 25px;
-  /* padding-top: 25px; */
+  display: flex;
+  flex-flow: row left;
+  align-items: center;
   float: right;
 }
+
+.top-bar-btns i{
+  
+}
+
+.top-bar-btns i:hover{
+  color: #8fbeee!important;   
+}
+
+
 .content .contact-profile .social-media {
   float: right;
 }

@@ -13,7 +13,7 @@
       <input type="text" placeholder="Search contacts..." @input="searchUser($event.target.value)"/>
     </div>
     <div id="contacts">
-      <ul>
+      <ul v-if="contactList.length">
         <li
           class="contact"
           v-bind:contactList="contactList"
@@ -28,6 +28,7 @@
             <span class="contact-status" v-bind:class="{online: true}"></span>
             <!-- v-bind:src="contact.imgUrl" -->
             <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt />
+              <p class="date">2019-08-07 22:40:20</p>
             <div class="meta">
               <p class="name">{{contact.name}}</p>
               <p class="preview">
@@ -38,6 +39,11 @@
           </div>
         </li>
       </ul>
+      <p v-else class="text-center pt-4 px-5">
+        There are <strong>no such chats</strong> for users with this name.<br><br>
+        To <strong>add a new contact</strong> type the handle in search bar and hit enter.<br><br>
+        Handle should look like <strong>@username</strong>
+      </p>
     </div>
   </div>
 </template>
@@ -500,6 +506,8 @@ export default {
   }
 }
 #sidepanel #contacts ul li.contact .wrap .meta .name {
+  left: 0;
+  position: relative;
   font-weight: 600;
 }
 #sidepanel #contacts ul li.contact .wrap .meta .preview {
@@ -513,6 +521,22 @@ export default {
   -o-transition: 1s all ease;
   -webkit-transition: 1s all ease;
   transition: 1s all ease;
+}
+#sidepanel #contacts ul li.contact .wrap .meta p{
+  margin-bottom: 0px!important;
+}
+#sidepanel #contacts ul li.contact .wrap .date {
+  position: absolute!important;
+  right: 0;
+  top: 0;
+  padding-top: 7px;
+  font-size: 10px;
+}
+
+@media screen and (max-width: 735px) {
+  #sidepanel #contacts ul li.contact .wrap .date {
+    display: none;
+  }
 }
 #sidepanel #contacts ul li.contact .wrap .meta .preview span {
   position: initial;

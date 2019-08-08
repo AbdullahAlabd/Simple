@@ -28,10 +28,10 @@ Route::get('/conversations/showAll/{user}', 'ConversationController@showAll')->n
 Route::get('/conversations/{conversation}', 'ConversationController@show')->name('conversations.show');
 Route::put('/conversations/{conversation}', 'ConversationController@update')->name('conversations.update');
 
-Route::get('/messages/showAll/{conversation}', 'messageController@showAll')->name('messages.showAll');
-Route::post('/messages', 'messageController@store')->name('messages.store');
-Route::get('/messages/{message}', 'messageController@show')->name('messages.show');
-Route::put('/messages/{conversation}', 'messageController@update')->name('messages.update');
+Route::get('/messages/showAll/{conversation}', 'MessageController@showAll')->name('messages.showAll');
+Route::post('/messages', 'MessageController@store')->name('messages.store');
+Route::get('/messages/{message}', 'MessageController@show')->name('messages.show');
+Route::put('/messages/{conversation}', 'MessageController@update')->name('messages.update');
 
 //Route::post('/messages', 'MessageController@store')->name('messages.store');
 

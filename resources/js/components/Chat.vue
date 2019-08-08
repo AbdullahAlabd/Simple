@@ -1,7 +1,7 @@
 <template>
   <div id="frame">
     <side-panel v-bind:user="user" v-bind:activeContact="activeContact" v-bind:contactList="contactList" @filterContacts="filterContacts" @changeConversation="changeConversation"></side-panel>
-    <conversation></conversation>
+    <conversation v-bind:conversationId="activeContact" v-bind:user="user"></conversation>
   </div>
 </template>
 
@@ -13,8 +13,6 @@ export default {
   mounted(){
     Axios.get('/conversations/showAll/'+this.user.id)
     .then(res => {
-      console.log(res);
-      console.log(this.user.id);
       this.originalContactList = res.data;
       this.contactList = res.data;
       this.activeContact = res.data[0].conversation_id;
