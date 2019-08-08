@@ -33,7 +33,7 @@ class ConversationController extends Controller
             $join->on('message_table.conversation_id', '=', 'conversations.id');
 
         })->select('content', 'message_table.created_at', 'conversation_id', 'sender_id','conversations.target_id','conversations.owner_id')
-            ->where('conversations.owner_id', '=', $user->id);
+            ->where('conversations.owner_id', '=', $user->id)->distinct('conversation_id');
          $sub = User::join(\DB::raw("({$sub->toSql()}) conversation_table"), function($join)
          {
              $join->on('conversation_table.target_id', '=', 'id');
