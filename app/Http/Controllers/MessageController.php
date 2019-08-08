@@ -43,6 +43,7 @@ class MessageController extends Controller
         $message_1->save();
         $message_2->conversation_id = $message_1->conversation->parallel_id;
         $message_2->save();
+        return  $message_1;
     }
 
 
