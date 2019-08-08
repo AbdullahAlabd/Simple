@@ -1717,8 +1717,9 @@ __webpack_require__.r(__webpack_exports__);
     axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/conversations/showAll/' + this.user.id).then(function (res) {
       _this.originalContactList = res.data;
       _this.contactList = res.data;
+      _this.targetID = _this.contactList[0].target_id;
 
-      _this.changeConversation(res.data[0].conversation_id);
+      _this.changeConversation(res.data[0]);
     })["catch"](function (e) {
       console.log(e);
     });
@@ -1728,28 +1729,24 @@ __webpack_require__.r(__webpack_exports__);
       activeContact: null,
       contactList: [],
       originalContactList: [],
-      messages: []
+      messages: [],
+      targetID: null
     };
   },
   components: {
     SidePanel: _SidePanel__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   methods: {
-    changeConversation: function changeConversation(to) {
+    changeConversation: function changeConversation(data) {
       var _this2 = this;
 
-      console.log(to);
-
-      if (to) {
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/messages/showAll/' + to).then(function (res) {
-          // console.log('msgs');
-          // console.log(res);
-          _this2.messages = res.data;
-          _this2.$data.activeContact = to;
-        })["catch"](function (e) {
-          console.log(e);
-        });
-      }
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/messages/showAll/' + data.conversation_id).then(function (res) {
+        _this2.messages = res.data;
+        _this2.$data.activeContact = data.conversation_id;
+        _this2.targetID = data.target_id;
+      })["catch"](function (e) {
+        console.log(e);
+      });
     },
     filterContacts: function filterContacts() {
       var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
@@ -1811,7 +1808,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mainContent",
-  props: ['conversationId', 'user', 'messages'],
+  props: ['conversationId', 'user', 'messages', 'targetID'],
   data: function data() {
     return {
       cnt: 100,
@@ -1839,8 +1836,6 @@ __webpack_require__.r(__webpack_exports__);
         sender_id: this.user.id,
         content: message
       }).then(function (res) {
-        console.log(res);
-
         _this.messages.push(res.data);
       })["catch"](function (e) {
         console.log(e);
@@ -1862,16 +1857,11 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this2 = this;
 
-    if (this.conversationId) {
-      //copy from change changeConversation on Chat.vue
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/messages/showAll/' + this.conversationId).then(function (res) {
-        _this2.messages = res.data;
-      })["catch"](function (e) {
-        console.log(e);
-      });
-      var messagesComponent = document.getElementById('messages');
-      messagesComponent.scrollTop = messagesComponent.scrollHeight;
-    }
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/profiles/info/' + this.targetID).then(function (res) {
+      _this2.reciever = res.data;
+    })["catch"](function (e) {
+      console.log(e);
+    });
   }
 });
 
@@ -1936,6 +1926,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -1993,6 +1985,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SidePanel",
   props: ['user', 'activeContact', 'contactList'],
@@ -2006,12 +2001,37 @@ __webpack_require__.r(__webpack_exports__);
     },
     toggleProfile: function toggleProfile() {
       this.profileToggle = !this.profileToggle;
+    },
+    saveChanges: function saveChanges() {
+      var data = new FormData();
+      data.append('image', document.getElementById('photo').files[0]);
+      data.append('name', this.name);
+      data.append('about', this.status);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/profiles/' + this.user.id, data).then(function (res) {
+        console.log(res);
+      })["catch"](function (e) {
+        console.log(e);
+      });
     }
   },
   data: function data() {
     return {
-      profileToggle: false
+      profileToggle: false,
+      name: this.user.name,
+      handle: this.user.handle,
+      status: this.user.status
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    console.log(this.user);
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/profiles/info/' + this.user.id).then(function (res) {
+      _this.name = res.data.name;
+      _this.status = res.data.about;
+    })["catch"](function (e) {
+      console.log(e);
+    });
   }
 });
 
@@ -6531,7 +6551,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#sidepanel[data-v-23d86692] {\n  float: left;\n  min-width: 280px;\n  max-width: 340px;\n  width: 40%;\n  height: 100%;\n  background: #2c3e50;\n  color: #f5f5f5;\n  overflow: hidden;\n  position: relative;\n}\n@media screen and (max-width: 735px) {\n#sidepanel[data-v-23d86692] {\n    width: 58px;\n    min-width: 58px;\n}\n}\n#sidepanel #profile[data-v-23d86692] {\n  width: 80%;\n  margin: 25px auto;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile[data-v-23d86692] {\n    width: 100%;\n    margin: 0 auto;\n    padding: 5px 0 0 0;\n    background: #32465a;\n}\n}\n#sidepanel #profile.expanded .wrap[data-v-23d86692] {\n  min-height: 210px;\n  height: auto;\n  line-height: initial;\n}\n#sidepanel #profile.expanded .wrap p[data-v-23d86692] {\n  margin-top: 20px;\n}\n#sidepanel #profile.expanded .wrap i.expand-button[data-v-23d86692] {\n  transform: scaleY(-1);\n  -webkit-filter: FlipH;\n          filter: FlipH;\n  -ms-filter: \"FlipH\";\n}\n#sidepanel #profile .wrap[data-v-23d86692] {\n  height: 60px;\n  line-height: 60px;\n  overflow: hidden;\n  transition: 0.3s height ease;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap[data-v-23d86692] {\n    height: 55px;\n}\n}\n#sidepanel #profile .wrap img[data-v-23d86692] {\n  width: 50px;\n  border-radius: 50%;\n  padding: 3px;\n  border: 2px solid #e74c3c;\n  height: auto;\n  float: left;\n  cursor: pointer;\n  transition: 0.3s border ease;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap img[data-v-23d86692] {\n    width: 40px;\n    margin-left: 4px;\n}\n}\n#sidepanel #profile .wrap img.online[data-v-23d86692] {\n  border: 2px solid #2ecc71;\n}\n#sidepanel #profile .wrap img.away[data-v-23d86692] {\n  border: 2px solid #f1c40f;\n}\n#sidepanel #profile .wrap img.busy[data-v-23d86692] {\n  border: 2px solid #e74c3c;\n}\n#sidepanel #profile .wrap img.offline[data-v-23d86692] {\n  border: 2px solid #95a5a6;\n}\n#sidepanel #profile .wrap p[data-v-23d86692] {\n  float: left;\n  margin-left: 15px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap p[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #profile .wrap i.expand-button[data-v-23d86692] {\n  float: right;\n  margin-top: 23px;\n  font-size: 0.8em;\n  cursor: pointer;\n  color: #435f7a;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap i.expand-button[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #profile .wrap #status-options[data-v-23d86692] {\n  position: absolute;\n  opacity: 0;\n  visibility: hidden;\n  width: 150px;\n  margin: 70px 0 0 0;\n  border-radius: 6px;\n  z-index: 99;\n  line-height: initial;\n  background: #435f7a;\n  transition: 0.3s all ease;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options[data-v-23d86692] {\n    width: 58px;\n    margin-top: 57px;\n}\n}\n#sidepanel #profile .wrap #status-options.active[data-v-23d86692] {\n  opacity: 1;\n  visibility: visible;\n  margin: 75px 0 0 0;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options.active[data-v-23d86692] {\n    margin-top: 62px;\n}\n}\n#sidepanel #profile .wrap #status-options[data-v-23d86692]:before {\n  content: \"\";\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-left: 6px solid transparent;\n  border-right: 6px solid transparent;\n  border-bottom: 8px solid #435f7a;\n  margin: -8px 0 0 24px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options[data-v-23d86692]:before {\n    margin-left: 23px;\n}\n}\n#sidepanel #profile .wrap #status-options ul[data-v-23d86692] {\n  overflow: hidden;\n  border-radius: 6px;\n}\n#sidepanel #profile .wrap #status-options ul li[data-v-23d86692] {\n  padding: 15px 0 30px 18px;\n  display: block;\n  cursor: pointer;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options ul li[data-v-23d86692] {\n    padding: 15px 0 35px 22px;\n}\n}\n#sidepanel #profile .wrap #status-options ul li[data-v-23d86692]:hover {\n  background: #496886;\n}\n#sidepanel #profile .wrap #status-options ul li span.status-circle[data-v-23d86692] {\n  position: absolute;\n  width: 10px;\n  height: 10px;\n  border-radius: 50%;\n  margin: 5px 0 0 0;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options ul li span.status-circle[data-v-23d86692] {\n    width: 14px;\n    height: 14px;\n}\n}\n#sidepanel #profile .wrap #status-options ul li span.status-circle[data-v-23d86692]:before {\n  content: \"\";\n  position: absolute;\n  width: 14px;\n  height: 14px;\n  margin: -3px 0 0 -3px;\n  background: transparent;\n  border-radius: 50%;\n  z-index: 0;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options ul li span.status-circle[data-v-23d86692]:before {\n    height: 18px;\n    width: 18px;\n}\n}\n#sidepanel #profile .wrap #status-options ul li p[data-v-23d86692] {\n  padding-left: 12px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options ul li p[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-online\n  span.status-circle[data-v-23d86692] {\n  background: #2ecc71;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-online.active\n  span.status-circle[data-v-23d86692]:before {\n  border: 1px solid #2ecc71;\n}\n#sidepanel #profile .wrap #status-options ul li#status-away span.status-circle[data-v-23d86692] {\n  background: #f1c40f;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-away.active\n  span.status-circle[data-v-23d86692]:before {\n  border: 1px solid #f1c40f;\n}\n#sidepanel #profile .wrap #status-options ul li#status-busy span.status-circle[data-v-23d86692] {\n  background: #e74c3c;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-busy.active\n  span.status-circle[data-v-23d86692]:before {\n  border: 1px solid #e74c3c;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-offline\n  span.status-circle[data-v-23d86692] {\n  background: #95a5a6;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-offline.active\n  span.status-circle[data-v-23d86692]:before {\n  border: 1px solid #95a5a6;\n}\n#sidepanel #profile .wrap #expanded[data-v-23d86692] {\n  padding: 100px 0 0 0;\n  display: block;\n  line-height: initial !important;\n}\n#sidepanel #profile .wrap #expanded label[data-v-23d86692] {\n  float: left;\n  clear: both;\n  margin: 0 8px 5px 0;\n  padding: 5px 0;\n}\n#sidepanel #profile .wrap #expanded input[data-v-23d86692] {\n  border: none;\n  margin-bottom: 6px;\n  background: #32465a;\n  border-radius: 3px;\n  color: #f5f5f5;\n  padding: 7px;\n  width: calc(100% - 43px);\n}\n#sidepanel #profile .wrap #expanded input[data-v-23d86692]:focus {\n  outline: none;\n  background: #435f7a;\n}\n#sidepanel #search[data-v-23d86692] {\n  border-top: 1px solid #32465a;\n  border-bottom: 1px solid #32465a;\n  font-weight: 300;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #search[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #search label[data-v-23d86692] {\n  position: absolute;\n  margin: 10px 0 0 20px;\n}\n#sidepanel #search input[data-v-23d86692] {\n  font-family: \"proxima-nova\", \"Source Sans Pro\", sans-serif;\n  padding: 10px 0 10px 46px;\n  /* width: calc(100% - 25px); */\n  width: 100%;\n  border: none;\n  background: #32465a;\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]:focus {\n  outline: none;\n  background: #435f7a;\n}\n#sidepanel #search input[data-v-23d86692]::-webkit-input-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]::-moz-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]:-ms-input-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]:-moz-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #contacts[data-v-23d86692] {\n  /* height: calc(100% - 177px); */\n  height: 100%;\n  overflow-y: scroll;\n  overflow-x: hidden;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts[data-v-23d86692] {\n    /* height: calc(100% - 149px); */\n    height: 100%;\n    overflow-y: scroll;\n    overflow-x: hidden;\n}\n#sidepanel #contacts[data-v-23d86692]::-webkit-scrollbar {\n    display: none;\n}\n}\n#sidepanel #contacts.expanded[data-v-23d86692] {\n  height: calc(100% - 334px);\n}\n#sidepanel #contacts[data-v-23d86692]::-webkit-scrollbar {\n  width: 8px;\n  background: #2c3e50;\n}\n#sidepanel #contacts[data-v-23d86692]::-webkit-scrollbar-thumb {\n  background-color: #243140;\n}\n#sidepanel #contacts ul li.contact[data-v-23d86692] {\n  position: relative;\n  padding: 10px 0 15px 0;\n  font-size: 0.9em;\n  cursor: pointer;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact[data-v-23d86692] {\n    padding: 6px 0 46px 8px;\n}\n}\n#sidepanel #contacts ul li.contact[data-v-23d86692]:hover {\n  background: #32465a;\n}\n#sidepanel #contacts ul li.contact.active[data-v-23d86692] {\n  background: #32465a;\n  border-right: 5px solid #435f7a;\n}\n#sidepanel #contacts ul li.contact.active span.contact-status[data-v-23d86692] {\n  border: 2px solid #32465a !important;\n}\n#sidepanel #contacts ul li.contact .wrap[data-v-23d86692] {\n  width: 88%;\n  margin: 0 auto;\n  position: relative;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap[data-v-23d86692] {\n    width: 100%;\n}\n}\n#sidepanel #contacts ul li.contact .wrap span[data-v-23d86692] {\n  position: absolute;\n  left: 0;\n  margin: -2px 0 0 -2px;\n  width: 10px;\n  height: 10px;\n  border-radius: 50%;\n  border: 2px solid #2c3e50;\n  background: #95a5a6;\n}\n#sidepanel #contacts ul li.contact .wrap span.online[data-v-23d86692] {\n  background: #2ecc71;\n}\n#sidepanel #contacts ul li.contact .wrap span.away[data-v-23d86692] {\n  background: #f1c40f;\n}\n#sidepanel #contacts ul li.contact .wrap span.busy[data-v-23d86692] {\n  background: #e74c3c;\n}\n#sidepanel #contacts ul li.contact .wrap img[data-v-23d86692] {\n  width: 40px;\n  border-radius: 50%;\n  float: left;\n  margin-right: 10px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap img[data-v-23d86692] {\n    margin-right: 0px;\n}\n}\n#sidepanel #contacts ul li.contact .wrap .meta[data-v-23d86692] {\n  padding: 5px 0 0 0;\n  margin-bottom: 0px !important;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap .meta[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #contacts ul li.contact .wrap .meta .name[data-v-23d86692] {\n  left: 0;\n  position: relative;\n  font-weight: 600;\n}\n#sidepanel #contacts ul li.contact .wrap .meta .preview[data-v-23d86692] {\n  margin: 5px 0 0 0;\n  padding: 0 0 1px;\n  font-weight: 400;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: 1s all ease;\n}\n#sidepanel #contacts ul li.contact .wrap .meta p[data-v-23d86692]{\n  margin-bottom: 0px!important;\n}\n#sidepanel #contacts ul li.contact .wrap .date[data-v-23d86692] {\n  position: absolute!important;\n  right: 0;\n  top: 0;\n  padding-top: 7px;\n  font-size: 10px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap .date[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #contacts ul li.contact .wrap .meta .preview span[data-v-23d86692] {\n  position: initial;\n  border-radius: initial;\n  background: none;\n  border: none;\n  padding: 0 2px 0 0;\n  margin: 0 0 0 1px;\n  opacity: 0.5;\n}\n#sidepanel #bottom-bar[data-v-23d86692] {\n  position: absolute;\n  width: 100%;\n  bottom: 0;\n}\n#sidepanel #bottom-bar button[data-v-23d86692] {\n  float: left;\n  border: none;\n  width: 50%;\n  padding: 10px 0;\n  background: #32465a;\n  color: #f5f5f5;\n  cursor: pointer;\n  font-size: 0.85em;\n  font-family: \"proxima-nova\", \"Source Sans Pro\", sans-serif;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #bottom-bar button[data-v-23d86692] {\n    float: none;\n    width: 100%;\n    padding: 15px 0;\n}\n}\n#sidepanel #bottom-bar button[data-v-23d86692]:focus {\n  outline: none;\n}\n#sidepanel #bottom-bar button[data-v-23d86692]:nth-child(1) {\n  border-right: 1px solid #2c3e50;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #bottom-bar button[data-v-23d86692]:nth-child(1) {\n    border-right: none;\n    border-bottom: 1px solid #2c3e50;\n}\n}\n#sidepanel #bottom-bar button[data-v-23d86692]:hover {\n  background: #435f7a;\n}\n#sidepanel #bottom-bar button i[data-v-23d86692] {\n  margin-right: 3px;\n  font-size: 1em;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #bottom-bar button i[data-v-23d86692] {\n    font-size: 1.3em;\n}\n}\n@media screen and (max-width: 735px) {\n#sidepanel #bottom-bar button span[data-v-23d86692] {\n    display: none;\n}\n}\n", ""]);
+exports.push([module.i, "\n#sidepanel[data-v-23d86692] {\n  float: left;\n  min-width: 280px;\n  max-width: 340px;\n  width: 40%;\n  height: 100%;\n  background: #2c3e50;\n  color: #f5f5f5;\n  overflow: hidden;\n  position: relative;\n}\n@media screen and (max-width: 735px) {\n#sidepanel[data-v-23d86692] {\n    width: 58px;\n    min-width: 58px;\n}\n}\n#sidepanel #profile[data-v-23d86692] {\n  width: 80%;\n  margin: 25px auto;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile[data-v-23d86692] {\n    width: 100%;\n    margin: 0 auto;\n    padding: 5px 0 0 0;\n    background: #32465a;\n}\n}\n#sidepanel #profile.expanded .wrap[data-v-23d86692] {\n  min-height: 210px;\n  height: auto;\n  line-height: initial;\n}\n#sidepanel #profile.expanded .wrap p[data-v-23d86692] {\n  margin-top: 20px;\n}\n#sidepanel #profile.expanded .wrap i.expand-button[data-v-23d86692] {\n  transform: scaleY(-1);\n  -webkit-filter: FlipH;\n          filter: FlipH;\n  -ms-filter: \"FlipH\";\n}\n#sidepanel #profile .wrap[data-v-23d86692] {\n  height: 60px;\n  line-height: 60px;\n  overflow: hidden;\n  transition: 0.3s height ease;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap[data-v-23d86692] {\n    height: 55px;\n}\n}\n#sidepanel #profile .wrap #profile-img[data-v-23d86692] {\n  width: 50px;\n  border-radius: 50%;\n  padding: 3px;\n  border: 2px solid #e74c3c;\n  height: auto;\n  float: left;\n  cursor: pointer;\n  transition: 0.3s border ease;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap img[data-v-23d86692] {\n    width: 40px;\n    margin-left: 4px;\n}\n}\n#sidepanel #profile .wrap #profile-img.online[data-v-23d86692] {\n  border: 2px solid #2ecc71;\n}\n#sidepanel #profile .wrap img.away[data-v-23d86692] {\n  border: 2px solid #f1c40f;\n}\n#sidepanel #profile .wrap img.busy[data-v-23d86692] {\n  border: 2px solid #e74c3c;\n}\n#sidepanel #profile .wrap img.offline[data-v-23d86692] {\n  border: 2px solid #95a5a6;\n}\n#sidepanel #profile .wrap p[data-v-23d86692] {\n  float: left;\n  margin-left: 15px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap p[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #profile .wrap i.expand-button[data-v-23d86692] {\n  float: right;\n  margin-top: 23px;\n  font-size: 0.8em;\n  cursor: pointer;\n  color: #435f7a;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap i.expand-button[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #profile .wrap #status-options[data-v-23d86692] {\n  position: absolute;\n  opacity: 0;\n  visibility: hidden;\n  width: 150px;\n  margin: 70px 0 0 0;\n  border-radius: 6px;\n  z-index: 99;\n  line-height: initial;\n  background: #435f7a;\n  transition: 0.3s all ease;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options[data-v-23d86692] {\n    width: 58px;\n    margin-top: 57px;\n}\n}\n#sidepanel #profile .wrap #status-options.active[data-v-23d86692] {\n  opacity: 1;\n  visibility: visible;\n  margin: 75px 0 0 0;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options.active[data-v-23d86692] {\n    margin-top: 62px;\n}\n}\n#sidepanel #profile .wrap #status-options[data-v-23d86692]:before {\n  content: \"\";\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-left: 6px solid transparent;\n  border-right: 6px solid transparent;\n  border-bottom: 8px solid #435f7a;\n  margin: -8px 0 0 24px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options[data-v-23d86692]:before {\n    margin-left: 23px;\n}\n}\n#sidepanel #profile .wrap #status-options ul[data-v-23d86692] {\n  overflow: hidden;\n  border-radius: 6px;\n}\n#sidepanel #profile .wrap #status-options ul li[data-v-23d86692] {\n  padding: 15px 0 30px 18px;\n  display: block;\n  cursor: pointer;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options ul li[data-v-23d86692] {\n    padding: 15px 0 35px 22px;\n}\n}\n#sidepanel #profile .wrap #status-options ul li[data-v-23d86692]:hover {\n  background: #496886;\n}\n#sidepanel #profile .wrap #status-options ul li span.status-circle[data-v-23d86692] {\n  position: absolute;\n  width: 10px;\n  height: 10px;\n  border-radius: 50%;\n  margin: 5px 0 0 0;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options ul li span.status-circle[data-v-23d86692] {\n    width: 14px;\n    height: 14px;\n}\n}\n#sidepanel #profile .wrap #status-options ul li span.status-circle[data-v-23d86692]:before {\n  content: \"\";\n  position: absolute;\n  width: 14px;\n  height: 14px;\n  margin: -3px 0 0 -3px;\n  background: transparent;\n  border-radius: 50%;\n  z-index: 0;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options ul li span.status-circle[data-v-23d86692]:before {\n    height: 18px;\n    width: 18px;\n}\n}\n#sidepanel #profile .wrap #status-options ul li p[data-v-23d86692] {\n  padding-left: 12px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap #status-options ul li p[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-online\n  span.status-circle[data-v-23d86692] {\n  background: #2ecc71;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-online.active\n  span.status-circle[data-v-23d86692]:before {\n  border: 1px solid #2ecc71;\n}\n#sidepanel #profile .wrap #status-options ul li#status-away span.status-circle[data-v-23d86692] {\n  background: #f1c40f;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-away.active\n  span.status-circle[data-v-23d86692]:before {\n  border: 1px solid #f1c40f;\n}\n#sidepanel #profile .wrap #status-options ul li#status-busy span.status-circle[data-v-23d86692] {\n  background: #e74c3c;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-busy.active\n  span.status-circle[data-v-23d86692]:before {\n  border: 1px solid #e74c3c;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-offline\n  span.status-circle[data-v-23d86692] {\n  background: #95a5a6;\n}\n#sidepanel\n  #profile\n  .wrap\n  #status-options\n  ul\n  li#status-offline.active\n  span.status-circle[data-v-23d86692]:before {\n  border: 1px solid #95a5a6;\n}\n#sidepanel #profile .wrap #expanded[data-v-23d86692] {\n  padding: 100px 0 0 0;\n  display: block;\n  line-height: initial !important;\n}\n#sidepanel #profile .wrap #expanded label[data-v-23d86692] {\n  float: left;\n  clear: both;\n  margin: 0 8px 5px 0;\n  padding: 5px 0;\n}\n#sidepanel #profile .wrap #expanded input[data-v-23d86692] {\n  border: none;\n  margin-bottom: 6px;\n  background: #32465a;\n  border-radius: 3px;\n  color: #f5f5f5;\n  padding: 7px;\n  width: calc(100% - 43px);\n}\n#sidepanel #profile .wrap #expanded input[data-v-23d86692]:focus {\n  outline: none;\n  background: #435f7a;\n}\n#sidepanel #search[data-v-23d86692] {\n  border-top: 1px solid #32465a;\n  border-bottom: 1px solid #32465a;\n  font-weight: 300;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #search[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #search label[data-v-23d86692] {\n  position: absolute;\n  margin: 10px 0 0 20px;\n}\n#sidepanel #search input[data-v-23d86692] {\n  font-family: \"proxima-nova\", \"Source Sans Pro\", sans-serif;\n  padding: 10px 0 10px 46px;\n  /* width: calc(100% - 25px); */\n  width: 100%;\n  border: none;\n  background: #32465a;\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]:focus {\n  outline: none;\n  background: #435f7a;\n}\n#sidepanel #search input[data-v-23d86692]::-webkit-input-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]::-moz-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]:-ms-input-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]:-moz-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #contacts[data-v-23d86692] {\n  /* height: calc(100% - 177px); */\n  height: 100%;\n  overflow-y: scroll;\n  overflow-x: hidden;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts[data-v-23d86692] {\n    /* height: calc(100% - 149px); */\n    height: 100%;\n    overflow-y: scroll;\n    overflow-x: hidden;\n}\n#sidepanel #contacts[data-v-23d86692]::-webkit-scrollbar {\n    display: none;\n}\n}\n#sidepanel #contacts.expanded[data-v-23d86692] {\n  height: calc(100% - 334px);\n}\n#sidepanel #contacts[data-v-23d86692]::-webkit-scrollbar {\n  width: 8px;\n  background: #2c3e50;\n}\n#sidepanel #contacts[data-v-23d86692]::-webkit-scrollbar-thumb {\n  background-color: #243140;\n}\n#sidepanel #contacts ul li.contact[data-v-23d86692] {\n  position: relative;\n  padding: 10px 0 15px 0;\n  font-size: 0.9em;\n  cursor: pointer;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact[data-v-23d86692] {\n    padding: 6px 0 46px 8px;\n}\n}\n#sidepanel #contacts ul li.contact[data-v-23d86692]:hover {\n  background: #32465a;\n}\n#sidepanel #contacts ul li.contact.active[data-v-23d86692] {\n  background: #32465a;\n  border-right: 5px solid #435f7a;\n}\n#sidepanel #contacts ul li.contact.active span.contact-status[data-v-23d86692] {\n  border: 2px solid #32465a !important;\n}\n#sidepanel #contacts ul li.contact .wrap[data-v-23d86692] {\n  width: 88%;\n  margin: 0 auto;\n  position: relative;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap[data-v-23d86692] {\n    width: 100%;\n}\n}\n#sidepanel #contacts ul li.contact .wrap span[data-v-23d86692] {\n  position: absolute;\n  left: 0;\n  margin: -2px 0 0 -2px;\n  width: 10px;\n  height: 10px;\n  border-radius: 50%;\n  border: 2px solid #2c3e50;\n  background: #95a5a6;\n}\n#sidepanel #contacts ul li.contact .wrap span.online[data-v-23d86692] {\n  background: #2ecc71;\n}\n#sidepanel #contacts ul li.contact .wrap span.away[data-v-23d86692] {\n  background: #f1c40f;\n}\n#sidepanel #contacts ul li.contact .wrap span.busy[data-v-23d86692] {\n  background: #e74c3c;\n}\n#sidepanel #contacts ul li.contact .wrap img[data-v-23d86692] {\n  width: 40px;\n  border-radius: 50%;\n  float: left;\n  margin-right: 10px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap img[data-v-23d86692] {\n    margin-right: 0px;\n}\n}\n#sidepanel #contacts ul li.contact .wrap .meta[data-v-23d86692] {\n  padding: 5px 0 0 0;\n  margin-bottom: 0px !important;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap .meta[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #contacts ul li.contact .wrap .meta .name[data-v-23d86692] {\n  left: 0;\n  position: relative;\n  font-weight: 600;\n}\n#sidepanel #contacts ul li.contact .wrap .meta .preview[data-v-23d86692] {\n  margin: 5px 0 0 0;\n  padding: 0 0 1px;\n  font-weight: 400;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: 1s all ease;\n}\n#sidepanel #contacts ul li.contact .wrap .meta p[data-v-23d86692]{\n  margin-bottom: 0px!important;\n}\n#sidepanel #contacts ul li.contact .wrap .date[data-v-23d86692] {\n  position: absolute!important;\n  right: 0;\n  top: 0;\n  padding-top: 7px;\n  font-size: 10px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap .date[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #contacts ul li.contact .wrap .meta .preview span[data-v-23d86692] {\n  position: initial;\n  border-radius: initial;\n  background: none;\n  border: none;\n  padding: 0 2px 0 0;\n  margin: 0 0 0 1px;\n  opacity: 0.5;\n}\n#sidepanel #bottom-bar[data-v-23d86692] {\n  position: absolute;\n  width: 100%;\n  bottom: 0;\n}\n#sidepanel #bottom-bar button[data-v-23d86692] {\n  float: left;\n  border: none;\n  width: 50%;\n  padding: 10px 0;\n  background: #32465a;\n  color: #f5f5f5;\n  cursor: pointer;\n  font-size: 0.85em;\n  font-family: \"proxima-nova\", \"Source Sans Pro\", sans-serif;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #bottom-bar button[data-v-23d86692] {\n    float: none;\n    width: 100%;\n    padding: 15px 0;\n}\n}\n#sidepanel #bottom-bar button[data-v-23d86692]:focus {\n  outline: none;\n}\n#sidepanel #bottom-bar button[data-v-23d86692]:nth-child(1) {\n  border-right: 1px solid #2c3e50;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #bottom-bar button[data-v-23d86692]:nth-child(1) {\n    border-right: none;\n    border-bottom: 1px solid #2c3e50;\n}\n}\n#sidepanel #bottom-bar button[data-v-23d86692]:hover {\n  background: #435f7a;\n}\n#sidepanel #bottom-bar button i[data-v-23d86692] {\n  margin-right: 3px;\n  font-size: 1em;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #bottom-bar button i[data-v-23d86692] {\n    font-size: 1.3em;\n}\n}\n@media screen and (max-width: 735px) {\n#sidepanel #bottom-bar button span[data-v-23d86692] {\n    display: none;\n}\n}\n.profile-img-side[data-v-23d86692]{\n  width: 150px;\n  margin-left: auto;\n  margin-right: auto;\n  border-radius: 30%;\n  padding: 3px;\n  border: 2px solid #4283c0;\n  height: auto;\n  cursor: pointer;\n  transition: 0.3s border ease;\n}\n", ""]);
 
 // exports
 
@@ -38107,25 +38127,30 @@ var render = function() {
     "div",
     { attrs: { id: "frame" } },
     [
-      _c("side-panel", {
-        attrs: {
-          user: _vm.user,
-          activeContact: _vm.activeContact,
-          contactList: _vm.contactList
-        },
-        on: {
-          filterContacts: _vm.filterContacts,
-          changeConversation: _vm.changeConversation
-        }
-      }),
+      _vm.contactList
+        ? _c("side-panel", {
+            attrs: {
+              user: _vm.user,
+              activeContact: _vm.activeContact,
+              contactList: _vm.contactList
+            },
+            on: {
+              filterContacts: _vm.filterContacts,
+              changeConversation: _vm.changeConversation
+            }
+          })
+        : _vm._e(),
       _vm._v(" "),
-      _c("conversation", {
-        attrs: {
-          conversationId: _vm.activeContact,
-          user: _vm.user,
-          messages: _vm.messages
-        }
-      })
+      _vm.targetID
+        ? _c("conversation", {
+            attrs: {
+              conversationId: _vm.activeContact,
+              user: _vm.user,
+              messages: _vm.messages,
+              targetID: _vm.targetID
+            }
+          })
+        : _vm._e()
     ],
     1
   )
@@ -38179,7 +38204,7 @@ var render = function() {
                 color: "rgb(167, 167, 167)"
               }
             },
-            [_vm._v(_vm._s(_vm.reciever.handle))]
+            [_vm._v("@" + _vm._s(_vm.reciever.handle))]
           )
         ]),
         _vm._v(" "),
@@ -38367,7 +38392,7 @@ var render = function() {
             staticClass: "online",
             attrs: {
               id: "profile-img",
-              src: "http://emilcarlsson.se/assets/mikeross.png",
+              src: "storage/" + _vm.user.image,
               alt: ""
             }
           }),
@@ -38381,8 +38406,26 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("div", { attrs: { id: "expanded" } }, [
+            _c("img", {
+              staticClass: "profile-img-side mx-5 mb-2",
+              attrs: {
+                src: "http://emilcarlsson.se/assets/mikeross.png",
+                alt: ""
+              }
+            }),
+            _vm._v(" "),
             _c("input", {
-              staticClass: "content-center",
+              attrs: {
+                type: "file",
+                name: "photo",
+                id: "photo",
+                placeholder: "Choose another photo",
+                accept: "image/*"
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "mx-1",
               attrs: {
                 name: "handle",
                 type: "text",
@@ -38390,34 +38433,70 @@ var render = function() {
                 readonly: "",
                 title: "Handle"
               },
-              domProps: { value: "@" + _vm.user.handle }
+              domProps: { value: "@" + _vm.handle }
             }),
             _vm._v(" "),
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.name,
+                  expression: "name"
+                }
+              ],
+              staticClass: "mx-1",
               attrs: {
                 name: "name",
                 type: "text",
                 title: "Name",
                 maxlength: "50"
               },
-              domProps: { value: _vm.user.name }
+              domProps: { value: _vm.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.name = $event.target.value
+                }
+              }
             }),
             _vm._v(" "),
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.status,
+                  expression: "status"
+                }
+              ],
+              staticClass: "mx-1",
               attrs: {
                 name: "status",
                 type: "text",
                 title: "Status",
                 maxlength: "200"
               },
-              domProps: { value: _vm.user.status }
+              domProps: { value: _vm.status },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.status = $event.target.value
+                }
+              }
             }),
             _vm._v(" "),
             _c(
               "button",
               {
-                staticClass: "btn btn-primary mx-5",
-                attrs: { name: "editProfile" }
+                staticClass: "btn btn-primary",
+                staticStyle: { "margin-left": "56px" },
+                attrs: { name: "editProfile" },
+                on: { click: _vm.saveChanges }
               },
               [_vm._v("Save Changes")]
             )
@@ -38461,10 +38540,7 @@ var render = function() {
                     },
                     on: {
                       click: function($event) {
-                        return _vm.$emit(
-                          "changeConversation",
-                          contact.conversation_id
-                        )
+                        return _vm.$emit("changeConversation", contact)
                       }
                     }
                   },

@@ -7,7 +7,7 @@
         <small
           class="form-text text-muted"
           style="position: absolute;top:15px;left:70px; color: rgb(167, 167, 167)"
-        >{{reciever.handle}}</small>
+        >@{{reciever.handle}}</small>
       </div>
       <div class="top-bar-btns p-3">
         <i class="material-icons d-block mr-3" aria-hidden="true" >group_add</i>
@@ -37,7 +37,7 @@
 import Axios from 'axios';
 export default {
   name: "mainContent",
-  props: ['conversationId', 'user', 'messages'],
+  props: ['conversationId', 'user', 'messages', 'targetID'],
   data() {
     return {
       cnt: 100,
@@ -63,7 +63,6 @@ export default {
         content: message
       })
       .then(res => {
-        console.log(res);
         this.messages.push(res.data);
       })
       .catch(e => {
@@ -84,17 +83,14 @@ export default {
     messagesComponent.scrollTop = messagesComponent.scrollHeight;
   },
   mounted(){
-    if(this.conversationId) { //copy from change changeConversation on Chat.vue
-      Axios.get('/messages/showAll/'+this.conversationId)
-      .then(res => {
-        this.messages = res.data;
-      })
-      .catch(e => {
-        console.log(e);
-      });
-      let messagesComponent = document.getElementById('messages');
-      messagesComponent.scrollTop = messagesComponent.scrollHeight;
-    }
+    Axios.get('/profiles/info/'+this.targetID)
+    .then(res=> {
+      this.reciever = res.data;
+    })
+    .catch(e => {
+      console.log(e);
+    });
+  
   }
 };
 </script>

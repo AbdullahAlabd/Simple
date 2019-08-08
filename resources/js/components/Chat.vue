@@ -1,7 +1,7 @@
 <template>
   <div id="frame">
-    <side-panel v-bind:user="user" v-bind:activeContact="activeContact" v-bind:contactList="contactList" @filterContacts="filterContacts" @changeConversation="changeConversation"></side-panel>
-    <conversation v-bind:conversationId="activeContact" v-bind:user="user" v-bind:messages="messages"></conversation>
+    <side-panel v-if="contactList" v-bind:user="user" v-bind:activeContact="activeContact" v-bind:contactList="contactList" @filterContacts="filterContacts" @changeConversation="changeConversation"></side-panel>
+    <conversation v-if="targetID" v-bind:conversationId="activeContact" v-bind:user="user" v-bind:messages="messages" v-bind:targetID="targetID"></conversation>
   </div>
 </template>
 
@@ -15,7 +15,8 @@ export default {
     .then(res => {
       this.originalContactList = res.data;
       this.contactList = res.data;
-      this.changeConversation(res.data[0].conversation_id);
+      this.targetID = this.contactList[0].target_id;
+      this.changeConversation(res.data[0]);
     })
     .catch(e => {
       console.log(e);
@@ -27,37 +28,30 @@ export default {
       activeContact: null,
       contactList: [],
       originalContactList: [],
-      messages: []
-  
+      messages: [],
+      targetID: null
     };
   },
   components: {
     SidePanel
   },
   methods: {
-    changeConversation(to) {
-      console.log(to);
-        if(to) {
-          Axios.get('/messages/showAll/'+to)
-          .then(res => {
-            // console.log('msgs');
-            // console.log(res);
-            this.messages = res.data;
-            this.$data.activeContact = to;
-          })
-          .catch(e => {
-            console.log(e);
-          })
-        }
+    changeConversation(data) {
+      Axios.get('/messages/showAll/'+data.conversation_id)
+      .then(res => {
+        this.messages = res.data;
+        this.$data.activeContact = data.conversation_id;
+        this.targetID = data.target_id;
+      })
+      .catch(e => {
+        console.log(e);
+      })
     },
     
     filterContacts(filter = '') {
       this.contactList = this.originalContactList.filter(e => (filter).toLowerCase() == e.name.substring(0, filter.length).toLowerCase());
     }
-  
   },
-  
-  
 };
 </script>
 

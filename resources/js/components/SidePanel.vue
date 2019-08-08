@@ -1,15 +1,17 @@
 <template>
   <div id="sidepanel">
     <div id="profile" v-bind:class="{expanded: profileToggle}">
-      <div class="wrap">
-        <img id="profile-img" src="http://emilcarlsson.se/assets/mikeross.png" class="online" alt />
+      <div class="wrap" >
+        <img id="profile-img" v-bind:src="'storage/'+user.image" class="online" alt />
         <p > {{user.name}}</p>
         <i class="fa fa-chevron-down expand-button" aria-hidden="true" @click="toggleProfile"></i>
-				<div id="expanded">
-					<input name="handle" type="text" v-bind:value="'@'+user.handle" disabled readonly class="content-center" title="Handle"/>
-					<input name="name" type="text" v-bind:value="user.name" title="Name" maxlength="50"/>
-					<input name="status" type="text" v-bind:value="user.status" title="Status" maxlength="200" />
-          <button name="editProfile" class="btn btn-primary mx-5">Save Changes</button>
+				<div id="expanded" >
+          <img src="http://emilcarlsson.se/assets/mikeross.png" class="profile-img-side mx-5 mb-2" alt />
+          <input type="file" name="photo" id="photo" placeholder="Choose another photo" accept="image/*">
+					<input name="handle" type="text" v-bind:value="'@'+handle" disabled readonly class="mx-1" title="Handle"/>
+					<input name="name" type="text" v-model="name" title="Name" maxlength="50" class="mx-1"/>
+					<input name="status" type="text" v-model="status" title="Status" maxlength="200" class="mx-1"/>
+          <button name="editProfile" class="btn btn-primary" @click="saveChanges" style="margin-left:56px">Save Changes</button>
 				</div>
       </div>
     </div>
@@ -27,7 +29,7 @@
           v-bind:activeContact="activeContact"
           v-for="contact in contactList"
           v-bind:key="contact.conversation_id"
-          @click="$emit('changeConversation',contact.conversation_id)"
+          @click="$emit('changeConversation', contact)"
           :class="{active: activeContact===contact.conversation_id}"
         >
           <div class="wrap">
@@ -56,6 +58,7 @@
 </template>
 
 <script>
+import Axios from 'axios';
 export default {
   name: "SidePanel",
   
@@ -69,14 +72,40 @@ export default {
     },
     toggleProfile() {
       this.profileToggle = !this.profileToggle;
+    },
+    saveChanges() {
+      let data = new FormData();
+      data.append('image', document.getElementById('photo').files[0]);
+      data.append('name', this.name);
+      data.append('about', this.status);
+
+      Axios.post('/api/profiles/'+this.user.id, data)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(e => {
+        console.log(e);
+      })
     }
   },
   data() {
     return {
-      profileToggle:false
+      profileToggle:false,
+      name: this.user.name,
+      handle: this.user.handle,
+      status: this.user.status
     }
+  },
+  mounted() {
+    console.log(this.user);
+    Axios.get('/profiles/info/'+this.user.id).then(res => {
+      this.name = res.data.name;
+      this.status = res.data.about;
+    })
+    .catch(e => {
+      console.log(e);
+    });
   }
-  
 };
 </script>
 
@@ -140,7 +169,7 @@ export default {
     height: 55px;
   }
 }
-#sidepanel #profile .wrap img {
+#sidepanel #profile .wrap #profile-img {
   width: 50px;
   border-radius: 50%;
   padding: 3px;
@@ -159,7 +188,7 @@ export default {
     margin-left: 4px;
   }
 }
-#sidepanel #profile .wrap img.online {
+#sidepanel #profile .wrap #profile-img.online {
   border: 2px solid #2ecc71;
 }
 #sidepanel #profile .wrap img.away {
@@ -614,5 +643,20 @@ export default {
   #sidepanel #bottom-bar button span {
     display: none;
   }
+}
+.profile-img-side{
+  width: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 30%;
+  padding: 3px;
+  border: 2px solid #4283c0;
+  height: auto;
+  cursor: pointer;
+  -moz-transition: 0.3s border ease;
+  -o-transition: 0.3s border ease;
+  -webkit-transition: 0.3s border ease;
+  transition: 0.3s border ease;
+  
 }
 </style>
