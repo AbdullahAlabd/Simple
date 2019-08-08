@@ -52,5 +52,6 @@ class ProfileController extends Controller
             $user->name = request('name');
         }
         $user->save();
+        return  $user;
     }
 }
