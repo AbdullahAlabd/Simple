@@ -1851,14 +1851,21 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   updated: function updated() {
-    var messagesComponent = document.getElementById('messages');
-    messagesComponent.scrollTop = messagesComponent.scrollHeight;
-  },
-  mounted: function mounted() {
     var _this2 = this;
 
+    var messagesComponent = document.getElementById('messages');
+    messagesComponent.scrollTop = messagesComponent.scrollHeight;
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/profiles/info/' + this.targetID).then(function (res) {
       _this2.reciever = res.data;
+    })["catch"](function (e) {
+      console.log(e);
+    });
+  },
+  mounted: function mounted() {
+    var _this3 = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/profiles/info/' + this.targetID).then(function (res) {
+      _this3.reciever = res.data;
     })["catch"](function (e) {
       console.log(e);
     });
@@ -38184,7 +38191,7 @@ var render = function() {
       _c("div", { staticClass: "contact-profile", attrs: { id: "contact" } }, [
         _c("img", {
           attrs: {
-            src: "http://emilcarlsson.se/assets/harveyspecter.png",
+            src: "storage/" + _vm.reciever.image,
             id: "contimg",
             alt: ""
           }
@@ -38237,7 +38244,7 @@ var render = function() {
                     src:
                       message.sender_id === _vm.user.id
                         ? _vm.senderImgUrl
-                        : "http://emilcarlsson.se/assets/harveyspecter.png"
+                        : "storage/" + _vm.reciever.image
                   }
                 }),
                 _vm._v(" "),
@@ -38553,11 +38560,7 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("img", {
-                        attrs: {
-                          src:
-                            "http://emilcarlsson.se/assets/harveyspecter.png",
-                          alt: ""
-                        }
+                        attrs: { src: "storage/" + contact.image, alt: "" }
                       }),
                       _vm._v(" "),
                       _c("p", { staticClass: "date" }, [

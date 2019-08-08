@@ -36,7 +36,7 @@
             <!-- v-bind:class="{online: contact.onlineStatus}" -->
             <span class="contact-status" v-bind:class="{online: true}"></span>
             <!-- v-bind:src="contact.imgUrl" -->
-            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt />
+            <img :src="'storage/'+contact.image" alt />
               <p class="date">2019-08-07 22:40:20</p>
             <div class="meta">
               <p class="name">{{contact.name}}</p>

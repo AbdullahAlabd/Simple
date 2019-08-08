@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="contact-profile" id="contact">
-      <img src="http://emilcarlsson.se/assets/harveyspecter.png" id="contimg" alt />
+      <img :src="'storage/'+reciever.image" id="contimg" alt />
       <div id="tag">
         <p style="position:absolute;top:-10;left:70px;">{{reciever.name}}</p>
         <small
@@ -24,7 +24,7 @@
           :class="(message.sender_id===user.id?'sent':'replies')"
           @mouseover="massageHover"
         >
-          <img :src="(message.sender_id===user.id?senderImgUrl:'http://emilcarlsson.se/assets/harveyspecter.png')" />
+          <img :src="(message.sender_id===user.id?senderImgUrl:'storage/'+reciever.image)" />
           <p data-toggle="popover" :data-content="message.created_at" style="white-space: pre-line">{{message.content}}</p>
         </li>
       </ul>
@@ -81,6 +81,13 @@ export default {
   updated() {
     let messagesComponent = document.getElementById('messages');
     messagesComponent.scrollTop = messagesComponent.scrollHeight;
+    Axios.get('/profiles/info/'+this.targetID)
+    .then(res=> {
+      this.reciever = res.data;
+    })
+    .catch(e => {
+      console.log(e);
+    });
   },
   mounted(){
     Axios.get('/profiles/info/'+this.targetID)
