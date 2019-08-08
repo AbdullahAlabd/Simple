@@ -15,10 +15,14 @@ class User extends Authenticatable
      *
      * @var array
      */
+
     protected $fillable = [
         'name', 'email', 'password', 'handle'
     ];
 
+    protected $attributes = [
+        'about' => 'Hey there! I am using SimpleChat',
+    ];
     /**
      * The attributes that should be hidden for arrays.
      *

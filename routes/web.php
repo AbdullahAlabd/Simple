@@ -40,3 +40,8 @@ Route::post('orders', 'orderController@store')->name('orders.store');
 Route::get('/orders/{order}', 'orderController@show')->name('orders.show');
 Route::get('/orders/accept/{order}', 'orderController@accept')->name('orders.accept');
 
+
+Route::get('/profiles/search/{handel}', 'ProfileController@search')->name('profiles.search');
+Route::get('/profiles/info/{user}', 'ProfileController@show')->name('profiles.show');
+Route::post('/profiles/{user}', 'ProfileController@update')->name('profiles.update');
+
