@@ -47,5 +47,8 @@ class ProfileController extends Controller
         if (request('about')) {
             $user->about = request('about');
         }
+        if (request('name')) {
+            $user->about = request('name');
+        }
     }
 }
