@@ -1,35 +1,45 @@
 <template>
   <div id="frame">
-    <side-panel v-if="contactList" v-bind:user="user" v-bind:activeContact="activeContact" v-bind:contactList="contactList" @filterContacts="filterContacts" @changeConversation="changeConversation"></side-panel>
-    <conversation v-if="targetID" v-bind:conversationId="activeContact" v-bind:user="user" v-bind:messages="messages" v-bind:targetID="targetID"></conversation>
+    <side-panel
+      v-bind:user="user"
+      v-bind:curConversationID="curConversationID"
+      v-bind:contactList="contactList"
+      @filterContacts="filterContacts"
+      @changeConversation="changeConversation"
+    ></side-panel>
+    <conversation
+      v-bind:user="user"
+      v-bind:curConversationID="curConversationID"
+      v-bind:messages="messages"
+      v-bind:reciever="reciever"
+    ></conversation>
   </div>
 </template>
 
 <script>
-import SidePanel from './SidePanel';
-import Axios from 'axios';
+import SidePanel from "./SidePanel";
+import Axios from "axios";
 export default {
-  props: ['user'],
-  mounted(){
-    Axios.get('/conversations/showAll/'+this.user.id)
-    .then(res => {
-      this.originalContactList = res.data;
-      this.contactList = res.data;
-      this.targetID = this.contactList[0].target_id;
-      this.changeConversation(res.data[0]);
-    })
-    .catch(e => {
-      console.log(e);
-    });
-    
+  props: ["user"],
+  mounted() {
+    Axios.get("/conversations/showAll/" + this.user.id)
+      .then(res => {
+        this.originalContactList = res.data;
+        this.contactList = res.data;
+        this.curConversationID = this.contactList[0].conversation_id;
+        this.changeConversation(this.contactList[0]);
+      })
+      .catch(e => {
+        console.log(e);
+      });
   },
   data() {
     return {
-      activeContact: null,
+      curConversationID: null,
       contactList: [],
       originalContactList: [],
-      messages: [],
-      targetID: null
+      messages: null,
+      reciever: null
     };
   },
   components: {
@@ -37,21 +47,31 @@ export default {
   },
   methods: {
     changeConversation(data) {
-      Axios.get('/messages/showAll/'+data.conversation_id)
-      .then(res => {
-        this.messages = res.data;
-        this.$data.activeContact = data.conversation_id;
-        this.targetID = data.target_id;
-      })
-      .catch(e => {
-        console.log(e);
-      })
+      this.curConversationID = data.conversation_id;
+      Axios.get("/messages/showAll/" + data.conversation_id)
+        .then(res => {
+          this.messages = res.data;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+      Axios.get("/profiles/info/" + data.target_id)
+        .then(res => {
+          this.reciever = res.data;
+        })
+        .catch(e => {
+          console.log(e);
+        });
     },
-    
-    filterContacts(filter = '') {
-      this.contactList = this.originalContactList.filter(e => (filter).toLowerCase() == e.name.substring(0, filter.length).toLowerCase());
+
+    filterContacts(filter = "") {
+      this.contactList = this.originalContactList.filter(
+        e =>
+          filter.toLowerCase() ==
+          e.name.substring(0, filter.length).toLowerCase()
+      );
     }
-  },
+  }
 };
 </script>
 
