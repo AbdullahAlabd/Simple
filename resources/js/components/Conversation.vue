@@ -17,7 +17,7 @@
 
     <div class="messages" id="messages">
       <ul>
-        <li 
+        <li
           v-bind="messages"
           v-for="message in messages"
           v-bind:key="message.id"
@@ -54,9 +54,9 @@ export default {
     };
   },
   methods: {
-    
+
     addMessage(message = '') {
-      
+
       Axios.post('/messages', {
         conversation_id: this.conversationId,
         sender_id: this.user.id,
@@ -67,7 +67,7 @@ export default {
       })
       .catch(e => {
         console.log(e);
-      }) 
+      })
     },
     massageHover() {
       $(document).ready(function(){
@@ -97,7 +97,7 @@ export default {
     .catch(e => {
       console.log(e);
     });
-  
+
   }
 };
 </script>
@@ -146,7 +146,7 @@ export default {
 }
 
 .top-bar-btns i{
-  
+
 }
 
 .top-bar-btns i:hover{

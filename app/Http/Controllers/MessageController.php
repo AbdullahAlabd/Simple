@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Conversation;
 use App\Message;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
@@ -29,20 +31,24 @@ class MessageController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Message
      */
     public function store(Request $request)
     {
+//        $user = Auth::user();
+        $user = User::find(1);
         $request->validate([
             'conversation_id'=>'required',
             'sender_id' =>'required',
             'content' =>'required',
         ]);
+        $conversation = Conversation::find($request->conversation_id);
         $message_1 = new \App\Message($request->all());
         $message_2 = new \App\Message($request->all());
         $message_1->save();
         $message_2->conversation_id = $message_1->conversation->parallel_id;
         $message_2->save();
+        broadcast(new MessageSent($user, $conversation, $message_1))->toOthers();
         return  $message_1;
     }
 

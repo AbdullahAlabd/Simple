@@ -21,7 +21,7 @@ export default {
     .catch(e => {
       console.log(e);
     });
-    
+
   },
   data() {
     return {
@@ -47,7 +47,7 @@ export default {
         console.log(e);
       })
     },
-    
+
     filterContacts(filter = '') {
       this.contactList = this.originalContactList.filter(e => (filter).toLowerCase() == e.name.substring(0, filter.length).toLowerCase());
     }
