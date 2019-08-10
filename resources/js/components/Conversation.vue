@@ -10,22 +10,30 @@
         >@{{reciever.handle}}</small>
       </div>
       <div class="top-bar-btns p-3">
-        <i class="material-icons d-block mr-3" aria-hidden="true" >group_add</i>
-        <i class="fa fa-user-circle fa-lg d-block" id="expand" aria-hidden="true" onclick="myfunction()"></i>
+        <i class="material-icons d-block mr-3" aria-hidden="true">group_add</i>
+        <i
+          class="fa fa-user-circle fa-lg d-block"
+          id="expand"
+          aria-hidden="true"
+          onclick="myfunction()"
+        ></i>
       </div>
     </div>
 
     <div class="messages" id="messages">
       <ul>
         <li
-          v-bind="messages"
           v-for="message in messages"
           v-bind:key="message.id"
           :class="(message.sender_id===user.id?'sent':'replies')"
           @mouseover="massageHover"
         >
           <img :src="(message.sender_id===user.id?senderImgUrl:'storage/'+reciever.image)" />
-          <p data-toggle="popover" :data-content="message.created_at" style="white-space: pre-line">{{message.content}}</p>
+          <p
+            data-toggle="popover"
+            :data-content="message.created_at"
+            style="white-space: pre-line"
+          >{{message.content}}</p>
         </li>
       </ul>
     </div>
@@ -34,70 +42,70 @@
 </template>
 
 <script>
-import Axios from 'axios';
+import Axios from "axios";
 export default {
   name: "mainContent",
-  props: ['conversationId', 'user', 'messages', 'targetID'],
+  props: ["conversationId", "user", "messages", "targetID"],
   data() {
     return {
       cnt: 100,
       conversationID: null,
       parallelConversationID: null,
-      senderImgUrl: 'storage/'+this.user.image, //to be removed
+      senderImgUrl: "storage/" + this.user.image, //to be removed
       reciever: {
         id: null,
         imgUrl: "http://emilcarlsson.se/assets/harveyspecter.png",
         name: "Nour",
         handle: "@nour7",
         status: "Life is Life" // about or bio
-      },
+      }
     };
   },
   methods: {
-
-    addMessage(message = '') {
-
-      Axios.post('/messages', {
+    addMessage(message = "") {
+      Axios.post("/messages", {
         conversation_id: this.conversationId,
         sender_id: this.user.id,
         content: message
       })
+        .then(res => {
+          this.$props.messages.push(res.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    massageHover() {
+      $(document).ready(function() {
+        $('[data-toggle="popover"]').popover({
+          placement: "left",
+          trigger: "hover"
+        });
+      });
+    }
+  },
+  updated() {
+    debugger;
+    let messagesComponent = document.getElementById("messages");
+    messagesComponent.scrollTop = messagesComponent.scrollHeight;
+    Axios.get("/profiles/info/" + this.targetID)
       .then(res => {
-        this.messages.push(res.data);
+        debugger;
+        this.reciever = res.data;
       })
       .catch(e => {
         console.log(e);
-      })
-    },
-    massageHover() {
-      $(document).ready(function(){
-          $('[data-toggle="popover"]').popover({
-              placement : 'left',
-              trigger : 'hover',
-          });
       });
-    },
   },
-  updated() {
-    let messagesComponent = document.getElementById('messages');
-    messagesComponent.scrollTop = messagesComponent.scrollHeight;
-    Axios.get('/profiles/info/'+this.targetID)
-    .then(res=> {
-      this.reciever = res.data;
-    })
-    .catch(e => {
-      console.log(e);
-    });
-  },
-  mounted(){
-    Axios.get('/profiles/info/'+this.targetID)
-    .then(res=> {
-      this.reciever = res.data;
-    })
-    .catch(e => {
-      console.log(e);
-    });
-
+  mounted() {
+    debugger;
+    Axios.get("/profiles/info/" + this.targetID)
+      .then(res => {
+        this.reciever = res.data;
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }
 };
 </script>
@@ -128,7 +136,6 @@ export default {
   background: #f5f5f5;
 }
 
-
 .content .contact-profile img {
   width: 46px;
   border-radius: 50%;
@@ -145,15 +152,13 @@ export default {
   float: right;
 }
 
-.top-bar-btns i{
-
+.top-bar-btns i {
 }
 
-.top-bar-btns i:hover{
-  color: #8fbeee!important;
+.top-bar-btns i:hover {
+  color: #8fbeee !important;
   cursor: pointer;
 }
-
 
 .content .contact-profile .social-media {
   float: right;
@@ -232,7 +237,6 @@ export default {
   }
 }
 .content .messages ul li:nth-last-child(1) {
-  margin-bottom: 40px!important;
+  margin-bottom: 40px !important;
 }
-
 </style>

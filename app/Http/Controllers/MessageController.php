@@ -7,6 +7,8 @@ use App\Message;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Events\MessageSent;
+
 
 class MessageController extends Controller
 {

@@ -1,27 +1,46 @@
 <template>
   <div id="frame">
-    <side-panel v-if="contactList" v-bind:user="user" v-bind:activeContact="activeContact" v-bind:contactList="contactList" @filterContacts="filterContacts" @changeConversation="changeConversation"></side-panel>
-    <conversation v-if="targetID" v-bind:conversationId="activeContact" v-bind:user="user" v-bind:messages="messages" v-bind:targetID="targetID"></conversation>
+    <side-panel
+      v-if="contactList"
+      v-bind:user="user"
+      v-bind:activeContact="activeContact"
+      v-bind:contactList="contactList"
+      @filterContacts="filterContacts"
+      @changeConversation="changeConversation"
+    ></side-panel>
+    <conversation
+      v-if="targetID"
+      v-bind:conversationId="activeContact"
+      v-bind:user="user"
+      v-bind:messages="messages"
+      v-bind:targetID="targetID"
+    ></conversation>
   </div>
 </template>
 
 <script>
-import SidePanel from './SidePanel';
-import Axios from 'axios';
+import SidePanel from "./SidePanel";
+import Axios from "axios";
 export default {
-  props: ['user'],
-  mounted(){
-    Axios.get('/conversations/showAll/'+this.user.id)
-    .then(res => {
-      this.originalContactList = res.data;
-      this.contactList = res.data;
-      this.targetID = this.contactList[0].target_id;
-      this.changeConversation(res.data[0]);
-    })
-    .catch(e => {
-      console.log(e);
+  props: ["user"],
+  mounted() {
+    Axios.get("/conversations/showAll/" + this.user.id)
+      .then(res => {
+        this.originalContactList = res.data;
+        this.contactList = res.data;
+        this.targetID = this.contactList[0].target_id;
+        this.changeConversation(res.data[0]);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+    Echo.private("chat").listen("MessageSent", e => {
+      this.messages.push({
+        conversation_id: e.message.conversationId,
+        sender_id: e.message.sender_id,
+        content: e.message.content
+      });
     });
-
   },
   data() {
     return {
@@ -37,21 +56,25 @@ export default {
   },
   methods: {
     changeConversation(data) {
-      Axios.get('/messages/showAll/'+data.conversation_id)
-      .then(res => {
-        this.messages = res.data;
-        this.$data.activeContact = data.conversation_id;
-        this.targetID = data.target_id;
-      })
-      .catch(e => {
-        console.log(e);
-      })
+      Axios.get("/messages/showAll/" + data.conversation_id)
+        .then(res => {
+          this.messages = res.data;
+          this.$data.activeContact = data.conversation_id;
+          this.targetID = data.target_id;
+        })
+        .catch(e => {
+          console.log(e);
+        });
     },
 
-    filterContacts(filter = '') {
-      this.contactList = this.originalContactList.filter(e => (filter).toLowerCase() == e.name.substring(0, filter.length).toLowerCase());
+    filterContacts(filter = "") {
+      this.contactList = this.originalContactList.filter(
+        e =>
+          filter.toLowerCase() ==
+          e.name.substring(0, filter.length).toLowerCase()
+      );
     }
-  },
+  }
 };
 </script>
 
