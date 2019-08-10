@@ -77,6 +77,7 @@ export default {
 
 <style scoped>
 body {
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -94,7 +95,7 @@ body {
 #frame {
   width: 100%;
   min-width: 360px;
-  /* max-width: 1000px; */
+  max-width: 100vw;
   height: 100vh;
   min-height: 300px;
   max-height: 720px;

@@ -10,13 +10,8 @@
         >@{{reciever.handle}}</small>
       </div>
       <div class="top-bar-btns p-3">
-        <i class="material-icons d-block mr-3" aria-hidden="true">group_add</i>
-        <i
-          class="fa fa-user-circle fa-lg d-block"
-          id="expand"
-          aria-hidden="true"
-          onclick="myfunction()"
-        ></i>
+        <i class="material-icons-round d-block mr-3" aria-hidden="true">group_add</i>
+        <i class="material-icons-round d-block" aria-hidden="true">account_circle</i>
       </div>
     </div>
 
@@ -210,4 +205,5 @@ export default {
 .content .messages ul li:nth-last-child(1) {
   margin-bottom: 40px !important;
 }
+
 </style>

@@ -4,7 +4,7 @@
       <div class="wrap">
         <img id="profile-img" v-bind:src="'storage/'+user.image" class="online" alt />
         <p>{{user.name}}</p>
-        <i class="fa fa-chevron-down expand-button" aria-hidden="true" @click="toggleProfile"></i>
+        <i class="material-icons-round expand-button" @click="toggleProfile">expand_more</i>
         <div id="expanded">
           <img v-bind:src="'storage/'+user.image" class="profile-img-side mx-5 mb-2" alt />
           <input
@@ -43,7 +43,7 @@
     </div>
     <div id="search">
       <label for>
-        <i class="fa fa-search" aria-hidden="true"></i>
+        <i class="material-icons-round">search</i>
       </label>
       <input type="text" placeholder="Search contacts..." @input="searchUser($event.target.value)" />
     </div>
@@ -59,9 +59,7 @@
           :class="{active: curConversationID===contact.conversation_id}"
         >
           <div class="wrap">
-            <!-- v-bind:class="{online: contact.onlineStatus}" -->
             <span class="contact-status" v-bind:class="{online: true}"></span>
-            <!-- v-bind:src="contact.imgUrl" -->
             <img :src="'storage/'+contact.image" alt />
             <p class="date">{{contact.created_at}}</p>
             <div class="meta">
@@ -159,6 +157,13 @@ export default {
     min-width: 58px;
   }
 }
+
+@media screen and (min-width: 865px) and (max-width: 899px){
+  #sidepanel {
+    min-width: 40%;
+  }
+}
+
 #sidepanel #profile {
   width: 80%;
   margin: 25px auto;
@@ -243,8 +248,8 @@ export default {
 }
 #sidepanel #profile .wrap i.expand-button {
   float: right;
-  margin-top: 23px;
-  font-size: 0.8em;
+  margin-top: 16px;
+  font-size: 2.0em;
   cursor: pointer;
   color: #435f7a;
 }
