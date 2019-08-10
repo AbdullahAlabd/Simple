@@ -1829,10 +1829,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mainContent",
@@ -1914,15 +1910,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -48561,16 +48548,20 @@ var staticRenderFns = [
       _c(
         "i",
         {
-          staticClass: "material-icons d-block mr-3",
+          staticClass: "material-icons-round d-block mr-3",
           attrs: { "aria-hidden": "true" }
         },
         [_vm._v("group_add")]
       ),
       _vm._v(" "),
-      _c("i", {
-        staticClass: "fa fa-user-circle fa-lg d-block",
-        attrs: { id: "expand", "aria-hidden": "true", onclick: "myfunction()" }
-      })
+      _c(
+        "i",
+        {
+          staticClass: "material-icons-round d-block",
+          attrs: { "aria-hidden": "true" }
+        },
+        [_vm._v("account_circle")]
+      )
     ])
   }
 ]
@@ -48597,15 +48588,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "message-input" }, [
     _c("div", { staticClass: "wrap" }, [
-      _c("i", {
-        staticClass: "far fa-grin-wink fa-2x emojis",
-        staticStyle: {
-          float: "left",
-          color: "white",
-          "margin-right": "5px",
-          "margin-left": "5px"
-        }
-      }),
+      _c("i", { staticClass: "material-icons-round mx-1 mb-1" }, [
+        _vm._v("insert_emoticon")
+      ]),
       _vm._v(" "),
       _c("div", {
         staticClass: "input-message",
@@ -48638,17 +48623,14 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("button", { staticClass: "submit", on: { click: _vm.newMessage } }, [
-        _c("i", {
-          staticClass: "fas fa-paper-plane fa-2x",
-          staticStyle: {
-            float: "left",
-            color: "white",
-            "margin-right": "5px",
-            "margin-left": "5px"
-          }
-        })
-      ])
+      _c(
+        "i",
+        {
+          staticClass: "material-icons-round mx-1 mb-1",
+          on: { click: _vm.newMessage }
+        },
+        [_vm._v("send")]
+      )
     ])
   ])
 }
@@ -48691,11 +48673,14 @@ var render = function() {
           _vm._v(" "),
           _c("p", [_vm._v(" " + _vm._s(_vm.user.name))]),
           _vm._v(" "),
-          _c("i", {
-            staticClass: "fa fa-chevron-down expand-button",
-            attrs: { "aria-hidden": "true" },
-            on: { click: _vm.toggleProfile }
-          }),
+          _c(
+            "i",
+            {
+              staticClass: "material-icons-round expand-button",
+              on: { click: _vm.toggleProfile }
+            },
+            [_vm._v("expand_more")]
+          ),
           _vm._v(" "),
           _c("div", { attrs: { id: "expanded" } }, [
             _c("img", {
@@ -48894,7 +48879,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { attrs: { for: "" } }, [
-      _c("i", { staticClass: "fa fa-search", attrs: { "aria-hidden": "true" } })
+      _c("i", { staticClass: "material-icons-round" }, [_vm._v("search")])
     ])
   }
 ]

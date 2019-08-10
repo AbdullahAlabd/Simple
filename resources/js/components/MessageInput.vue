@@ -1,18 +1,9 @@
 <template>
   <div class="message-input">
     <div class="wrap">
-      <i
-        class="far fa-grin-wink fa-2x emojis"
-        style="float: left; color:white; margin-right: 5px; margin-left: 5px"
-      ></i>
-      
+      <i class="material-icons-round mx-1 mb-1">insert_emoticon</i>
       <div id="input-message" contenteditable="true" class="input-message" placeholder="Type a message..." @keyup.enter.exact="newMessage" @input="text=$event.target.innerText"></div>
-      <button class="submit" @click="newMessage">
-        <i
-          class="fas fa-paper-plane fa-2x"
-          style="float: left; color:white; margin-right: 5px; margin-left: 5px"
-        ></i>
-      </button>
+      <i class="material-icons-round mx-1 mb-1" @click="newMessage">send</i>
     </div>
   </div>
 </template>
@@ -126,9 +117,21 @@ export default {
     /* padding: 16px 0; */
   }
 }
-.message-input .wrap button i:hover {
+.message-input .wrap i:hover {
   color: #435f7a!important;
+  cursor: pointer;
 }
+
+.message-input .wrap button i {
+  font-size: 30px;
+  color:white;
+}
+
+.message-input .wrap i {
+  font-size: 30px;
+  color:white;
+}
+
 /* .message-input .wrap button i:focus {
   outline: none;
 } */
@@ -136,4 +139,5 @@ export default {
 .emojis:hover {
   color: #435f7a!important;
 }
+
 </style>

@@ -25,24 +25,25 @@ A step by step series of examples that tell you how to get a development env run
 
 ## Deployment
 
+//todo
 Add additional notes about how to deploy this on a live system
 
 ## Built With
 
--   [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
--   [Maven](https://maven.apache.org/) - Dependency Management
--   [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+-   [Laravel](https://laravel.com/docs/5.8) - Web Framework For PHP
+-   [Vue](https://vuejs.org/) - UI Framework
 
 ## Authors
 
--   **name** - _Initial work_ - [github name ](github url)
+-   **Nour Mohammed** - _Initial work_ - [Nour-7](https://github.com/Nour-7)
+-   **Abdullah Al-Abd** - _Initial work_ - [Abdullahalabd](https://github.com/Abdullahalabd)
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
-
+-   //todo
 -   Hat tip to anyone whose code was used
 -   Inspiration
 -   etc
