@@ -1740,7 +1740,6 @@ __webpack_require__.r(__webpack_exports__);
       curConversationID: null,
       contactList: [],
       originalContactList: [],
-      messages: null,
       reciever: null
     };
   },
@@ -1752,16 +1751,26 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.curConversationID = data.conversation_id;
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/messages/showAll/" + data.conversation_id).then(function (res) {
-        _this2.messages = res.data;
-      })["catch"](function (e) {
-        console.log(e);
-      });
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/profiles/info/" + data.target_id).then(function (res) {
         _this2.reciever = res.data;
       })["catch"](function (e) {
         console.log(e);
       });
+    },
+    convToTop: function convToTop(msg) {
+      var _this3 = this;
+
+      this.originalContactList.forEach(function (conv, index) {
+        if (conv.conversation_id === _this3.curConversationID) {
+          conv.created_at = msg.created_at;
+          conv.sender_id = msg.sender_id;
+          conv.content = msg.content;
+          var _ref = [_this3.originalContactList[0], _this3.originalContactList[index]];
+          _this3.originalContactList[index] = _ref[0];
+          _this3.originalContactList[0] = _ref[1];
+        }
+      });
+      this.contactList = this.originalContactList;
     },
     filterContacts: function filterContacts() {
       var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
@@ -1823,25 +1832,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mainContent",
-  props: ["curConversationID", "user", "messages", "reciever"],
+  props: ["curConversationID", "user", "reciever"],
   data: function data() {
-    return {};
+    return {
+      messages: []
+    };
+  },
+  watch: {
+    curConversationID: function curConversationID(newConvID, oldConvID) {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/messages/showAll/" + newConvID).then(function (res) {
+        _this.messages = Object.values(res.data);
+      })["catch"](function (e) {
+        console.log(e);
+      });
+    }
   },
   methods: {
     addMessage: function addMessage() {
-      var _this = this;
+      var _this2 = this;
 
-      var message = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/messages", {
+      var message = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var msgObj;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/messages", msgObj = {
         conversation_id: this.curConversationID,
         sender_id: this.user.id,
         content: message
       }).then(function (res) {
-        _this.messages.push(res.data);
+        _this2.$data.messages.push(res.data);
+
+        _this2.$emit('convToTop', res.data);
       })["catch"](function (e) {
         console.log(e);
       });
@@ -38162,9 +38186,9 @@ var render = function() {
         attrs: {
           user: _vm.user,
           curConversationID: _vm.curConversationID,
-          messages: _vm.messages,
           reciever: _vm.reciever
-        }
+        },
+        on: { convToTop: _vm.convToTop }
       })
     ],
     1
@@ -38252,17 +38276,12 @@ var render = function() {
               _vm._l(_vm.messages, function(message) {
                 return _c(
                   "li",
-                  _vm._b(
-                    {
-                      key: message.id,
-                      class:
-                        message.sender_id === _vm.user.id ? "sent" : "replies",
-                      on: { mouseover: _vm.massageHover }
-                    },
-                    "li",
-                    _vm.messages,
-                    false
-                  ),
+                  {
+                    key: message.id,
+                    class:
+                      message.sender_id === _vm.user.id ? "sent" : "replies",
+                    on: { mouseover: _vm.massageHover }
+                  },
                   [
                     _c("img", {
                       attrs: {

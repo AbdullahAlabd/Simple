@@ -10,8 +10,8 @@
     <conversation
       v-bind:user="user"
       v-bind:curConversationID="curConversationID"
-      v-bind:messages="messages"
       v-bind:reciever="reciever"
+      @convToTop="convToTop"
     ></conversation>
   </div>
 </template>
@@ -38,7 +38,6 @@ export default {
       curConversationID: null,
       contactList: [],
       originalContactList: [],
-      messages: null,
       reciever: null
     };
   },
@@ -48,13 +47,6 @@ export default {
   methods: {
     changeConversation(data) {
       this.curConversationID = data.conversation_id;
-      Axios.get("/messages/showAll/" + data.conversation_id)
-        .then(res => {
-          this.messages = res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
       Axios.get("/profiles/info/" + data.target_id)
         .then(res => {
           this.reciever = res.data;
@@ -63,7 +55,17 @@ export default {
           console.log(e);
         });
     },
-
+    convToTop(msg) {
+      this.originalContactList.forEach((conv, index) => {
+        if(conv.conversation_id === this.curConversationID) {
+          conv.created_at = msg.created_at;
+          conv.sender_id = msg.sender_id;
+          conv.content = msg.content;
+          [this.originalContactList[index], this.originalContactList[0]] = [this.originalContactList[0], this.originalContactList[index]];
+        }
+      });
+      this.contactList = this.originalContactList;
+    },
     filterContacts(filter = "") {
       this.contactList = this.originalContactList.filter(
         e =>
