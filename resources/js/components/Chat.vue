@@ -11,6 +11,7 @@
       v-bind:user="user"
       v-bind:curConversationID="curConversationID"
       v-bind:reciever="reciever"
+      @convToTop="convToTop"
     ></conversation>
   </div>
 </template>
@@ -54,7 +55,17 @@ export default {
           console.log(e);
         });
     },
-
+    convToTop(msg) {
+      this.originalContactList.forEach((conv, index) => {
+        if(conv.conversation_id === this.curConversationID) {
+          conv.created_at = msg.created_at;
+          conv.sender_id = msg.sender_id;
+          conv.content = msg.content;
+          [this.originalContactList[index], this.originalContactList[0]] = [this.originalContactList[0], this.originalContactList[index]];
+        }
+      });
+      this.contactList = this.originalContactList;
+    },
     filterContacts(filter = "") {
       this.contactList = this.originalContactList.filter(
         e =>

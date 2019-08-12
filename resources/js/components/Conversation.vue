@@ -59,13 +59,15 @@ export default {
   },
   methods: {
     addMessage(message = '') {
-      Axios.post("/messages", {
+      let msgObj;
+      Axios.post("/messages", msgObj = {
         conversation_id: this.curConversationID,
         sender_id: this.user.id,
         content: message
       })
       .then(res => {
         this.$data.messages.push(res.data);
+        this.$emit('convToTop', res.data);
       })
       .catch(e => {
         console.log(e);

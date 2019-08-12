@@ -1717,6 +1717,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1755,6 +1756,21 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (e) {
         console.log(e);
       });
+    },
+    convToTop: function convToTop(msg) {
+      var _this3 = this;
+
+      this.originalContactList.forEach(function (conv, index) {
+        if (conv.conversation_id === _this3.curConversationID) {
+          conv.created_at = msg.created_at;
+          conv.sender_id = msg.sender_id;
+          conv.content = msg.content;
+          var _ref = [_this3.originalContactList[0], _this3.originalContactList[index]];
+          _this3.originalContactList[index] = _ref[0];
+          _this3.originalContactList[0] = _ref[1];
+        }
+      });
+      this.contactList = this.originalContactList;
     },
     filterContacts: function filterContacts() {
       var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
@@ -1841,12 +1857,15 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       var message = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/messages", {
+      var msgObj;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/messages", msgObj = {
         conversation_id: this.curConversationID,
         sender_id: this.user.id,
         content: message
       }).then(function (res) {
         _this2.$data.messages.push(res.data);
+
+        _this2.$emit('convToTop', res.data);
       })["catch"](function (e) {
         console.log(e);
       });
@@ -38168,7 +38187,8 @@ var render = function() {
           user: _vm.user,
           curConversationID: _vm.curConversationID,
           reciever: _vm.reciever
-        }
+        },
+        on: { convToTop: _vm.convToTop }
       })
     ],
     1
