@@ -40,35 +40,38 @@
 import Axios from "axios";
 export default {
   name: "mainContent",
-  props: ["conversationId", "user", "messages", "targetID"],
+  props: ["curConversationID", "user", "reciever"],
   data() {
     return {
-      cnt: 100,
-      conversationID: null,
-      parallelConversationID: null,
-      senderImgUrl: "storage/" + this.user.image, //to be removed
-      reciever: {
-        id: null,
-        imgUrl: "http://emilcarlsson.se/assets/harveyspecter.png",
-        name: "Nour",
-        handle: "@nour7",
-        status: "Life is Life" // about or bio
-      }
+      messages: []
     };
   },
+  watch: {
+    curConversationID: function(newConvID, oldConvID) {
+      Axios.get("/messages/showAll/" + newConvID)
+      .then(res => {
+        this.messages = Object.values(res.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+    }
+  },
   methods: {
-    addMessage(message = "") {
-      Axios.post("/messages", {
-        conversation_id: this.conversationId,
+    addMessage(message = '') {
+      let msgObj;
+      Axios.post("/messages", msgObj = {
+        conversation_id: this.curConversationID,
         sender_id: this.user.id,
         content: message
       })
-        .then(res => {
-          this.$props.messages.push(res.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
+      .then(res => {
+        this.$data.messages.push(res.data);
+        this.$emit('convToTop', res.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
     },
     massageHover() {
       $(document).ready(function() {

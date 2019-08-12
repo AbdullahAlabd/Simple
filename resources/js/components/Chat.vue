@@ -12,8 +12,9 @@
       v-if="targetID"
       v-bind:conversationId="activeContact"
       v-bind:user="user"
-      v-bind:messages="messages"
-      v-bind:targetID="targetID"
+      v-bind:curConversationID="curConversationID"
+      v-bind:reciever="reciever"
+      @convToTop="convToTop"
     ></conversation>
   </div>
 </template>
@@ -49,8 +50,7 @@ export default {
       activeContact: null,
       contactList: [],
       originalContactList: [],
-      messages: [],
-      targetID: null
+      reciever: null
     };
   },
   components: {
@@ -58,17 +58,29 @@ export default {
   },
   methods: {
     changeConversation(data) {
-      Axios.get("/messages/showAll/" + data.conversation_id)
+      this.curConversationID = data.conversation_id;
+      Axios.get("/profiles/info/" + data.target_id)
         .then(res => {
-          this.messages = res.data;
-          this.$data.activeContact = data.conversation_id;
-          this.targetID = data.target_id;
+          this.reciever = res.data;
         })
         .catch(e => {
           console.log(e);
         });
     },
-
+    convToTop(msg) {
+      this.originalContactList.forEach((conv, index) => {
+        if (conv.conversation_id === this.curConversationID) {
+          conv.created_at = msg.created_at;
+          conv.sender_id = msg.sender_id;
+          conv.content = msg.content;
+          [this.originalContactList[index], this.originalContactList[0]] = [
+            this.originalContactList[0],
+            this.originalContactList[index]
+          ];
+        }
+      });
+      this.contactList = this.originalContactList;
+    },
     filterContacts(filter = "") {
       this.contactList = this.originalContactList.filter(
         e =>
