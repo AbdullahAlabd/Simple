@@ -1,6 +1,6 @@
 # Simple
 
-Simple chat app made with Vue and Larvel
+Simple one to one chat app made with Larvel and Vue
 
 ## Getting Started
 
