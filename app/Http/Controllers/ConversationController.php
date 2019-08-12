@@ -21,40 +21,37 @@ class ConversationController extends Controller
     {
         $sub = Message::select('conversation_id as con_id', \DB::raw('MAX(created_at) AS max_date'))
             ->groupBy('con_id');
-
-        $sub = Message::join(\DB::raw("({$sub->toSql()}) max_table"), function($join)
-        {
+        $sub = Message::join(\DB::raw("({$sub->toSql()}) max_table"), function ($join) {
             $join->on('max_table.con_id', '=', 'messages.conversation_id')
-            ->on('max_table.max_date', '=', 'messages.created_at');
-
+                ->on('max_table.max_date', '=', 'messages.created_at');
         })->select('content', 'created_at', 'conversation_id', 'sender_id');
-        $sub = Conversation::join(\DB::raw("({$sub->toSql()}) message_table"), function($join)
-        {
+        $sub = Conversation::join(\DB::raw("({$sub->toSql()}) message_table"), function ($join) {
             $join->on('message_table.conversation_id', '=', 'conversations.id');
+        })->select('content', 'message_table.created_at', 'conversation_id', 'sender_id', 'conversations.target_id', 'conversations.owner_id')
+            ->where('conversations.owner_id', '=', $user->id);
+        $sub = User::join(\DB::raw("({$sub->toSql()}) conversation_table"), function ($join) {
+            $join->on('conversation_table.target_id', '=', 'id');
+        })->select('name', 'content', 'conversation_table.created_at', 'conversation_id', 'sender_id', 'target_id', 'image')
+            ->addBinding($sub->getBindings(), 'join')->orderBy('created_at', 'desc');
 
-        })->select('content', 'message_table.created_at', 'conversation_id', 'sender_id','conversations.target_id','conversations.owner_id')
-            ->where('conversations.owner_id', '=', $user->id)->distinct('conversation_id');
-         $sub = User::join(\DB::raw("({$sub->toSql()}) conversation_table"), function($join)
-         {
-             $join->on('conversation_table.target_id', '=', 'id');
+            
+        //->orderBy('created_at', 'desc')
+        //        $sub = \DB::raw(
+        //            '(SELECT * MAX(created_at) As `max_date`
+        //               FROM messages
+        //               GROUP BY conversation_id) max_table
+        //            ');
+        //
+        //        $conversations = Message::select('conversation_id',\DB::raw('MAX(messages.created_at) AS created_at'))
+        //            ->groupby('conversation_id')
+        ////            ->join('conversations', 'messages.conversation_id', '=', 'conversations.id')
+        //            ->orderBy('created_at', 'desc');
+        //        $conversations = \DB::table('messages')->select(\DB::raw("*  FROM messages where row(conversation_id, created_at) in (SELECT conversation_id, MAX(created_at) AS created_at FROM messages group by conversation_id ) order by created_at")) ->get();
+        //    dd($sub->get());
+        
+        return collect($sub->get())->reverse()->unique('conversation_id')->reverse()->values();
 
-         })   ->select('name','content', 'conversation_table.created_at', 'conversation_id', 'sender_id','target_id', 'image')
-         ->addBinding($sub->getBindings(),'join');
-
-//        $sub = \DB::raw(
-//            '(SELECT * MAX(created_at) As `max_date`
-//               FROM messages
-//               GROUP BY conversation_id) max_table
-//            ');
-//
-//        $conversations = Message::select('conversation_id',\DB::raw('MAX(messages.created_at) AS created_at'))
-//            ->groupby('conversation_id')
-////            ->join('conversations', 'messages.conversation_id', '=', 'conversations.id')
-//            ->orderBy('created_at', 'desc');
-//        $conversations = \DB::table('messages')->select(\DB::raw("*  FROM messages where row(conversation_id, created_at) in (SELECT conversation_id, MAX(created_at) AS created_at FROM messages group by conversation_id ) order by created_at")) ->get();
-//    dd($sub->get());
-        return $sub->get();
-//        return $user->conversations->sortBy('created_at');
+        //        return $user->conversations->sortBy('created_at');
     }
 
 
@@ -66,16 +63,16 @@ class ConversationController extends Controller
      */
     public function store(Request $request)
     {
-//        $request->validate([
-//            'owner_id'=>'required',
-//            'target_id' =>'required',
-//        ]);
-//        $connected = Conversation::where(['owner_id' => $request->owner_id, 'target_id' => $request->target_id]);
-//        dd($request->owner_id);
-        $connected = \DB::table('conversations')->where([['owner_id' ,'=' ,$request->owner_id], ['target_id', '=', $request->target_id]])->get();
-//        return(empty($connected ) );
-//        return count($connected );
-        if(count($connected ) == 0){
+        //        $request->validate([
+        //            'owner_id'=>'required',
+        //            'target_id' =>'required',
+        //        ]);
+        //        $connected = Conversation::where(['owner_id' => $request->owner_id, 'target_id' => $request->target_id]);
+        //        dd($request->owner_id);
+        $connected = \DB::table('conversations')->where([['owner_id', '=', $request->owner_id], ['target_id', '=', $request->target_id]])->get();
+        //        return(empty($connected ) );
+        //        return count($connected );
+        if (count($connected) == 0) {
             $con_1 = new Conversation();
             $con_2 = new Conversation();
 
@@ -98,12 +95,11 @@ class ConversationController extends Controller
 
             $messageC = new MessageController();
             $messageC->default($con_1->id, $con_2->id);
-        }
-        else{
+        } else {
             return response('This connection exist', 303);
         }
-//        $con_1 = new Conversation($request->all());
-//        $con_2 = new Conversation($request->all());
+        //        $con_1 = new Conversation($request->all());
+        //        $con_2 = new Conversation($request->all());
     }
 
     /**
@@ -129,11 +125,10 @@ class ConversationController extends Controller
     {
         $parallel = Conversation::find($conversation->parallel_id);
 
-        $conversation->connected = !($conversation->connected) ;
-        $parallel ->connected = !($parallel ->connected) ;
+        $conversation->connected = !($conversation->connected);
+        $parallel->connected = !($parallel->connected);
 
         $conversation->save();
         $parallel->save();
     }
-
 }

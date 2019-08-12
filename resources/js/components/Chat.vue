@@ -10,7 +10,6 @@
     <conversation
       v-bind:user="user"
       v-bind:curConversationID="curConversationID"
-      v-bind:messages="messages"
       v-bind:reciever="reciever"
     ></conversation>
   </div>
@@ -38,7 +37,6 @@ export default {
       curConversationID: null,
       contactList: [],
       originalContactList: [],
-      messages: null,
       reciever: null
     };
   },
@@ -48,13 +46,6 @@ export default {
   methods: {
     changeConversation(data) {
       this.curConversationID = data.conversation_id;
-      Axios.get("/messages/showAll/" + data.conversation_id)
-        .then(res => {
-          this.messages = res.data;
-        })
-        .catch(e => {
-          console.log(e);
-        });
       Axios.get("/profiles/info/" + data.target_id)
         .then(res => {
           this.reciever = res.data;

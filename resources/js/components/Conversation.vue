@@ -18,7 +18,6 @@
     <div class="messages" id="messages">
       <ul>
         <li
-          v-bind="messages"
           v-for="message in messages"
           v-bind:key="message.id"
           :class="(message.sender_id===user.id?'sent':'replies')"
@@ -41,23 +40,36 @@
 import Axios from "axios";
 export default {
   name: "mainContent",
-  props: ["curConversationID", "user", "messages", "reciever"],
+  props: ["curConversationID", "user", "reciever"],
   data() {
-    return {};
+    return {
+      messages: []
+    };
+  },
+  watch: {
+    curConversationID: function(newConvID, oldConvID) {
+      Axios.get("/messages/showAll/" + newConvID)
+      .then(res => {
+        this.messages = Object.values(res.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+    }
   },
   methods: {
-    addMessage(message = "") {
+    addMessage(message = '') {
       Axios.post("/messages", {
         conversation_id: this.curConversationID,
         sender_id: this.user.id,
         content: message
       })
-        .then(res => {
-          this.messages.push(res.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
+      .then(res => {
+        this.$data.messages.push(res.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
     },
     massageHover() {
       $(document).ready(function() {
