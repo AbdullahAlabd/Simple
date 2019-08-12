@@ -34,7 +34,9 @@ export default {
       .catch(e => {
         console.log(e);
       });
-    Echo.private("chat").listen("MessageSent", e => {
+    console.log("##########");
+    console.log(this.user.id);
+    Echo.private("chat." + this.user.id).listen("MessageSent", e => {
       this.messages.push({
         conversation_id: e.message.conversationId,
         sender_id: e.message.sender_id,
@@ -80,7 +82,6 @@ export default {
 
 <style scoped>
 body {
-
   display: flex;
   align-items: center;
   justify-content: center;

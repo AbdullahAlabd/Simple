@@ -48,9 +48,9 @@ class MessageController extends Controller
         $message_1 = new \App\Message($request->all());
         $message_2 = new \App\Message($request->all());
         $message_1->save();
-        $message_2->conversation_id = $message_1->conversation->parallel_id;
+        $message_2->conversation_id = $conversation->parallel_id;
         $message_2->save();
-        broadcast(new MessageSent($user, $conversation, $message_1))->toOthers();
+        broadcast(new MessageSent($conversation->owner_id, $message_2))->toOthers();
         return  $message_1;
     }
 
