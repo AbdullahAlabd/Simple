@@ -24,11 +24,25 @@
           @mouseover="massageHover"
         >
           <img :src="(message.sender_id===user.id?'storage/'+user.image:'storage/'+reciever.image)" />
-          <p
-            data-toggle="popover"
-            :data-content="message.created_at"
-            style="white-space: pre-line"
-          >{{message.content}}</p>
+
+          <div class="d-flex cont">
+            <div
+              class="d-block remove-btn"
+              :id="'msg'+message.id"
+              @mouseenter="showCancel('msg'+message.id)"
+              @mouseleave="hideCancel('msg'+message.id)"
+            >
+              <i class="material-icons-round remove-icon" aria-hidden="true">cancel</i>
+            </div>
+            <p
+              @mouseenter="showCancel('msg'+message.id)"
+              @mouseleave="hideCancel('msg'+message.id)"
+              data-toggle="tooltip"
+              :data-placement="(message.sender_id===user.id?'right':'right')"
+              :title="message.created_at"
+              style="white-space: pre-line"
+            >{{message.content}}</p>
+          </div>
         </li>
       </ul>
     </div>
@@ -78,11 +92,22 @@ export default {
     },
     massageHover() {
       $(document).ready(function() {
-        $('[data-toggle="popover"]').popover({
-          placement: "left",
-          trigger: "hover"
+        $('[data-toggle="tooltip"]').tooltip({
+          // placement: "auto",
+          trigger: "hover",
+          delay: { show: 500, hide: 100 }
         });
       });
+    },
+    showCancel(parentID) {
+      document
+        .getElementById(parentID)
+        .style.setProperty("display", "block", "important");
+    },
+    hideCancel(parentID) {
+      document
+        .getElementById(parentID)
+        .style.setProperty("display", "none", "important");
     }
   },
   updated() {
@@ -133,7 +158,6 @@ export default {
   line-height: 60px;
   background: #f5f5f5;
 }
-
 .content .contact-profile img {
   width: 46px;
   border-radius: 50%;
@@ -148,9 +172,6 @@ export default {
   flex-flow: row left;
   align-items: center;
   float: right;
-}
-
-.top-bar-btns i {
 }
 
 .top-bar-btns i:hover {
@@ -192,11 +213,10 @@ export default {
 }
 .content .messages ul li {
   display: inline-block;
-  clear: both;
-  float: left;
   margin: 15px 15px 0px 15px !important;
   width: calc(100% - 25px);
-  font-size: 0.9em;
+  font-size: 1em;
+  font-family: "proxima-nova", "Source Sans Pro", sans-serif, "Twemoji Mozilla";
 }
 .content .messages ul li.sent img {
   margin: 2px 8px 0 0;
@@ -206,6 +226,16 @@ export default {
   background: #435f7a;
   color: #f5f5f5;
   margin-bottom: 0px;
+}
+.content .messages ul li.replies .cont {
+  justify-content: flex-start !important;
+  flex-direction: row-reverse !important;
+  margin: 2px 0 0 8px;
+}
+.content .messages ul li.sent .cont {
+  justify-content: flex-start !important;
+  flex-direction: row !important;
+  margin: 2px 0 0 8px;
 }
 .content .messages ul li.replies img {
   float: right;
@@ -236,5 +266,37 @@ export default {
 }
 .content .messages ul li:nth-last-child(1) {
   margin-bottom: 40px !important;
+}
+
+.remove-btn {
+  display: none !important;
+  opacity: 0.5;
+  vertical-align: top;
+  max-height: 100%;
+}
+
+.remove-icon {
+  align-items: stretch;
+  font-size: 20px !important;
+  color: black;
+  border-radius: 50%;
+  border: 0px solid black;
+  height: 100%;
+}
+
+.sent .remove-btn {
+  float: left;
+  margin-top: -4px;
+  margin-right: -8px;
+}
+
+.replies .remove-btn {
+  float: right;
+  margin-left: -8px;
+  margin-top: -4px;
+}
+
+.content .messages ul li .remove-btn:hover {
+  cursor: pointer;
 }
 </style>

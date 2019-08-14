@@ -521,6 +521,7 @@ export default {
   position: relative;
   padding: 10px 0 15px 0;
   font-size: 0.9em;
+  font-family: "proxima-nova", "Source Sans Pro", sans-serif, "Twemoji Mozilla";
   cursor: pointer;
 }
 @media screen and (max-width: 735px) {

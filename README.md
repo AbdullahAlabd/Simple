@@ -22,10 +22,11 @@ A step by step series of examples that tell you how to get a development env run
         npm instal
 
     Then to be able to run the project:
-         *at the project directory take a copy of .env.example name it .env and enter you DB host credentials.
-         *then you must use the php artisan key:generate to set a key for Laravel's encrypter.
+         *at the project directory take a copy of .env.example name it .env and enter you DB host credentials
+         *set a key for Laravel's encrypter by running: php artisan key:generate
+         *create a link to Storage folder by running: php artisan storage:link
 
-    And finally at the terminal type this command:
+    And finally to run the project:
         php artisan serve
 
 ## Deployment
