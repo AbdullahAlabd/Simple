@@ -97,13 +97,9 @@ export default {
 .message-input .wrap button {
   float: right;
   border: none;
-  /* width: 50px; */
-  /* padding: 12px 0; */
   cursor: pointer;
   color: #32465a;
   background: transparent;
-  /* background: #32465a; */
-  /* color: #f5f5f5; */
 }
 
 .message-input .wrap {

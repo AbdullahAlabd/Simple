@@ -1,16 +1,13 @@
 <template>
   <div id="frame">
     <side-panel
-      v-if="contactList"
       v-bind:user="user"
-      v-bind:activeContact="activeContact"
+      v-bind:curConversationID="curConversationID"
       v-bind:contactList="contactList"
       @filterContacts="filterContacts"
       @changeConversation="changeConversation"
     ></side-panel>
     <conversation
-      v-if="targetID"
-      v-bind:conversationId="activeContact"
       v-bind:user="user"
       v-bind:curConversationID="curConversationID"
       v-bind:reciever="reciever"
@@ -25,29 +22,20 @@ import Axios from "axios";
 export default {
   props: ["user"],
   mounted() {
-    Axios.get("/conversations/showAll/" + this.$props.user.id)
+    Axios.get("/conversations/showAll/" + this.user.id)
       .then(res => {
         this.originalContactList = res.data;
         this.contactList = res.data;
-        this.targetID = this.contactList[0].target_id;
-        this.changeConversation(res.data[0]);
+        this.curConversationID = this.contactList[0].conversation_id;
+        this.changeConversation(this.contactList[0]);
       })
       .catch(e => {
         console.log(e);
       });
-    console.log("##########");
-    console.log(this.$props.user.id);
-    // Echo.private("chat." + this.$props.user.id).listen("MessageSent", e => {
-    //   this.messages.push({
-    //     conversation_id: e.message.conversationId,
-    //     sender_id: e.message.sender_id,
-    //     content: e.message.content
-    //   });
-    // });
   },
   data() {
     return {
-      activeContact: null,
+      curConversationID: null,
       contactList: [],
       originalContactList: [],
       reciever: null
@@ -69,7 +57,7 @@ export default {
     },
     convToTop(msg) {
       this.originalContactList.forEach((conv, index) => {
-        if (conv.conversation_id === this.curConversationID) {
+        if (conv.conversation_id === msg.conversation_id) {
           conv.created_at = msg.created_at;
           conv.sender_id = msg.sender_id;
           conv.content = msg.content;

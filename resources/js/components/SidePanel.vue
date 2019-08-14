@@ -1,41 +1,67 @@
 <template>
   <div id="sidepanel">
     <div id="profile" v-bind:class="{expanded: profileToggle}">
-      <div class="wrap" >
+      <div class="wrap">
         <img id="profile-img" v-bind:src="'storage/'+user.image" class="online" alt />
         <p>{{user.name}}</p>
         <i class="material-icons-round expand-button" @click="toggleProfile">expand_more</i>
         <div id="expanded">
           <img v-bind:src="'storage/'+user.image" class="profile-img-side mx-5 mb-2" alt />
-          <input type="file" name="photo" id="photo" placeholder="Choose another photo" accept="image/*">
-					<input name="handle" type="text" v-bind:value="'@'+handle" disabled readonly class="mx-1" title="Handle"/>
-					<input name="name" type="text" v-model="name" title="Name" maxlength="50" class="mx-1"/>
-					<input name="status" type="text" v-model="status" title="Status" maxlength="200" class="mx-1"/>
-          <button name="editProfile" class="btn btn-primary" @click="saveChanges" style="margin-left:56px">Save Changes</button>
-				</div>
+          <input
+            type="file"
+            name="photo"
+            id="photo"
+            placeholder="Choose another photo"
+            accept="image/*"
+          />
+          <input
+            name="handle"
+            type="text"
+            v-bind:value="'@'+handle"
+            disabled
+            readonly
+            class="mx-1"
+            title="Handle"
+          />
+          <input name="name" type="text" v-model="name" title="Name" maxlength="50" class="mx-1" />
+          <input
+            name="status"
+            type="text"
+            v-model="status"
+            title="Status"
+            maxlength="200"
+            class="mx-1"
+          />
+          <button
+            name="editProfile"
+            class="btn btn-primary"
+            @click="saveChanges"
+            style="margin-left:56px"
+          >Save Changes</button>
+        </div>
       </div>
     </div>
     <div id="search">
       <label for>
         <i class="material-icons-round">search</i>
       </label>
-      <input type="text" placeholder="Search contacts..." @input="searchUser($event.target.value)"/>
+      <input type="text" placeholder="Search contacts..." @input="searchUser($event.target.value)" />
     </div>
     <div id="contacts" v-bind:class="{expanded: profileToggle}">
       <ul v-if="contactList.length">
         <li
           class="contact"
           v-bind:contactList="contactList"
-          v-bind:activeContact="activeContact"
+          v-bind:curConversationID="curConversationID"
           v-for="contact in contactList"
           v-bind:key="contact.conversation_id"
           @click="$emit('changeConversation', contact)"
-          :class="{active: activeContact===contact.conversation_id}"
+          :class="{active: curConversationID===contact.conversation_id}"
         >
           <div class="wrap">
             <span class="contact-status" v-bind:class="{online: true}"></span>
             <img :src="'storage/'+contact.image" alt />
-              <p class="date">2019-08-07 22:40:20</p>
+            <p class="date">{{contact.created_at}}</p>
             <div class="meta">
               <p class="name">{{contact.name}}</p>
               <p class="preview">
@@ -47,65 +73,68 @@
         </li>
       </ul>
       <p v-else class="text-center pt-4 px-5">
-        There are <strong>no such chats</strong> for users with this name.<br><br>
-        To <strong>add a new contact</strong> type the handle in search bar and hit enter.<br><br>
-        Handle should look like <strong>@username</strong>
+        There are
+        <strong>no such chats</strong> for users with this name.
+        <br />
+        <br />To
+        <strong>add a new contact</strong> type the handle in search bar and hit enter.
+        <br />
+        <br />Handle should look like
+        <strong>@username</strong>
       </p>
     </div>
   </div>
 </template>
 
 <script>
-import Axios from 'axios';
+import Axios from "axios";
 export default {
   name: "SidePanel",
-  
-  props: ['user', 'activeContact', 'contactList'],
+
+  props: ["user", "curConversationID", "contactList"],
   methods: {
     searchUser(text) {
-      let s = ''
-      if(text.charAt(0) !== '@') {
-        this.$emit('filterContacts', text);
+      let s = "";
+      if (text.charAt(0) !== "@") {
+        this.$emit("filterContacts", text);
       }
     },
     toggleProfile() {
       this.profileToggle = !this.profileToggle;
     },
     saveChanges() {
-      if(document.getElementById('photo').files) {
+      if (document.getElementById("photo").files) {
         let data = new FormData();
-        data.append('image', document.getElementById('photo').files[0]);
-        Axios.post('/api/profiles/'+this.user.id, data)
-        .then(res => {
-          console.log(res);
-        })
-        .catch(e => {
-          console.log(e);
-        })
+        data.append("image", document.getElementById("photo").files[0]);
+        Axios.post("/api/profiles/" + this.user.id, data)
+          .then(res => {})
+          .catch(e => {
+            console.log(e);
+          });
       }
-      Axios.post('/api/profiles/'+this.user.id, {
+      Axios.post("/api/profiles/" + this.user.id, {
         name: this.name,
         about: this.status
-      })
+      });
     }
   },
   data() {
     return {
-      profileToggle:false,
+      profileToggle: false,
       name: this.user.name,
       handle: this.user.handle,
       status: this.user.status
-    }
+    };
   },
   mounted() {
-    console.log(this.user);
-    Axios.get('/profiles/info/'+this.user.id).then(res => {
-      this.name = res.data.name;
-      this.status = res.data.about;
-    })
-    .catch(e => {
-      console.log(e);
-    });
+    Axios.get("/profiles/info/" + this.user.id)
+      .then(res => {
+        this.name = res.data.name;
+        this.status = res.data.about;
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }
 };
 </script>
@@ -575,11 +604,11 @@ export default {
   -webkit-transition: 1s all ease;
   transition: 1s all ease;
 }
-#sidepanel #contacts ul li.contact .wrap .meta p{
-  margin-bottom: 0px!important;
+#sidepanel #contacts ul li.contact .wrap .meta p {
+  margin-bottom: 0px !important;
 }
 #sidepanel #contacts ul li.contact .wrap .date {
-  position: absolute!important;
+  position: absolute !important;
   right: 0;
   top: 0;
   padding-top: 7px;
@@ -652,7 +681,7 @@ export default {
     display: none;
   }
 }
-.profile-img-side{
+.profile-img-side {
   width: 150px;
   margin-left: auto;
   margin-right: auto;
@@ -665,6 +694,5 @@ export default {
   -o-transition: 0.3s border ease;
   -webkit-transition: 0.3s border ease;
   transition: 0.3s border ease;
-  
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div class="content">
-    <div class="contact-profile" id="contact">
+  <div class="content" v-if="reciever">
+    <div class="contact-profile" id="contact" v-bind="reciever">
       <img :src="'storage/'+reciever.image" id="contimg" alt />
       <div id="tag">
         <p style="position:absolute;top:-10;left:70px;">{{reciever.name}}</p>
@@ -23,7 +23,7 @@
           :class="(message.sender_id===user.id?'sent':'replies')"
           @mouseover="massageHover"
         >
-          <img :src="(message.sender_id===user.id?senderImgUrl:'storage/'+reciever.image)" />
+          <img :src="(message.sender_id===user.id?'storage/'+user.image:'storage/'+reciever.image)" />
           <p
             data-toggle="popover"
             :data-content="message.created_at"
@@ -49,29 +49,32 @@ export default {
   watch: {
     curConversationID: function(newConvID, oldConvID) {
       Axios.get("/messages/showAll/" + newConvID)
-      .then(res => {
-        this.messages = Object.values(res.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+        .then(res => {
+          this.messages = Object.values(res.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
     }
   },
   methods: {
-    addMessage(message = '') {
+    addMessage(message = "") {
       let msgObj;
-      Axios.post("/messages", msgObj = {
-        conversation_id: this.curConversationID,
-        sender_id: this.user.id,
-        content: message
-      })
-      .then(res => {
-        this.$data.messages.push(res.data);
-        this.$emit('convToTop', res.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+      Axios.post(
+        "/messages",
+        (msgObj = {
+          conversation_id: this.curConversationID,
+          sender_id: this.user.id,
+          content: message
+        })
+      )
+        .then(res => {
+          this.$data.messages.push(res.data);
+          this.$emit("convToTop", res.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
     },
     massageHover() {
       $(document).ready(function() {
@@ -85,23 +88,20 @@ export default {
   updated() {
     let messagesComponent = document.getElementById("messages");
     messagesComponent.scrollTop = messagesComponent.scrollHeight;
-    Axios.get("/profiles/info/" + this.targetID)
-      .then(res => {
-        
-        this.reciever = res.data;
-      })
-      .catch(e => {
-        console.log(e);
-      });
   },
   mounted() {
-    Axios.get("/profiles/info/" + this.targetID)
-      .then(res => {
-        this.reciever = res.data;
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    Echo.private("chat." + this.$props.user.id).listen("MessageSent", e => {
+      let message = {
+        conversation_id: e.message.conversation_id,
+        sender_id: e.message.sender_id,
+        content: e.message.content,
+        created_at: e.message.created_at
+      };
+      if (message.conversation_id === this.curConversationID) {
+        this.messages.push(message);
+      }
+      this.$emit("convToTop", message);
+    });
   }
 };
 </script>
@@ -235,5 +235,4 @@ export default {
 .content .messages ul li:nth-last-child(1) {
   margin-bottom: 40px !important;
 }
-
 </style>

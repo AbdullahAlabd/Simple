@@ -50,7 +50,7 @@ class MessageController extends Controller
         $message_1->save();
         $message_2->conversation_id = $conversation->parallel_id;
         $message_2->save();
-        broadcast(new MessageSent($conversation->owner_id, $message_2))->toOthers();
+        broadcast(new MessageSent(User::find($conversation->target_id), $message_2))->toOthers();
         return  $message_1;
     }
 
