@@ -83,12 +83,11 @@ export default {
     }
   },
   updated() {
-    debugger;
     let messagesComponent = document.getElementById("messages");
     messagesComponent.scrollTop = messagesComponent.scrollHeight;
     Axios.get("/profiles/info/" + this.targetID)
       .then(res => {
-        debugger;
+        
         this.reciever = res.data;
       })
       .catch(e => {
@@ -96,7 +95,6 @@ export default {
       });
   },
   mounted() {
-    debugger;
     Axios.get("/profiles/info/" + this.targetID)
       .then(res => {
         this.reciever = res.data;

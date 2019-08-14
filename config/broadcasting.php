@@ -37,11 +37,11 @@ return [
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
                 'cluster' => 'eu',
-                'encrypted' => false,
-                 'curl_options' => [
-                    CURLOPT_SSL_VERIFYHOST => 0,
-                    CURLOPT_SSL_VERIFYPEER => 0,
-                ]
+                'encrypted' => true,
+                //  'curl_options' => [
+                //     CURLOPT_SSL_VERIFYHOST => 0,
+                //     CURLOPT_SSL_VERIFYPEER => 0,
+                // ]
 
             ],
         ],

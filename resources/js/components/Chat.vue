@@ -25,7 +25,7 @@ import Axios from "axios";
 export default {
   props: ["user"],
   mounted() {
-    Axios.get("/conversations/showAll/" + this.user.id)
+    Axios.get("/conversations/showAll/" + this.$props.user.id)
       .then(res => {
         this.originalContactList = res.data;
         this.contactList = res.data;
@@ -36,14 +36,14 @@ export default {
         console.log(e);
       });
     console.log("##########");
-    console.log(this.user.id);
-    Echo.private("chat." + this.user.id).listen("MessageSent", e => {
-      this.messages.push({
-        conversation_id: e.message.conversationId,
-        sender_id: e.message.sender_id,
-        content: e.message.content
-      });
-    });
+    console.log(this.$props.user.id);
+    // Echo.private("chat." + this.$props.user.id).listen("MessageSent", e => {
+    //   this.messages.push({
+    //     conversation_id: e.message.conversationId,
+    //     sender_id: e.message.sender_id,
+    //     content: e.message.content
+    //   });
+    // });
   },
   data() {
     return {
