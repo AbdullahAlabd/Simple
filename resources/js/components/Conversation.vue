@@ -90,6 +90,8 @@ export default {
     messagesComponent.scrollTop = messagesComponent.scrollHeight;
   },
   mounted() {
+    console.log("###############");
+    console.log(this.$props.user.id);
     Echo.private("chat." + this.$props.user.id).listen("MessageSent", e => {
       let message = {
         conversation_id: e.message.conversation_id,

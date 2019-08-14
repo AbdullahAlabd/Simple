@@ -1886,6 +1886,8 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this3 = this;
 
+    console.log("###############");
+    console.log(this.$props.user.id);
     Echo["private"]("chat." + this.$props.user.id).listen("MessageSent", function (e) {
       var message = {
         conversation_id: e.message.conversation_id,
