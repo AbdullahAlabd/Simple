@@ -78,6 +78,12 @@ export default {
 </script>
 
 <style scoped>
+
+@font-face {
+  font-family: 'Twemoji Mozilla';
+  src: url('../../fonts/Twemoji Mozilla v12.1.2.ttf');
+}
+
 body {
 
   display: flex;
@@ -85,7 +91,7 @@ body {
   justify-content: center;
   min-height: 100vh;
   background: #27ae60;
-  font-family: "proxima-nova", "Source Sans Pro", sans-serif;
+  font-family: "proxima-nova", "Source Sans Pro", sans-serif, "Twemoji Mozilla";
   font-size: 1em;
   letter-spacing: 0.1px;
   color: #32465a;

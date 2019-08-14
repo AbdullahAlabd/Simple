@@ -51,12 +51,12 @@ export default {
 }
 
 .message-input .wrap div {
-  font-family: "proxima-nova", "Source Sans Pro", sans-serif;
+  font-family: "proxima-nova", "Source Sans Pro", sans-serif, "Twemoji Mozilla";
   float: left;
   border: none;
   width: 100%;
   padding: 11px 32px 10px 8px;
-  font-size: 0.8em;
+  font-size: 0.9em;
   color: #32465a;
   resize: none;
   border-radius: 20px;
@@ -75,25 +75,7 @@ export default {
 .message-input .wrap input:focus {
   outline: none;
 }
-.message-input .wrap .attachment {
-  position: absolute;
-  right: 60px;
-  z-index: 4;
-  margin-top: 10px;
-  font-size: 1.1em;
-  color: #435f7a;
-  opacity: 0.5;
-  cursor: pointer;
-}
-@media screen and (max-width: 735px) {
-  .message-input .wrap .attachment {
-    margin-top: 17px;
-    right: 65px;
-  }
-}
-.message-input .wrap .attachment:hover {
-  opacity: 1;
-}
+
 .message-input .wrap button {
   float: right;
   border: none;
@@ -108,11 +90,6 @@ export default {
   align-items: center;
 }
 
-@media screen and (max-width: 735px) {
-  .message-input .wrap button {
-    /* padding: 16px 0; */
-  }
-}
 .message-input .wrap i:hover {
   color: #435f7a!important;
   cursor: pointer;
@@ -127,10 +104,6 @@ export default {
   font-size: 30px;
   color:white;
 }
-
-/* .message-input .wrap button i:focus {
-  outline: none;
-} */
 
 .emojis:hover {
   color: #435f7a!important;
