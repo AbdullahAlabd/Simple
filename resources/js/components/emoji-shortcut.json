@@ -1,0 +1,330 @@
+[
+    {
+        "shortcut": ":)",
+        "emoji": "🙂"
+    },
+    {
+        "shortcut": ":-)",
+        "emoji": "🙂"
+    },
+    {
+        "shortcut": ":]",
+        "emoji": "🙂"
+    },
+    {
+        "shortcut": "(:",
+        "emoji": "🙂"
+    },
+    {
+        "shortcut": "=)",
+        "emoji": "😊"
+    },
+    {
+        "shortcut": "(=",
+        "emoji": "😊"
+    },
+    {
+        "shortcut": ":(",
+        "emoji": "😞"
+    },
+    {
+        "shortcut": ":-(",
+        "emoji": "😞"
+    },
+    {
+        "shortcut": ":[",
+        "emoji": "😞"
+    },
+    {
+        "shortcut": "=(",
+        "emoji": "😞"
+    },
+    {
+        "shortcut": ")=",
+        "emoji": "😞"
+    },
+    {
+        "shortcut": ";-P",
+        "emoji": "😜"
+    },
+    {
+        "shortcut": ";P",
+        "emoji": "😜"
+    },
+    {
+        "shortcut": ";-p",
+        "emoji": "😜"
+    },
+    {
+        "shortcut": ";p",
+        "emoji": "😜"
+    },
+    {
+        "shortcut": ":poop:",
+        "emoji": "💩"
+    },
+    {
+        "shortcut": ":P",
+        "emoji": "😛"
+    },
+    {
+        "shortcut": ":-P",
+        "emoji": "😛"
+    },
+    {
+        "shortcut": ":-p",
+        "emoji": "😛"
+    },
+    {
+        "shortcut": ":p",
+        "emoji": "😛"
+    },
+    {
+        "shortcut": "=P",
+        "emoji": "😛"
+    },
+    {
+        "shortcut": "=p",
+        "emoji": "😛"
+    },
+    {
+        "shortcut": "=D",
+        "emoji": "😃"
+    },
+    {
+        "shortcut": ":-D",
+        "emoji": "😀"
+    },
+    {
+        "shortcut": ":D",
+        "emoji": "😀"
+    },
+    {
+        "shortcut": ":o",
+        "emoji": "😮"
+    },
+    {
+        "shortcut": ":-O",
+        "emoji": "😮"
+    },
+    {
+        "shortcut": ":O",
+        "emoji": "😮"
+    },
+    {
+        "shortcut": ":-o",
+        "emoji": "😮"
+    },
+    {
+        "shortcut": ";)",
+        "emoji": "😉"
+    },
+    {
+        "shortcut": ";-)",
+        "emoji": "😉"
+    },
+    {
+        "shortcut": "8-)",
+        "emoji": "😎"
+    },
+    {
+        "shortcut": "8)",
+        "emoji": "😎"
+    },
+    {
+        "shortcut": "B-)",
+        "emoji": "😎"
+    },
+    {
+        "shortcut": "B)",
+        "emoji": "😎"
+    },
+    {
+        "shortcut": ":/",
+        "emoji": "😕"
+    },
+    {
+        "shortcut": ":-/",
+        "emoji": "😕"
+    },
+    {
+        "shortcut": ":\\",
+        "emoji": "😕"
+    },
+    {
+        "shortcut": ":-\\",
+        "emoji": "😕"
+    },
+    {
+        "shortcut": "=/",
+        "emoji": "😕"
+    },
+    {
+        "shortcut": "=\\",
+        "emoji": "😕"
+    },
+    {
+        "shortcut": ":'(",
+        "emoji": "😢"
+    },
+    {
+        "shortcut": ":'-(",
+        "emoji": "😢"
+    },
+    {
+        "shortcut": "3:)",
+        "emoji": "😈"
+    },
+    {
+        "shortcut": "3:-)",
+        "emoji": "😈"
+    },
+    {
+        "shortcut": "O:)",
+        "emoji": "😇"
+    },
+    {
+        "shortcut": "O:-)",
+        "emoji": "😇"
+    },
+    {
+        "shortcut": "0:)",
+        "emoji": "😇"
+    },
+    {
+        "shortcut": "0:-)",
+        "emoji": "😇"
+    },
+    {
+        "shortcut": ":*",
+        "emoji": "😗"
+    },
+    {
+        "shortcut": ":-*",
+        "emoji": "😗"
+    },
+    {
+        "shortcut": ";-*",
+        "emoji": "😘"
+    },
+    {
+        "shortcut": ";*",
+        "emoji": "😘"
+    },
+    {
+        "shortcut": "<3",
+        "emoji": "❤️"
+    },
+    {
+        "shortcut": "^_^",
+        "emoji": "😊"
+    },
+    {
+        "shortcut": "^~^",
+        "emoji": "😊"
+    },
+    {
+        "shortcut": "-_-",
+        "emoji": "😑"
+    },
+    {
+        "shortcut": ":-|",
+        "emoji": "😐"
+    },
+    {
+        "shortcut": ":|",
+        "emoji": "😐"
+    },
+    {
+        "shortcut": ">:o",
+        "emoji": "😠"
+    },
+    {
+        "shortcut": ">:O",
+        "emoji": "😠"
+    },
+    {
+        "shortcut": ">:-O",
+        "emoji": "😠"
+    },
+    {
+        "shortcut": ">:-o",
+        "emoji": "😠"
+    },
+    {
+        "shortcut": ">:(",
+        "emoji": "😠"
+    },
+    {
+        "shortcut": ">:-(",
+        "emoji": "😠"
+    },
+    {
+        "shortcut": ">_<",
+        "emoji": "😣"
+    },
+    {
+        "shortcut": ">.<",
+        "emoji": "😣"
+    },
+    {
+        "shortcut": "<(\")",
+        "emoji": "🐧"
+    },
+    {
+        "shortcut": "O_O",
+        "emoji": "😳"
+    },
+    {
+        "shortcut": "o_o",
+        "emoji": "😳"
+    },
+    {
+        "shortcut": "0_0",
+        "emoji": "😳"
+    },
+    {
+        "shortcut": "T_T",
+        "emoji": "😭"
+    },
+    {
+        "shortcut": "T-T",
+        "emoji": "😭"
+    },
+    {
+        "shortcut": "ToT",
+        "emoji": "😭"
+    },
+    {
+        "shortcut": "T.T",
+        "emoji": "😭"
+    },
+    {
+        "shortcut": "-3-",
+        "emoji": "😚"
+    },
+    {
+        "shortcut": "'-_-",
+        "emoji": "😓"
+    },
+    {
+        "shortcut": "(y)",
+        "emoji": "👍"
+    },
+    {
+        "shortcut": ":like:",
+        "emoji": "👍"
+    },
+    {
+        "shortcut": "(Y)",
+        "emoji": "👍"
+    },
+    {
+        "shortcut": "(n)",
+        "emoji": "👎"
+    },
+    {
+        "shortcut": "(N)",
+        "emoji": "👎"
+    }
+]

@@ -92,7 +92,6 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: #27ae60;
   font-family: "proxima-nova", "Source Sans Pro", sans-serif, "Twemoji Mozilla";
   font-size: 1em;
   letter-spacing: 0.1px;

@@ -3,11 +3,11 @@
     <div class="contact-profile" id="contact" v-bind="reciever">
       <img :src="'storage/'+reciever.image" id="contimg" alt />
       <div id="tag">
-        <p style="position:absolute;top:-10;left:70px;">{{reciever.name}}</p>
+        <strong class="position-absolute" style="margin-top:-6px">{{reciever.name}}</strong>
         <small
-          class="form-text text-muted"
-          style="position: absolute;top:15px;left:70px; color: rgb(167, 167, 167)"
+          class="text-muted position-absolute mt-2"
         >@{{reciever.handle}}</small>
+          <!-- style="top:15px;left:70px;" -->
       </div>
       <div class="top-bar-btns p-3">
         <i class="material-icons-round d-block mr-3" aria-hidden="true">group_add</i>
@@ -38,7 +38,7 @@
               @mouseenter="showCancel('msg'+message.id)"
               @mouseleave="hideCancel('msg'+message.id)"
               data-toggle="tooltip"
-              :data-placement="(message.sender_id===user.id?'right':'right')"
+              data-placement="auto"
               :title="message.created_at"
               style="white-space: pre-line"
             >{{message.content}}</p>
@@ -175,23 +175,10 @@ export default {
 }
 
 .top-bar-btns i:hover {
-  color: #8fbeee !important;
+  color: #597590aa !important;
   cursor: pointer;
 }
 
-.content .contact-profile .social-media {
-  float: right;
-}
-.content .contact-profile .social-media i {
-  margin-left: 14px;
-  cursor: pointer;
-}
-.content .contact-profile .social-media i:nth-last-child(1) {
-  margin-right: 20px;
-}
-.content .contact-profile .social-media i:hover {
-  color: #435f7a;
-}
 .content .messages {
   height: auto;
   min-height: calc(100% - 120px);
@@ -215,7 +202,7 @@ export default {
   display: inline-block;
   margin: 15px 15px 0px 15px !important;
   width: calc(100% - 25px);
-  font-size: 1em;
+  font-size: 1.05em;
   font-family: "proxima-nova", "Source Sans Pro", sans-serif, "Twemoji Mozilla";
 }
 .content .messages ul li.sent img {
@@ -223,7 +210,7 @@ export default {
 }
 .content .messages ul li.sent p {
   word-wrap: break-word;
-  background: #435f7a;
+  background: #597590;
   color: #f5f5f5;
   margin-bottom: 0px;
 }

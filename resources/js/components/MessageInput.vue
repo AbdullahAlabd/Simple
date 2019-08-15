@@ -1,14 +1,16 @@
 <template>
   <div class="message-input">
     <div class="wrap">
-      <i class="material-icons-round mx-1 mb-1">insert_emoticon</i>
-      <div id="input-message" contenteditable="true" class="input-message" placeholder="Type a message..." @keyup.enter.exact="newMessage" @input="text=$event.target.innerText"></div>
-      <i class="material-icons-round mx-1 mb-1" @click="newMessage">send</i>
+      <i class="material-icons-round mx-1">insert_emoticon</i>
+      <div id="input-message" contenteditable="true" class="input-message" placeholder="Type a message..." @keyup.enter.exact="newMessage" @input="inputChanged($event.target.innerText)" ref="input"></div>
+      <i class="material-icons-round mx-1" @click="newMessage">send</i>
     </div>
   </div>
 </template>
 
 <script>
+const shortcuts = require('./emoji-shortcut.json');
+let shrtMap = new Map();
 export default {
     name: "messageInput",
     data() {
@@ -19,12 +21,42 @@ export default {
     methods: {
         newMessage() {
             this.text = this.text.trim().replace(/\n+/g, '\n');
+
             if(this.text) {
-                this.$emit('newMessage', this.text);
-                this.text = '';
-                document.getElementById('input-message').innerHTML= '\0';
+              
+              this.text = this.replaceShortcuts(this.text);
+              this.$emit('newMessage', this.text);
+              this.text = '';
+              document.getElementById('input-message').innerHTML= '\0';
             }
+        },
+        inputChanged(input) {
+          this.text = input;
+          // this.text = this.replaceShortcuts(this.text);
+        },
+        replaceShortcuts(msg = '') {
+          let res = ''
+          for(let i = 0; i < msg.length;) {
+            let b = 0;
+            for(let l = Math.min(6, msg.length-i); l >= 2; l--) {
+              if(shrtMap.has(msg.substring(i, i+l))) {
+                res += shrtMap.get(msg.substring(i, i+l));
+                b = l-1;
+                break;
+              }
+            }
+            if(!b) {
+              res += msg[i];
+            }
+            i = i + b + 1;
+          }
+          return res;
         }
+    },
+    mounted() {
+      shortcuts.forEach(e => {
+        shrtMap.set(e["shortcut"], e["emoji"]);
+      });
     }
 };
 </script>
@@ -37,7 +69,7 @@ export default {
   z-index: 99;
   display: block;
   overflow: auto;
-  background-color: #959fa8;
+  background-color: #AEBBC2;
   padding-top: 16px;
   padding-bottom: 16px;
 }
@@ -55,8 +87,8 @@ export default {
   float: left;
   border: none;
   width: 100%;
-  padding: 11px 32px 10px 8px;
-  font-size: 0.9em;
+  padding: 9px 32px 8px 8px;
+  font-size: 1.0em;
   color: #32465a;
   resize: none;
   border-radius: 20px;
@@ -91,22 +123,18 @@ export default {
 }
 
 .message-input .wrap i:hover {
-  color: #435f7a!important;
+  color: #597590!important;
   cursor: pointer;
 }
 
-.message-input .wrap button i {
-  font-size: 30px;
-  color:white;
-}
-
 .message-input .wrap i {
-  font-size: 30px;
+  font-size: 2.55em;
+  margin-bottom: 1px;
   color:white;
 }
 
 .emojis:hover {
-  color: #435f7a!important;
+  color: #597590!important;
 }
 
 </style>
