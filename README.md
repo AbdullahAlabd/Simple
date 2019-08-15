@@ -1,6 +1,6 @@
 # Simple
 
-Simple one to one chat app made with Larvel and Vue
+Simple is a real-time (one to one) chat app made with Laravel and Vue.
 
 ## Getting Started
 
@@ -8,9 +8,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them - git - php v7.3.5 + - node v8.12.0 + - npm v6.4.1 + - composer v1.8.6
+To be able to run the project on your system you should have:
+*Git *PHP v7.3.5+ Mysql v14.14+ *Node v8.12.0+ *NPM v6.4.1+ *Composer v1.8.6+
 
-### Installing
+Note: you might be able to run the project on older versions than versions mentioned above but to avoid any issues we recommend you to use the recommended versions
+
+### Installation
 
 A step by step series of examples that tell you how to get a development env running
 
@@ -45,7 +48,7 @@ Add additional notes about how to deploy this on a live system
 -   **Abdullah Al-Abd** - _Initial work_ - [Abdullahalabd](https://github.com/Abdullahalabd)
 
 ## License
-
+//todo
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
