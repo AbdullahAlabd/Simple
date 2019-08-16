@@ -2128,6 +2128,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SidePanel",
@@ -2152,16 +2171,19 @@ __webpack_require__.r(__webpack_exports__);
 
       if (document.getElementById("photo").files[0]) {
         var data = new FormData();
+        this.$refs.loading.style.display = 'block';
         data.append("image", document.getElementById("photo").files[0]);
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/profiles/" + this.user.id, data).then(function (res) {
           $('#imgSucAlert').removeClass('d-none');
           $('#imgSucAlert').addClass('show');
           console.log(res);
           _this.image = res.data.image;
+          _this.$refs.loading.style.display = 'none';
         })["catch"](function (e) {
           $('#imgFailAlert').removeClass('d-none');
           ;
           $('#imgFailAlert').addClass('show');
+          _this.$refs.loading.style.display = 'none';
           console.log(e);
         });
       }
@@ -6666,7 +6688,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n@font-face {\n  font-family: 'Twemoji Mozilla';\n  src: url(" + escape(__webpack_require__(/*! ../../fonts/Twemoji Mozilla v12.1.2.ttf */ "./resources/fonts/Twemoji Mozilla v12.1.2.ttf")) + ");\n}\nbody[data-v-0d66c37a] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-height: 100vh;\n  font-family: \"proxima-nova\", \"Source Sans Pro\", sans-serif, \"Twemoji Mozilla\";\n  font-size: 1em;\n  letter-spacing: 0.1px;\n  color: #32465a;\n  text-rendering: optimizeLegibility;\n  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);\n  -webkit-font-smoothing: antialiased;\n}\n#frame[data-v-0d66c37a] {\n  width: 100%;\n  min-width: 360px;\n  max-width: 100vw;\n  height: 100vh;\n  min-height: 300px;\n  max-height: 720px;\n  background: #e6eaea;\n}\n@media screen and (max-width: 360px) {\n#frame[data-v-0d66c37a] {\n    width: 100%;\n    height: 100vh;\n}\n}\n", ""]);
+exports.push([module.i, "\n@font-face {\n  font-family: 'Twemoji Mozilla';\n  src: url(" + escape(__webpack_require__(/*! ../../fonts/Twemoji Mozilla v12.1.2.ttf */ "./resources/fonts/Twemoji Mozilla v12.1.2.ttf")) + ");\n}\nbody[data-v-0d66c37a] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-height: 100vh;\n  font-family: \"proxima-nova\", \"Source Sans Pro\", \"Twemoji Mozilla\";\n  font-size: 1em;\n  letter-spacing: 0.1px;\n  color: #32465a;\n  text-rendering: optimizeLegibility;\n  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);\n  -webkit-font-smoothing: antialiased;\n}\n#frame[data-v-0d66c37a] {\n  width: 100%;\n  min-width: 360px;\n  max-width: 100vw;\n  height: 100vh;\n  min-height: 300px;\n  max-height: 720px;\n  background: #e6eaea;\n}\n@media screen and (max-width: 360px) {\n#frame[data-v-0d66c37a] {\n    width: 100%;\n    height: 100vh;\n}\n}\n", ""]);
 
 // exports
 
@@ -6685,7 +6707,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.content[data-v-63f956ee] {\n  float: right;\n  width: 60%;\n  height: 100%;\n  overflow: hidden;\n  position: relative;\n}\n@media screen and (max-width: 735px) {\n.content[data-v-63f956ee] {\n    width: calc(100% - 58px);\n    min-width: 300px !important;\n}\n}\n@media screen and (min-width: 900px) {\n.content[data-v-63f956ee] {\n    width: calc(100% - 340px);\n}\n}\n.content .contact-profile[data-v-63f956ee] {\n  width: 100%;\n  height: 60px;\n  line-height: 60px;\n  background: #f5f5f5;\n}\n.content .contact-profile img[data-v-63f956ee] {\n  width: 46px;\n  border-radius: 50%;\n  float: left;\n  margin: 6px 12px 0 9px;\n}\n.content .contact-profile p[data-v-63f956ee] {\n  float: left;\n}\n.top-bar-btns[data-v-63f956ee] {\n  display: flex;\n  flex-flow: row left;\n  align-items: center;\n  float: right;\n}\n.top-bar-btns i[data-v-63f956ee]:hover {\n  color: #597590aa !important;\n  cursor: pointer;\n}\n.content .messages[data-v-63f956ee] {\n  height: auto;\n  min-height: calc(100% - 120px);\n  max-height: calc(100% - 120px);\n  overflow-y: scroll;\n  overflow-x: hidden;\n}\n@media screen and (max-width: 735px) {\n.content .messages[data-v-63f956ee] {\n    max-height: calc(100% - 105px);\n}\n}\n.content .messages[data-v-63f956ee]::-webkit-scrollbar {\n  width: 8px;\n  background: transparent;\n}\n.content .messages[data-v-63f956ee]::-webkit-scrollbar-thumb {\n  background-color: rgba(0, 0, 0, 0.3);\n}\n.content .messages ul li[data-v-63f956ee] {\n  display: inline-block;\n  margin: 15px 15px 0px 15px !important;\n  width: calc(100% - 25px);\n  font-size: 1.05em;\n  font-family: \"proxima-nova\", \"Source Sans Pro\", sans-serif, \"Twemoji Mozilla\";\n}\n.content .messages ul li.sent img[data-v-63f956ee] {\n  margin: 2px 8px 0 0;\n}\n.content .messages ul li.sent p[data-v-63f956ee] {\n  word-wrap: break-word;\n  background: #597590;\n  color: #f5f5f5;\n  margin-bottom: 0px;\n}\n.content .messages ul li.replies .cont[data-v-63f956ee] {\n  justify-content: flex-start !important;\n  flex-direction: row-reverse !important;\n  margin: 2px 0 0 8px;\n}\n.content .messages ul li.sent .cont[data-v-63f956ee] {\n  justify-content: flex-start !important;\n  flex-direction: row !important;\n  margin: 2px 0 0 8px;\n}\n.content .messages ul li.replies img[data-v-63f956ee] {\n  float: right;\n  margin: 2px 0 0 8px;\n}\n.content .messages ul li.replies p[data-v-63f956ee] {\n  word-wrap: break-word;\n  background: #f5f5f5;\n  float: right;\n  margin-bottom: 0px;\n}\n.content .messages ul li img[data-v-63f956ee] {\n  width: 30px;\n  border-radius: 50%;\n  float: left;\n}\n.content .messages ul li p[data-v-63f956ee] {\n  display: inline-block;\n  padding: 10px 15px;\n  border-radius: 20px;\n  max-width: 70%;\n  line-height: 130%;\n}\n@media screen and (min-width: 735px) {\n.content .messages ul li p[data-v-63f956ee] {\n    max-width: 70%;\n}\n}\n.content .messages ul li[data-v-63f956ee]:nth-last-child(1) {\n  margin-bottom: 40px !important;\n}\n.remove-btn[data-v-63f956ee] {\n  display: none !important;\n  opacity: 0.5;\n  vertical-align: top;\n  max-height: 100%;\n}\n.remove-icon[data-v-63f956ee] {\n  align-items: stretch;\n  font-size: 20px !important;\n  color: black;\n  border-radius: 50%;\n  border: 0px solid black;\n  height: 100%;\n}\n.sent .remove-btn[data-v-63f956ee] {\n  float: left;\n  margin-top: -4px;\n  margin-right: -8px;\n}\n.replies .remove-btn[data-v-63f956ee] {\n  float: right;\n  margin-left: -8px;\n  margin-top: -4px;\n}\n.content .messages ul li .remove-btn[data-v-63f956ee]:hover {\n  cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.content[data-v-63f956ee] {\n  float: right;\n  width: 60%;\n  height: 100%;\n  overflow: hidden;\n  position: relative;\n}\n@media screen and (max-width: 735px) {\n.content[data-v-63f956ee] {\n    width: calc(100% - 58px);\n    min-width: 300px !important;\n}\n}\n@media screen and (min-width: 900px) {\n.content[data-v-63f956ee] {\n    width: calc(100% - 340px);\n}\n}\n.content .contact-profile[data-v-63f956ee] {\n  width: 100%;\n  height: 60px;\n  line-height: 60px;\n  background: #f5f5f5;\n}\n.content .contact-profile img[data-v-63f956ee] {\n  width: 46px;\n  border-radius: 50%;\n  float: left;\n  margin: 6px 12px 0 9px;\n}\n.content .contact-profile p[data-v-63f956ee] {\n  float: left;\n}\n.top-bar-btns[data-v-63f956ee] {\n  display: flex;\n  flex-flow: row left;\n  align-items: center;\n  float: right;\n}\n.top-bar-btns i[data-v-63f956ee]:hover {\n  color: #597590aa !important;\n  cursor: pointer;\n}\n.content .messages[data-v-63f956ee] {\n  height: auto;\n  min-height: calc(100% - 120px);\n  max-height: calc(100% - 120px);\n  overflow-y: scroll;\n  overflow-x: hidden;\n}\n@media screen and (max-width: 735px) {\n.content .messages[data-v-63f956ee] {\n    max-height: calc(100% - 105px);\n}\n}\n.content .messages[data-v-63f956ee]::-webkit-scrollbar {\n  width: 8px;\n  background: transparent;\n}\n.content .messages[data-v-63f956ee]::-webkit-scrollbar-thumb {\n  background-color: rgba(0, 0, 0, 0.3);\n}\n.content .messages ul li[data-v-63f956ee] {\n  display: inline-block;\n  margin: 15px 15px 0px 15px !important;\n  width: calc(100% - 25px);\n  font-size: 1.05em;\n  font-family: \"proxima-nova\", \"Source Sans Pro\", \"Twemoji Mozilla\";\n}\n.content .messages ul li.sent img[data-v-63f956ee] {\n  margin: 2px 8px 0 0;\n}\n.content .messages ul li.sent p[data-v-63f956ee] {\n  word-wrap: break-word;\n  background: #597590;\n  color: #f5f5f5;\n  margin-bottom: 0px;\n}\n.content .messages ul li.replies .cont[data-v-63f956ee] {\n  justify-content: flex-start !important;\n  flex-direction: row-reverse !important;\n  margin: 2px 0 0 8px;\n}\n.content .messages ul li.sent .cont[data-v-63f956ee] {\n  justify-content: flex-start !important;\n  flex-direction: row !important;\n  margin: 2px 0 0 8px;\n}\n.content .messages ul li.replies img[data-v-63f956ee] {\n  float: right;\n  margin: 2px 0 0 8px;\n}\n.content .messages ul li.replies p[data-v-63f956ee] {\n  word-wrap: break-word;\n  background: #f5f5f5;\n  float: right;\n  margin-bottom: 0px;\n}\n.content .messages ul li img[data-v-63f956ee] {\n  width: 30px;\n  border-radius: 50%;\n  float: left;\n}\n.content .messages ul li p[data-v-63f956ee] {\n  display: inline-block;\n  padding: 10px 15px;\n  border-radius: 20px;\n  max-width: 70%;\n  line-height: 130%;\n}\n@media screen and (min-width: 735px) {\n.content .messages ul li p[data-v-63f956ee] {\n    max-width: 70%;\n}\n}\n.content .messages ul li[data-v-63f956ee]:nth-last-child(1) {\n  margin-bottom: 40px !important;\n}\n.remove-btn[data-v-63f956ee] {\n  display: none !important;\n  opacity: 0.5;\n  vertical-align: top;\n  max-height: 100%;\n}\n.remove-icon[data-v-63f956ee] {\n  align-items: stretch;\n  font-size: 20px !important;\n  color: black;\n  border-radius: 50%;\n  border: 0px solid black;\n  height: 100%;\n}\n.sent .remove-btn[data-v-63f956ee] {\n  float: left;\n  margin-top: -4px;\n  margin-right: -8px;\n}\n.replies .remove-btn[data-v-63f956ee] {\n  float: right;\n  margin-left: -8px;\n  margin-top: -4px;\n}\n.content .messages ul li .remove-btn[data-v-63f956ee]:hover {\n  cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -6704,7 +6726,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.message-input[data-v-d519e324] {\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n  z-index: 99;\n  display: block;\n  overflow: auto;\n  background-color: #AEBBC2;\n  padding-top: 16px;\n  padding-bottom: 16px;\n}\n.message-input .wrap[data-v-d519e324] {\n  position: relative;\n}\n[contenteditable=\"true\"][data-v-d519e324]:empty:before {\n  content: attr(placeholder);\n  display: block; /* For Firefox */\n}\n.message-input .wrap div[data-v-d519e324] {\n  font-family: \"proxima-nova\", \"Source Sans Pro\", sans-serif, \"Twemoji Mozilla\";\n  float: left;\n  border: none;\n  width: 100%;\n  padding: 9px 32px 8px 8px;\n  font-size: 1.0em;\n  color: #32465a;\n  resize: none;\n  border-radius: 20px;\n  background-color: white;\n  overflow-wrap: break-word;\n  max-height: 100px;\n  overflow: auto;\n  outline: none;\n}\n@media screen and (max-width: 735px) {\n.message-input .wrap input[data-v-d519e324] {\n    padding: 15px 32px 16px 8px;\n}\n}\n.message-input .wrap input[data-v-d519e324]:focus {\n  outline: none;\n}\n.message-input .wrap button[data-v-d519e324] {\n  float: right;\n  border: none;\n  cursor: pointer;\n  color: #32465a;\n  background: transparent;\n}\n.message-input .wrap[data-v-d519e324] {\n  display: flex;\n  flex-flow: row;\n  align-items: center;\n}\n.message-input .wrap i[data-v-d519e324]:hover {\n  color: #597590!important;\n  cursor: pointer;\n}\n.message-input .wrap i[data-v-d519e324] {\n  font-size: 2.55em;\n  margin-bottom: 1px;\n  color:white;\n}\n.emojis[data-v-d519e324]:hover {\n  color: #597590!important;\n}\n\n", ""]);
+exports.push([module.i, "\n.message-input[data-v-d519e324] {\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n  z-index: 99;\n  display: block;\n  overflow: auto;\n  background-color: #AEBBC2;\n  padding-top: 16px;\n  padding-bottom: 16px;\n}\n.message-input .wrap[data-v-d519e324] {\n  position: relative;\n}\n[contenteditable=\"true\"][data-v-d519e324]:empty:before {\n  content: attr(placeholder);\n  display: block; /* For Firefox */\n}\n.message-input .wrap div[data-v-d519e324] {\n  font-family: \"proxima-nova\", \"Source Sans Pro\", \"Twemoji Mozilla\";\n  /* font-family: \"proxima-nova\", \"Source Sans Pro\", sans-serif, \"Twemoji Mozilla\"; */\n  float: left;\n  border: none;\n  width: 100%;\n  padding: 9px 32px 8px 8px;\n  font-size: 1.0em;\n  color: #32465a;\n  resize: none;\n  border-radius: 20px;\n  background-color: white;\n  overflow-wrap: break-word;\n  max-height: 100px;\n  overflow: auto;\n  outline: none;\n}\n@media screen and (max-width: 735px) {\n.message-input .wrap input[data-v-d519e324] {\n    padding: 15px 32px 16px 8px;\n}\n}\n.message-input .wrap input[data-v-d519e324]:focus {\n  outline: none;\n}\n.message-input .wrap button[data-v-d519e324] {\n  float: right;\n  border: none;\n  cursor: pointer;\n  color: #32465a;\n  background: transparent;\n}\n.message-input .wrap[data-v-d519e324] {\n  display: flex;\n  flex-flow: row;\n  align-items: center;\n}\n.message-input .wrap i[data-v-d519e324]:hover {\n  color: #597590!important;\n  cursor: pointer;\n}\n.message-input .wrap i[data-v-d519e324] {\n  font-size: 2.55em;\n  margin-bottom: 1px;\n  color:white;\n}\n.emojis[data-v-d519e324]:hover {\n  color: #597590!important;\n}\n\n", ""]);
 
 // exports
 
@@ -6723,7 +6745,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#sidepanel[data-v-23d86692] {\n  float: left;\n  min-width: 280px;\n  max-width: 340px;\n  width: 40%;\n  height: 100%;\n  background: #2c3e50;\n  color: #f5f5f5;\n  overflow: hidden;\n  position: relative;\n}\n@media screen and (max-width: 735px) {\n#sidepanel[data-v-23d86692] {\n    width: 58px;\n    min-width: 58px;\n}\n}\n@media screen and (min-width: 865px) and (max-width: 899px){\n#sidepanel[data-v-23d86692] {\n    min-width: 40%;\n}\n}\n#sidepanel #profile[data-v-23d86692] {\n  width: 80%;\n  margin: 25px auto;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile[data-v-23d86692] {\n    width: 100%;\n    margin: 0 auto;\n    padding: 5px 0 0 0;\n    background: #32465a;\n}\n}\n#sidepanel #profile.expanded[data-v-23d86692]{\n  line-height: initial;\n  min-height: 100vh;\n  overflow-y: auto;\n  height: auto;\n  z-index: 99;\n}\n#sidepanel #profile.expanded .wrap[data-v-23d86692] {\n  height:initial!important;\n  line-height: 20px;\n  padding-bottom: 10px;\n}\n#sidepanel #profile.expanded .wrap .name-handle[data-v-23d86692] {\n  margin-top: 8px;\n}\n#sidepanel #profile.expanded .wrap i.expand-button[data-v-23d86692] {\n  transform: scaleY(-1);\n  -webkit-filter: FlipH;\n          filter: FlipH;\n  -ms-filter: \"FlipH\";\n}\n#sidepanel #profile .wrap[data-v-23d86692] {\n  height: 60px;\n  line-height: 60px;\n  overflow: hidden;\n  transition: 0.3s height ease;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap[data-v-23d86692] {\n    height: 55px;\n}\n}\n#sidepanel #profile .wrap #profile-img[data-v-23d86692] {\n  width: 50px;\n  border-radius: 50%;\n  padding: 3px;\n  border: 2px solid #e74c3c;\n  height: auto;\n  float: left;\n  cursor: pointer;\n  transition: 0.3s border ease;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap img[data-v-23d86692] {\n    width: 40px;\n    margin-left: 4px;\n}\n}\n#sidepanel #profile .wrap #profile-img.online[data-v-23d86692] {\n  border: 2px solid #2ecc71;\n}\n#sidepanel #profile .wrap img.offline[data-v-23d86692] {\n  border: 2px solid #95a5a6;\n}\n#sidepanel #profile .wrap .name-handle[data-v-23d86692]{\n  float: left;\n  margin-left: 15px;\n  margin-top: -12px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap .name-handle[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #profile .wrap i.expand-button[data-v-23d86692] {\n  float: right;\n  margin-top: 16px;\n  font-size: 2.0em;\n  cursor: pointer;\n  color: #435f7a;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap i.expand-button[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #profile .wrap #expanded[data-v-23d86692] {\n  padding: 85px 0 0 0;\n  display: block;\n  line-height: initial !important;\n  align-items: center!important;\n  /* align-content: center!important; */\n  text-align: center;\n}\n#sidepanel #profile .wrap #expanded input[data-v-23d86692] {\n  border: none;\n  margin-bottom: 6px;\n  background: #32465a;\n  border-radius: 3px;\n  color: #f5f5f5;\n  padding: 7px;\n  width: 100%;\n}\n#sidepanel #profile .wrap #expanded input[data-v-23d86692]:focus {\n  outline: none;\n  background: #435f7a;\n}\n#sidepanel #search[data-v-23d86692] {\n  border-top: 1px solid #32465a;\n  border-bottom: 1px solid #32465a;\n  font-weight: 300;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #search[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #search label[data-v-23d86692] {\n  position: absolute;\n  margin: 10px 0 0 20px;\n}\n#sidepanel #search input[data-v-23d86692] {\n  font-family: \"proxima-nova\", \"Source Sans Pro\", sans-serif;\n  padding: 10px 0 10px 46px;\n  /* width: calc(100% - 25px); */\n  width: 100%;\n  border: none;\n  background: #32465a;\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]:focus {\n  outline: none;\n  background: #435f7a;\n}\n#sidepanel #search input[data-v-23d86692]::-webkit-input-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]::-moz-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]:-ms-input-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]:-moz-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #contacts[data-v-23d86692] {\n  /* height: calc(100% - 177px); */\n  height: 100%;\n  overflow-y: scroll;\n  overflow-x: hidden;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts[data-v-23d86692] {\n    /* height: calc(100% - 149px); */\n    height: 100%;\n    overflow-y: scroll;\n    overflow-x: hidden;\n}\n#sidepanel #contacts[data-v-23d86692]::-webkit-scrollbar {\n    display: none;\n}\n}\n#sidepanel #contacts.expanded[data-v-23d86692] {\n  height: calc(100% - 334px);\n}\n#sidepanel #contacts[data-v-23d86692]::-webkit-scrollbar {\n  width: 8px;\n  background: #2c3e50;\n}\n#sidepanel #contacts[data-v-23d86692]::-webkit-scrollbar-thumb {\n  background-color: #243140;\n}\n#sidepanel #contacts ul li.contact[data-v-23d86692] {\n  position: relative;\n  padding: 10px 0 15px 0;\n  font-size: 0.9em;\n  font-family: \"proxima-nova\", \"Source Sans Pro\", sans-serif, \"Twemoji Mozilla\";\n  cursor: pointer;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact[data-v-23d86692] {\n    padding: 6px 0 46px 8px;\n}\n}\n#sidepanel #contacts ul li.contact[data-v-23d86692]:hover {\n  background: #32465a;\n}\n#sidepanel #contacts ul li.contact.active[data-v-23d86692] {\n  background: #32465a;\n  border-right: 5px solid #435f7a;\n}\n#sidepanel #contacts ul li.contact.active span.contact-status[data-v-23d86692] {\n  border: 2px solid #32465a !important;\n}\n#sidepanel #contacts ul li.contact .wrap[data-v-23d86692] {\n  width: 88%;\n  margin: 0 auto;\n  position: relative;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap[data-v-23d86692] {\n    width: 100%;\n}\n}\n#sidepanel #contacts ul li.contact .wrap span[data-v-23d86692] {\n  position: absolute;\n  left: 0;\n  margin: -2px 0 0 -2px;\n  width: 10px;\n  height: 10px;\n  border-radius: 50%;\n  border: 2px solid #2c3e50;\n  background: #95a5a6;\n}\n#sidepanel #contacts ul li.contact .wrap span.online[data-v-23d86692] {\n  background: #2ecc71;\n}\n#sidepanel #contacts ul li.contact .wrap img[data-v-23d86692] {\n  width: 40px;\n  border-radius: 50%;\n  float: left;\n  margin-right: 10px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap img[data-v-23d86692] {\n    margin-right: 0px;\n}\n}\n#sidepanel #contacts ul li.contact .wrap .meta[data-v-23d86692] {\n  padding: 5px 0 0 0;\n  margin-bottom: 0px !important;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap .meta[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #contacts ul li.contact .wrap .meta .name[data-v-23d86692] {\n  left: 0;\n  position: relative;\n  font-weight: 600;\n}\n#sidepanel #contacts ul li.contact .wrap .meta .preview[data-v-23d86692] {\n  margin: 5px 0 0 0;\n  padding: 0 0 1px;\n  font-weight: 400;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: 1s all ease;\n}\n#sidepanel #contacts ul li.contact .wrap .meta p[data-v-23d86692] {\n  margin-bottom: 0px !important;\n}\n#sidepanel #contacts ul li.contact .wrap .date[data-v-23d86692] {\n  position: absolute !important;\n  right: 0;\n  top: 0;\n  padding-top: 7px;\n  font-size: 10px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap .date[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #contacts ul li.contact .wrap .meta .preview span[data-v-23d86692] {\n  position: initial;\n  border-radius: initial;\n  background: none;\n  border: none;\n  padding: 0 2px 0 0;\n  margin: 0 0 0 1px;\n  opacity: 0.5;\n}\n.profile-img-side[data-v-23d86692] {\n  width: calc(100% - 10px);\n  border-radius: 30%;\n  height: auto;\n  transition: 0.3s border ease;\n}\n.alert-container[data-v-23d86692] {\n  /* display: none; */\n  position:absolute;\n  bottom: 0;\n  left: 0;\n}\n", ""]);
+exports.push([module.i, "\n#sidepanel[data-v-23d86692] {\n  float: left;\n  min-width: 280px;\n  max-width: 340px;\n  width: 40%;\n  height: 100%;\n  background: #2c3e50;\n  color: #f5f5f5;\n  overflow: hidden;\n  position: relative;\n}\n@media screen and (max-width: 735px) {\n#sidepanel[data-v-23d86692] {\n    width: 58px;\n    min-width: 58px;\n}\n}\n@media screen and (min-width: 865px) and (max-width: 899px){\n#sidepanel[data-v-23d86692] {\n    min-width: 40%;\n}\n}\n#sidepanel #profile[data-v-23d86692] {\n  width: 80%;\n  margin: 25px auto;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile[data-v-23d86692] {\n    width: 100%;\n    margin: 0 auto;\n    padding: 5px 0 0 0;\n    background: #32465a;\n}\n}\n#sidepanel #profile.expanded[data-v-23d86692]{\n  line-height: initial;\n  min-height: 100vh;\n  overflow-y: auto;\n  height: auto;\n  z-index: 99;\n}\n#sidepanel #profile.expanded .wrap[data-v-23d86692] {\n  height:initial!important;\n  line-height: 20px;\n  padding-bottom: 10px;\n}\n#sidepanel #profile.expanded .wrap .name-handle[data-v-23d86692] {\n  margin-top: 8px;\n}\n#sidepanel #profile.expanded .wrap i.expand-button[data-v-23d86692] {\n  transform: scaleY(-1);\n  -webkit-filter: FlipH;\n          filter: FlipH;\n  -ms-filter: \"FlipH\";\n}\n#sidepanel #profile .wrap[data-v-23d86692] {\n  height: 60px;\n  line-height: 60px;\n  overflow: hidden;\n  transition: 0.3s height ease;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap[data-v-23d86692] {\n    height: 55px;\n}\n}\n#sidepanel #profile .wrap #profile-img[data-v-23d86692] {\n  width: 50px;\n  border-radius: 50%;\n  padding: 3px;\n  border: 2px solid #e74c3c;\n  height: auto;\n  float: left;\n  cursor: pointer;\n  transition: 0.3s border ease;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap img[data-v-23d86692] {\n    width: 40px;\n    margin-left: 4px;\n}\n}\n#sidepanel #profile .wrap #profile-img.online[data-v-23d86692] {\n  border: 2px solid #2ecc71;\n}\n#sidepanel #profile .wrap img.offline[data-v-23d86692] {\n  border: 2px solid #95a5a6;\n}\n#sidepanel #profile .wrap .name-handle[data-v-23d86692]{\n  float: left;\n  margin-left: 15px;\n  margin-top: -12px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap .name-handle[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #profile .wrap i.expand-button[data-v-23d86692] {\n  float: right;\n  margin-top: 16px;\n  font-size: 2.0em;\n  cursor: pointer;\n  color: #435f7a;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #profile .wrap i.expand-button[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #profile .wrap #expanded[data-v-23d86692] {\n  padding: 85px 0 0 0;\n  display: block;\n  line-height: initial !important;\n  align-items: center!important;\n  /* align-content: center!important; */\n  text-align: center;\n}\n#sidepanel #profile .wrap #expanded input[data-v-23d86692], #sidepanel #profile .wrap #expanded textarea[data-v-23d86692]{\n  border: none;\n  margin-bottom: 6px;\n  background: #32465a;\n  color: #f5f5f5;\n  padding: 7px;\n  width: 100%;\n  /* border-radius: 10px; */\n}\n#sidepanel #profile .wrap #expanded input[data-v-23d86692]:focus, #sidepanel #profile .wrap #expanded textarea[data-v-23d86692]:focus {\n  outline: none;\n  background: #435f7a;\n}\n#sidepanel #search[data-v-23d86692] {\n  border-top: 1px solid #32465a;\n  border-bottom: 1px solid #32465a;\n  font-weight: 300;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #search[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #search label[data-v-23d86692] {\n  position: absolute;\n  margin: 10px 0 0 20px;\n}\n#sidepanel #search input[data-v-23d86692] {\n  font-family: \"proxima-nova\", \"Source Sans Pro\", sans-serif;\n  padding: 10px 0 10px 46px;\n  /* width: calc(100% - 25px); */\n  width: 100%;\n  border: none;\n  background: #32465a;\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]:focus {\n  outline: none;\n  background: #435f7a;\n}\n#sidepanel #search input[data-v-23d86692]::-webkit-input-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]::-moz-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]:-ms-input-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #search input[data-v-23d86692]:-moz-placeholder {\n  color: #f5f5f5;\n}\n#sidepanel #contacts[data-v-23d86692] {\n  /* height: calc(100% - 177px); */\n  height: 100%;\n  overflow-y: scroll;\n  overflow-x: hidden;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts[data-v-23d86692] {\n    /* height: calc(100% - 149px); */\n    height: 100%;\n    overflow-y: scroll;\n    overflow-x: hidden;\n}\n#sidepanel #contacts[data-v-23d86692]::-webkit-scrollbar {\n    display: none;\n}\n}\n#sidepanel #contacts.expanded[data-v-23d86692] {\n  height: calc(100% - 334px);\n}\n#sidepanel #contacts[data-v-23d86692]::-webkit-scrollbar {\n  width: 8px;\n  background: #2c3e50;\n}\n#sidepanel #contacts[data-v-23d86692]::-webkit-scrollbar-thumb {\n  background-color: #243140;\n}\n#sidepanel #contacts ul li.contact[data-v-23d86692] {\n  position: relative;\n  padding: 10px 0 15px 0;\n  font-size: 0.9em;\n  font-family: \"proxima-nova\", \"Source Sans Pro\", \"Twemoji Mozilla\";\n  cursor: pointer;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact[data-v-23d86692] {\n    padding: 6px 0 46px 8px;\n}\n}\n#sidepanel #contacts ul li.contact[data-v-23d86692]:hover {\n  background: #32465a;\n}\n#sidepanel #contacts ul li.contact.active[data-v-23d86692] {\n  background: #32465a;\n  border-right: 5px solid #435f7a;\n}\n#sidepanel #contacts ul li.contact.active span.contact-status[data-v-23d86692] {\n  border: 2px solid #32465a !important;\n}\n#sidepanel #contacts ul li.contact .wrap[data-v-23d86692] {\n  width: 88%;\n  margin: 0 auto;\n  position: relative;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap[data-v-23d86692] {\n    width: 100%;\n}\n}\n#sidepanel #contacts ul li.contact .wrap span[data-v-23d86692] {\n  position: absolute;\n  left: 0;\n  margin: -2px 0 0 -2px;\n  width: 10px;\n  height: 10px;\n  border-radius: 50%;\n  border: 2px solid #2c3e50;\n  background: #95a5a6;\n}\n#sidepanel #contacts ul li.contact .wrap span.online[data-v-23d86692] {\n  background: #2ecc71;\n}\n#sidepanel #contacts ul li.contact .wrap img[data-v-23d86692] {\n  width: 40px;\n  border-radius: 50%;\n  float: left;\n  margin-right: 10px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap img[data-v-23d86692] {\n    margin-right: 0px;\n}\n}\n#sidepanel #contacts ul li.contact .wrap .meta[data-v-23d86692] {\n  padding: 5px 0 0 0;\n  margin-bottom: 0px !important;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap .meta[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #contacts ul li.contact .wrap .meta .name[data-v-23d86692] {\n  left: 0;\n  position: relative;\n  font-weight: 600;\n}\n#sidepanel #contacts ul li.contact .wrap .meta .preview[data-v-23d86692] {\n  margin: 5px 0 0 0;\n  padding: 0 0 1px;\n  font-weight: 400;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: 1s all ease;\n}\n#sidepanel #contacts ul li.contact .wrap .meta p[data-v-23d86692] {\n  margin-bottom: 0px !important;\n}\n#sidepanel #contacts ul li.contact .wrap .date[data-v-23d86692] {\n  position: absolute !important;\n  right: 0;\n  top: 0;\n  padding-top: 7px;\n  font-size: 10px;\n}\n@media screen and (max-width: 735px) {\n#sidepanel #contacts ul li.contact .wrap .date[data-v-23d86692] {\n    display: none;\n}\n}\n#sidepanel #contacts ul li.contact .wrap .meta .preview span[data-v-23d86692] {\n  position: initial;\n  border-radius: initial;\n  background: none;\n  border: none;\n  padding: 0 2px 0 0;\n  margin: 0 0 0 1px;\n  opacity: 0.5;\n}\n.profile-img-side[data-v-23d86692] {\n  width: calc(100% - 10px);\n  border-radius: 60px;\n  height: auto;\n  transition: 0.3s border ease;\n}\n.alert-container[data-v-23d86692] {\n  /* display: none; */\n  position:absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  padding-right: 20px;\n  padding-left: 20px;\n  text-align: center;\n}\n.edit-cover[data-v-23d86692]{\n  display: none;\n  position:absolute;\n  top: 75%;\n  left: 50%;\n  transform: translate(-50%, 0);\n  background: black;\n  opacity:0.5;\n  width: calc(100% - 10px);\n  height: 25%;\n  border-bottom-left-radius: 60px;\n  border-bottom-right-radius: 60px;\n  cursor: pointer;\n  overflow: hidden;\n}\n.edit-cover input[type=file][data-v-23d86692]{\n  opacity:0;\n  font-size:300px;\n  position:absolute;\n  top:0;\n  left:0;\n  border-radius: 0px!important;\n  padding: 0px!important;\n}\n.img-container[data-v-23d86692]{\n  text-align: center;\n  position: relative;\n  width: auto;\n  height: auto;\n}\n.img-container:hover .edit-cover[data-v-23d86692]{\n  display: inline-block;\n}\n.loading[data-v-23d86692]{\n  position: absolute;\n  height: 60px;\n  width: 60px;\n  top: calc(50% - 30px);\n  left: calc(50% - 30px);\n  display:none;\n}\n.expanded textarea[data-v-23d86692]::-webkit-input-placeholder, .expanded input[data-v-23d86692]::-webkit-input-placeholder{\n  color:darkgray;\n}\n.expanded textarea[data-v-23d86692]::-moz-placeholder, .expanded input[data-v-23d86692]::-moz-placeholder{\n  color:darkgray;\n}\n.expanded textarea[data-v-23d86692]:-ms-input-placeholder, .expanded input[data-v-23d86692]:-ms-input-placeholder{\n  color:darkgray;\n}\n.expanded textarea[data-v-23d86692]::-ms-input-placeholder, .expanded input[data-v-23d86692]::-ms-input-placeholder{\n  color:darkgray;\n}\n.expanded textarea[data-v-23d86692]::placeholder, .expanded input[data-v-23d86692]::placeholder{\n  color:darkgray;\n}\nbutton input[type=file][data-v-23d86692],[data-v-23d86692]::-webkit-file-upload-button{\n    cursor:pointer;\n}\n", ""]);
 
 // exports
 
@@ -48899,22 +48921,30 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { attrs: { id: "expanded" } }, [
-            _c("img", {
-              staticClass: "profile-img-side mb-2",
-              attrs: { src: "storage/" + _vm.image, alt: "" }
-            }),
+            _c("div", { staticClass: "img-container mb-2" }, [
+              _c("img", {
+                staticClass: "profile-img-side",
+                attrs: { src: "storage/" + _vm.image, alt: "" }
+              }),
+              _vm._v(" "),
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  ref: "loading",
+                  staticClass: "spinner-border loading",
+                  attrs: { role: "status" }
+                },
+                [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
+              )
+            ]),
             _vm._v(" "),
             _c("input", {
-              attrs: {
-                type: "file",
-                name: "photo",
-                id: "photo",
-                placeholder: "Choose another photo",
-                accept: "image/*"
-              }
-            }),
-            _vm._v(" "),
-            _c("input", {
+              staticStyle: {
+                "border-top-left-radius": "15px",
+                "border-top-right-radius": "15px"
+              },
               attrs: {
                 name: "handle",
                 type: "text",
@@ -48938,7 +48968,8 @@ var render = function() {
                 name: "name",
                 type: "text",
                 title: "Name",
-                maxlength: "50"
+                maxlength: "25",
+                placeholder: "Type your name"
               },
               domProps: { value: _vm.name },
               on: {
@@ -48951,7 +48982,7 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _c("input", {
+            _c("textarea", {
               directives: [
                 {
                   name: "model",
@@ -48960,11 +48991,17 @@ var render = function() {
                   expression: "status"
                 }
               ],
+              staticStyle: {
+                "border-bottom-left-radius": "15px",
+                "border-bottom-right-radius": "15px"
+              },
               attrs: {
                 name: "status",
                 type: "text",
                 title: "Status",
-                maxlength: "200"
+                maxlength: "100",
+                rows: "2",
+                placeholder: "Type your status"
               },
               domProps: { value: _vm.status },
               on: {
@@ -49086,7 +49123,7 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", { attrs: { id: "search" } }, [
-      _vm._m(0),
+      _vm._m(1),
       _vm._v(" "),
       _c("input", {
         attrs: { type: "text", placeholder: "Search contacts..." },
@@ -49182,6 +49219,29 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "edit-cover mx-auto" }, [
+      _c("i", { staticClass: "material-icons-outlined" }, [_vm._v("edit")]),
+      _vm._v(" "),
+      _c("p", { staticClass: "text-light " }, [
+        _c("strong", [_vm._v("Update Image")])
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        attrs: {
+          type: "file",
+          name: "photo",
+          id: "photo",
+          placeholder: "Choose another photo",
+          accept: "image/*",
+          title: "click to choose another image"
+        }
+      })
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

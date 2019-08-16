@@ -203,7 +203,7 @@ export default {
   margin: 15px 15px 0px 15px !important;
   width: calc(100% - 25px);
   font-size: 1.05em;
-  font-family: "proxima-nova", "Source Sans Pro", sans-serif, "Twemoji Mozilla";
+  font-family: "proxima-nova", "Source Sans Pro", "Twemoji Mozilla";
 }
 .content .messages ul li.sent img {
   margin: 2px 8px 0 0;

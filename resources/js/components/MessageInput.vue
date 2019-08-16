@@ -83,7 +83,8 @@ export default {
 }
 
 .message-input .wrap div {
-  font-family: "proxima-nova", "Source Sans Pro", sans-serif, "Twemoji Mozilla";
+  font-family: "proxima-nova", "Source Sans Pro", "Twemoji Mozilla";
+  /* font-family: "proxima-nova", "Source Sans Pro", sans-serif, "Twemoji Mozilla"; */
   float: left;
   border: none;
   width: 100%;

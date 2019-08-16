@@ -10,14 +10,29 @@
         <i class="material-icons-round expand-button" @click="toggleProfile">expand_more</i>
         <div id="expanded">
           <!-- <hr class="bg-secondary"> -->
-          <img v-bind:src="'storage/'+image" class="profile-img-side mb-2" alt />
-          <input
-            type="file"
-            name="photo"
-            id="photo"
-            placeholder="Choose another photo"
-            accept="image/*"
-          />
+          <div class="img-container mb-2">
+            <img v-bind:src="'storage/'+image" class="profile-img-side" alt />
+            
+              <div class="edit-cover mx-auto">
+                <i class="material-icons-outlined">edit</i>
+                <p class="text-light ">
+                  <strong>Update Image</strong>
+                </p>
+                <input
+                  type="file"
+                  name="photo"
+                  id="photo"
+                  placeholder="Choose another photo"
+                  accept="image/*"
+                  title="click to choose another image"
+                />
+              </div>
+              <div class="spinner-border loading" role="status" ref="loading">
+                <span class="sr-only">Loading...</span>
+              </div>
+            
+          </div>
+          
           <input
             name="handle"
             type="text"
@@ -25,14 +40,18 @@
             disabled
             readonly
             title="Handle"
+            style="border-top-left-radius: 15px;border-top-right-radius: 15px"
           />
-          <input name="name" type="text" v-model="name" title="Name" maxlength="50" />
-          <input
+          <input name="name" type="text" v-model="name" title="Name" maxlength="25" placeholder="Type your name"/>
+          <textarea
             name="status"
             type="text"
             v-model="status"
             title="Status"
-            maxlength="200"
+            maxlength="100"
+            rows = '2'
+            placeholder="Type your status"
+            style="border-bottom-left-radius: 15px;border-bottom-right-radius: 15px;"  
           />
           <button
             name="editProfile"
@@ -130,6 +149,7 @@ export default {
     ,saveChanges() {
       if (document.getElementById("photo").files[0]) {
         let data = new FormData();
+        this.$refs.loading.style.display = 'block';
         data.append("image", document.getElementById("photo").files[0]);
         Axios.post("/api/profiles/" + this.user.id, data)
           .then(res => {
@@ -137,10 +157,12 @@ export default {
             $('#imgSucAlert').addClass('show');
             console.log(res);
             this.image = res.data.image;
+            this.$refs.loading.style.display = 'none';
           })
           .catch(e => {
-              $('#imgFailAlert').removeClass('d-none');;
-              $('#imgFailAlert').addClass('show');
+            $('#imgFailAlert').removeClass('d-none');;
+            $('#imgFailAlert').addClass('show');
+            this.$refs.loading.style.display = 'none';
             console.log(e);
           });
       }
@@ -148,14 +170,12 @@ export default {
         name: this.name,
         about: this.status
       }).then((res) => {
-
         $('#infoSucAlert').removeClass('d-none');
         $('#infoSucAlert').addClass('show');
       }).catch(e => {
         $('#infoFailAlert').removeClass('d-none');
         $('#infoFailAlert').addClass('show');
       });
-
     }
   },
   data() {
@@ -321,16 +341,16 @@ export default {
 
 }
 
-#sidepanel #profile .wrap #expanded input {
+#sidepanel #profile .wrap #expanded input, #sidepanel #profile .wrap #expanded textarea{
   border: none;
   margin-bottom: 6px;
   background: #32465a;
-  border-radius: 3px;
   color: #f5f5f5;
   padding: 7px;
   width: 100%;
+  /* border-radius: 10px; */
 }
-#sidepanel #profile .wrap #expanded input:focus {
+#sidepanel #profile .wrap #expanded input:focus, #sidepanel #profile .wrap #expanded textarea:focus {
   outline: none;
   background: #435f7a;
 }
@@ -404,7 +424,7 @@ export default {
   position: relative;
   padding: 10px 0 15px 0;
   font-size: 0.9em;
-  font-family: "proxima-nova", "Source Sans Pro", sans-serif, "Twemoji Mozilla";
+  font-family: "proxima-nova", "Source Sans Pro", "Twemoji Mozilla";
   cursor: pointer;
 }
 @media screen and (max-width: 735px) {
@@ -508,7 +528,7 @@ export default {
 }
 .profile-img-side {
   width: calc(100% - 10px);
-  border-radius: 30%;
+  border-radius: 60px;
   height: auto;
   -moz-transition: 0.3s border ease;
   -o-transition: 0.3s border ease;
@@ -521,5 +541,61 @@ export default {
   position:absolute;
   bottom: 0;
   left: 0;
+  width: 100%;
+  padding-right: 20px;
+  padding-left: 20px;
+  text-align: center;
+}
+
+.edit-cover{
+  display: none;
+  position:absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background: black;
+  opacity:0.5;
+  width: calc(100% - 10px);
+  height: 25%;
+  border-bottom-left-radius: 60px;
+  border-bottom-right-radius: 60px;
+  cursor: pointer;
+  overflow: hidden;
+}
+.edit-cover input[type=file]{
+  opacity:0;
+  font-size:300px;
+  position:absolute;
+  top:0;
+  left:0;
+  border-radius: 0px!important;
+  padding: 0px!important;
+}
+.img-container{
+  text-align: center;
+  position: relative;
+  width: auto;
+  height: auto;
+}
+
+.img-container:hover .edit-cover{
+  display: inline-block;
+}
+
+.loading{
+  position: absolute;
+  height: 60px;
+  width: 60px;
+  top: calc(50% - 30px);
+  left: calc(50% - 30px);
+  display:none;
+}
+
+.expanded textarea::placeholder, .expanded input::placeholder{
+  color:darkgray;
+}
+
+button input[type=file], ::-webkit-file-upload-button{
+    cursor:pointer;
 }
 </style>
