@@ -1,4 +1,4 @@
-# Simple
+# Simple [![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)[![PyPI license](https://img.shields.io/pypi/l/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/)
 
 Simple is a real-time (one to one) chat app made with Laravel and Vue.
 
